@@ -13,6 +13,3 @@
 1. Got ethics approval recently (November 2, 2015)
 2. Meet with Marcel and Jelte today on more
 3. Control question: where are you from originally (us/non-us)?
-
-# November 13, 2015
-1. 
