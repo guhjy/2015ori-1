@@ -1,0 +1,113 @@
+---
+title: "Ecological validity of detecting data fabrication in experimental studies."
+author: "Chris HJ Hartgerink"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: word_document
+csl: ../bibliography/apa.csl
+bibliography: ../bibliography/library.bib
+---
+<!---
+
+# Abstract
+--placeholder--
+
+# Introduction
+
+Data fabrication is malicious to scientific knowledge, hence it is imperative to be able to detect it. An estimated 2% of all researchers admit to having fabricated data at least once, and 14% have said to have witnessed someone fabricate data [@fanelli2009]. In stark contrast to plagiarism, which has a similar admittance rate but double the witness rate [@pupovac2015], no systems are implemented during the editorial process to detect problematic data, although at least one journal is considering such a system (Miller 2015). Editors and reviewers hardly pay attention to potential problems with the data during the editor process either (Bornmann et al. 2008), which highlights the potential of automated detection systems.
+
+Similar to how plagiarism scanners are implemented to detect plagiarism, statistical methods can be applied to detect potentially fabricated data. By extracting information from research papers, called content mining (Smith-Unna and Murray-Rust 2014), statistical analyses of the presented research results can be facilitated. Previous statistical content mining methods, extracting for example reported test results across 30,000 papers (Nuijten et al. 2015), indicate the feasibility of extracting statistical information from research papers in large quantities.
+
+However helpful these technological advances are, the statistical methods applied to extracted data in order to detect potential data fabrication require thorough validation. More specifically, the statistical methods need to have a well-balanced trade-off between the false positive rate and the false negative rate. Considering the, presumably, low prevalence rate of data fabrication, false positive rates can have tremendous effects when applied at a large scale. For example, if we assume that 2% of the research papers is fabricated and we can detect it perfectly if it occurs, we would detect approximately 2.5 times more false positives than true positives. And this is if we assume the false positive rate is 5% and no higher.  
+
+How data is fabricated by researchers is not well-known and simulating the properties of statistical methods to detect data fabrication is therefore invalid. When the process is unknown, it is hardly feasible to properly approximate reality and draw valid conclusions. Moreover, it seems reasonable to state that there are many different ways to fabricate data and that these different data fabrication ‘styles’ can be combined. Even if certain fabrication processes were known, simulating ecologically valid processes would still be quite difficult.
+
+Nonetheless, statistical methods to detect data fabrication have been developed based on theoretical principles, which help detect data fabrication in experiments. These methods are based on the tenet that humans are bad at fabricating results that originate from probabilistic processes. Outcome variables that are inspected in experiments are based on a sample which results in observations that are the result of a random variable, hence subject to probabilistic (i.e., stochastic) processes. The inadequacy of humans in generating such sequences is the consequence of mental heuristics. For example, most humans succumb to the gambler’s fallacy, estimating the probability of heads as more likely when we have thrown tails several times (Tversky and Kahneman 1974). Other fallacious heuristics include the local-representativeness heuristic (), .
+
+Statistical methods to detect data fabrication have been successfully applied in ad hoc investigations, but their value in screening processes remains opaque. For example, Simonsohn’s variance of variances method (Simonsohn 2013) has been applied to the Smeesters and Sanna cases, but only after suspicions had already arisen. The value of applying such a method as a screening measure is hard to assess regardless of its previous successes in ad hoc investigations.
+
+In this paper, we experimentally test the validity of a set of statistical methods to detect data fabrication, based on summary results (Study 1) or raw data (Study 2), and assess the optimal balance between decision criterion and detection accuracy. We apply the statistical methods to detect data fabrication to both (assumed) genuine data from the Many Labs experiments and fabricated datasets, which we collected in an experimental setting where researchers were invited to fabricate data according to a controlled set of hypotheses. Both experiments were approved by the Tilburg Ethics committee (EC-2015.50).
+--->
+# Study 1
+
+To test the validity of statistical methods to detect data fabrication in summary results, we investigated summary results for four anchoring studies [@jacowitz1995]. We selected the anchoring effect because it is a well-known psychological phenomenon and data from the Many Labs were available for inclusion in our study. The unit of analysis for this study is the set of summary statistics for the four anchoring studies from one respondent. Respondent is defined as either one of the Many Labs locations, or a researcher who participated in fabricating results.
+
+## Methods
+
+The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a two-factorial design, including a high- and low anchor condition and gender. These four anchoring studies were selected because quality data were available from the Many Labs project [@klein2014].
+
+### Data collection. 
+
+Thirty-six genuine datasets were collected from the publicly available Many Labs project [@klein2014, osf.io/pqf9r]. The Many Labs (ML) project replicated several effects, including the anchoring effect, across thirty-six locations. ML replicated the anchoring effect with the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, means and standard deviations were collected for each of the four conditions in the four anchoring studies. In total, this yielded both `r 4*4` means per location and `r 4*4` variances per location. The raw data were cleaned according to the original analysis script from the ML project.
+
+<!---
+```{r}
+# Insert the data collection from Many Labs in here (directly!)
+```
+--->
+
+<!---
+Replace thirty-six with actual number
+--->
+
+Thirty-six fabricated sets of summary results were collected for all four anchoring studies. We sampled 2,038 American psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS). Psychology researchers were sampled to improve familiarity with the anchoring effect [@jacowitz1995], for which summary results were fabricated. U.S. researchers were sampled to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies. WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors). 
+
+The full sample frame was digitally approached to participate in this study on March XX, 2016 (invitation: osf.io/XXXX). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-address saved at all). The researchers were fully informed that the study would require them to fabricate data and that we conducted this study to test the validity of statistical methods to detect data fabrication. Participants were also informed they could stop at any time without providing a reason. If they wanted, participants received a $30 Amazon gift card as compensation for their participation for which they had to provide their email address. These email addresses were unlinked from email addresses upon completion of the study and sending out the gift cards.
+
+Each respondent was instructed to fabricate summary statistics that fulfilled three hypotheses. That is, 4 (studies) × 2 (conditions) × 2 (sex) × 2 (mean or sd) = 32 statistics were fabricated. We instructed participants to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data that is used to test the detection of data fabrication.
+
+In order to standardize the fabrication process to a minimal extent, we provided participants with a spreadsheet where the fabricated data had to be filled in. The fabricated data are checked against the provided hypotheses and the statistical test are provided instantaneously, given the fabricated means and standard deviations. Figure `r fig <- 1; fig` depicts an example of this spreadsheet. Respondents were required to copy-paste the yellow cells into Qualtrics, to provide a standardized way of reporting the means and standard deviations.
+
+![spreadsheet](../figures/spreadsheet.png)
+
+**Figure `r fig`.** Example of a filled in spreadsheet used in the fabrication process.
+
+Upon completing the fabrication of the data, participants were debriefed. Several questions were asked about their statistical knowledge and approach to data fabrication, and they were reminded that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. The full set of questions from the study are available at osf.io/XXXX.
+
+Participation was rewarded with a $30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus $50 Amazon gift card. If the participant wanted to receive a compensation and contend for the bonus $50, he/she had to enter an email to receive the reward. These email addresses were unlinked from individual responses upon sending the gift cards. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum).
+
+### Data analysis.
+
+We included two methods to test for data fabrication and we combined the results of these two tests. These statistical tests compute the probability that, given sampling theory, the current data or an even more unlikely set would be observed. As a result, this probability can be seen as a *p*-value for the null hypothesis that the data is genuine (i.e., P[data|genuine]).
+
+First we apply the "variance of variances" method [@simonsohn2013]. This method tests whether the observed variances contain a reasonable amount of variation expected based on stochastic sampling processes. For example, if four independent samples all yield the variance of 2.22, this could be considered excessively consistent. More technically, the method first estimates the observed variation of the standardized standard deviations. Second, the method simulates how much variation in the standardized standard deviations can be expected given the sample sizes, means and variances. This yields an estimate of the probability that the observed lack of variation in the variances would be observed, or even less. This is in fact a *p*-value that tests the hypothesis that the observed variances are genuine and originate from a stochastic sampling distribution, under a set of distributional assumptions.
+
+Second, we apply the reversed Fisher method, which tests whether there is an excessive amount of high *p*-values. The default Fisher method [@fisher1925] tests whether a set of *p*-values deviates from uniformity, where smaller *p*-values occur more frequently than larger *p*-values (i.e., whether there is evidence for an effect). However, the reversed Fisher method tests whether a set of *p*-values deviates from uniformity in such a way that there are more large *p*-values than small ones. As such, it tests whether a theoretically infeasible distribution of *p*-values is presented in a study, which is overly consistent with the null hypothesis. The reversed Fisher method is computed as 
+
+$\chi^2_{2k}=-2\sum\ln(1-\frac{p_i-t}{1-t})$
+
+where *t* is the lowerbound (i.e., threshold) of the *k* number of *p*-values taken into account. The resulting *p*-value indicates the probability that the observed nonsignificant *p*-values are actually from a genuine null distribution.
+
+<!---
+Something about reporting tendencies?
+--->
+
+Third, we combine the results of the "variance of variances" test and reversed Fisher method by testing for evidential value. To this end, we apply the default Fisher method. The Fisher method tests whether there is sufficient evidence for deviation from genuine data in the two separate tests and is computed as 
+
+$\chi^2_{2k}=-2\sum\ln(p_i)$
+
+Given that this is a combination test, we expect this to be a more powerful test than the "variance of variances" method or the reversed Fisher method alone. The three respondents with the highest *p*-value contained the least evidential value for deviating from genuine data and received an additional $50 Amazon gift card. 
+<!---
+### Results.
+
+ 
+# Study 2
+
+To test the validity of statistical methods to detect data fabrication in raw data, we investigated raw data of a Stroop experiment (Stroop 1935). 
+
+## Methods
+
+### Data collection. 
+
+Twenty genuine datasets were collected from the Many Labs 3 project (Ebersole et al. ).
+
+Twenty faked datasets were collected experimentally. We sampled 20 of 84 Dutch or Flemish psychology researchers who published a peer-reviewed paper on the Stroop task between 2005-2015, which was indexed in Thomson Reuters’ Web of Science database. Dutch and Flemish researchers were selected to allow for potential follow-up on the way data was fabricated in a face-to-face interview. The period 2005-2015 was chosen to prevent a drastic decrease in the probability that the corresponding author would still be addressable via the given email. Researchers who published on the Stroop task were selected to ensure their familiarity with the type of task for which data had to be fabricated. The database was searched on October 13, 2015 and 84 unique e-mails were extracted from 86 articles.
+
+## Results
+
+# Discussion
+
+- Open data for further testing (see osf.io/xxxx)
+- Ecological validity
+--->
+
+# References
