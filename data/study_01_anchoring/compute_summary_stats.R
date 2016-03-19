@@ -104,3 +104,40 @@ par(mfrow = c(2,1)); hist(gender_p_2, breaks = 10); hist(inter_p_2, breaks = 10)
 par(mfrow = c(2,1)); hist(gender_p_3, breaks = 10); hist(inter_p_3, breaks = 10)
 par(mfrow = c(2,1)); hist(gender_p_4, breaks = 10); hist(inter_p_4, breaks = 10)
 dev.off()
+
+chi2 <- -2*sum(log(inter_p_1))
+degr_f <- 2*length(inter_p_1)
+pval <- 1 - pchisq(-2*sum(log(inter_p_1)), df = 2*length(inter_p_1))
+sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
+
+chi2 <- -2*sum(log(inter_p_2))
+degr_f <- 2*length(inter_p_2)
+pval <- 1 - pchisq(-2*sum(log(inter_p_2)), df = 2*length(inter_p_2))
+sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
+
+chi2 <- -2*sum(log(inter_p_3))
+degr_f <- 2*length(inter_p_3)
+pval <- 1 - pchisq(-2*sum(log(inter_p_3)), df = 2*length(inter_p_3))
+sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
+
+chi2 <- -2*sum(log(inter_p_4))
+degr_f <- 2*length(inter_p_4)
+pval <- 1 - pchisq(-2*sum(log(inter_p_4)), df = 2*length(inter_p_4))
+sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
+
+chi2 <- -2*sum(log(c(inter_p_1,
+                     inter_p_2,
+                     inter_p_3,
+                     inter_p_4)))
+degr_f <- 2*length(c(inter_p_1,
+                     inter_p_2,
+                     inter_p_3,
+                     inter_p_4))
+pval <- 1 - pchisq(-2*sum(log(c(inter_p_1,
+                        inter_p_2,
+                        inter_p_3,
+                        inter_p_4))), df = 2*(length(inter_p_1) +
+                                                   length(inter_p_2) +
+                                                   length(inter_p_3) +
+                                                   length(inter_p_4)))
+sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
