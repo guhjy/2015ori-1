@@ -24,6 +24,9 @@
 2. Noted error in `chjh_ml1_summarystats.csv`: forgot to differentiate per study. Now corrected in code and datafile (checked and there are 16 means, 16 sds, and 16 sample sizes per lab = 48 summary stats per lab).
 3. Done programming first version of Simonsohn method. Tested based on the example in the Simonsohn (2013) paper and got similar results (p = .00015 in the paper, I got .0001; .00016; .0002. Fluctuation is just due to Monte Carlo simulation process)
 
-# May 22, 2015
-
-1. 
+# February 19, 2016
+1. Redoing the syntax running because the km to miles should be included. It does not alter variance structure or relative differences so we are OK there.
+2. Open `Full_Dataset_De-Identified.sav` and `Syntax.Manylabs.sps`
+3. Run lines 230-342 to clean response data
+4. Run lines 1639-1642 to create gender variable (1 = no response, 2 = female, 3 = male)
+5. Save the resulting file to `chjh ml1_anchoring cleaned.sav` and the syntax used to `chjh syntax.sps`.
