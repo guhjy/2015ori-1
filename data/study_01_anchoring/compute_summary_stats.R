@@ -16,36 +16,66 @@ ml_dat$partgender <- ifelse(ml_dat$partgender == 1, NA,
 # listwise deletion of participants without gender
 ml_dat <- ml_dat[!is.na(ml_dat$partgender), ]
 
-summary_stats <- ddply(ml_dat, .(referrer, partgender), function(x){
+summary_stat_1 <- ddply(ml_dat, .(referrer, partgender, anch1group), function(x){
   anch1_n <- length(x$anchoring1[!is.na(x$anchoring1)])
   anch1_m <- mean(x$anchoring1, na.rm = TRUE)
   anch1_sd <- sd(x$anchoring1, na.rm = TRUE)
   
+  return(cbind(anch1_n,
+               anch1_m,
+               anch1_sd))
+})
+names(summary_stat_1)[3:6] <- c('anchoring',
+                                'anch_n',
+                                'anch_m',
+                                'anch_sd')
+
+summary_stat_2 <- ddply(ml_dat, .(referrer, partgender, anch2group), function(x){
   anch2_n <- length(x$anchoring2[!is.na(x$anchoring2)])
   anch2_m <- mean(x$anchoring2, na.rm = TRUE)
   anch2_sd <- sd(x$anchoring2, na.rm = TRUE)
   
+  return(cbind(anch2_n,
+               anch2_m,
+               anch2_sd))
+})
+names(summary_stat_2)[3:6] <- c('anchoring',
+                                'anch_n',
+                                'anch_m',
+                                'anch_sd')
+
+summary_stat_3 <- ddply(ml_dat, .(referrer, partgender, anch3group), function(x){
   anch3_n <- length(x$anchoring3[!is.na(x$anchoring3)])
   anch3_m <- mean(x$anchoring3, na.rm = TRUE)
   anch3_sd <- sd(x$anchoring3, na.rm = TRUE)
   
+  return(cbind(anch3_n,
+               anch3_m,
+               anch3_sd))
+})
+names(summary_stat_3)[3:6] <- c('anchoring',
+                                'anch_n',
+                                'anch_m',
+                                'anch_sd')
+
+summary_stat_4 <- ddply(ml_dat, .(referrer, partgender, anch4group), function(x){
   anch4_n <- length(x$anchoring4[!is.na(x$anchoring4)])
   anch4_m <- mean(x$anchoring4, na.rm = TRUE)
   anch4_sd <- sd(x$anchoring4, na.rm = TRUE)
   
-  return(cbind(anch1_n,
-               anch1_m,
-               anch1_sd,
-               anch2_n,
-               anch2_m,
-               anch2_sd,
-               anch3_n,
-               anch3_m,
-               anch3_sd,
-               anch4_n,
+  return(cbind(anch4_n,
                anch4_m,
                anch4_sd))
 })
+names(summary_stat_4)[3:6] <- c('anchoring',
+                                'anch_n',
+                                'anch_m',
+                                'anch_sd')
+
+summary_stat <- rbind(summary_stat_1,
+                      summary_stat_2,
+                      summary_stat_3,
+                      summary_stat_4)
 
 write.csv(summary_stats, 'data/study_01_anchoring/ml_summary_stats.csv', row.names = FALSE)
 
@@ -63,8 +93,8 @@ inter_p_4 <- NULL
 for (i in 1:length(refer)){
   # Anchoring study 1
   mod <- lm(anchoring1 ~ as.factor(anch1group) +
-       as.factor(partgender) +
-       as.factor(anch1group) * as.factor(partgender), data = ml_dat[ml_dat$referrer == refer[i],])
+              as.factor(partgender) +
+              as.factor(anch1group) * as.factor(partgender), data = ml_dat[ml_dat$referrer == refer[i],])
   anova_mod <- Anova(mod)
   
   gender_p_1 <- c(gender_p_1, anova_mod$`Pr(>F)`[2])
@@ -134,10 +164,10 @@ degr_f <- 2*length(c(inter_p_1,
                      inter_p_3,
                      inter_p_4))
 pval <- 1 - pchisq(-2*sum(log(c(inter_p_1,
-                        inter_p_2,
-                        inter_p_3,
-                        inter_p_4))), df = 2*(length(inter_p_1) +
-                                                   length(inter_p_2) +
-                                                   length(inter_p_3) +
-                                                   length(inter_p_4)))
+                                inter_p_2,
+                                inter_p_3,
+                                inter_p_4))), df = 2*(length(inter_p_1) +
+                                                        length(inter_p_2) +
+                                                        length(inter_p_3) +
+                                                        length(inter_p_4)))
 sprintf('chi2(%s)=%s, p=%s', degr_f, chi2, pval)
