@@ -29,15 +29,15 @@ In this paper, we experimentally test the validity of a set of statistical metho
 --->
 # Study 1
 
-To test the validity of statistical methods to detect data fabrication in summary results, we investigated summary results for four anchoring studies [@jacowitz1995]. We selected the anchoring effect because it is a well-known psychological phenomenon and data from the Many Labs were available for inclusion in our study. The unit of analysis for this study is the set of summary statistics for the four anchoring studies from one respondent. Respondent is defined as either one of the Many Labs locations, or a researcher who participated in fabricating results.
+To test the validity of statistical methods to detect data fabrication in summary results, we investigated summary results of four anchoring studies [@tversky1974;@jacowitz1995]. We selected the anchoring effect because it is a well-known psychological phenomenon and many genuine data sets on the effect are available from the Many Labs project [@klein2014]. The unit of analysis for this study is the set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. Respondent is defined here as either one of the Many Labs locations, or a researcher who fabricated the four anchoring studies' summary statistics.
 
 ## Methods
 
-The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a two-factorial design, including a high- and low anchor condition and gender. These four anchoring studies were selected because quality data were available from the Many Labs project [@klein2014].
+The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) × 2 (male/female) factorial design.
 
 ### Data collection. 
 
-Thirty-six genuine datasets were collected from the publicly available Many Labs project [@klein2014, osf.io/pqf9r]. The Many Labs (ML) project replicated several effects, including the anchoring effect, across thirty-six locations. ML replicated the anchoring effect with the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, means and standard deviations were collected for each of the four conditions in the four anchoring studies. In total, this yielded both `r 4*4` means per location and `r 4*4` variances per location. The raw data were cleaned according to the original analysis script from the ML project.
+Thirty-six genuine datasets were collected from the publicly available Many Labs project [@klein2014, osf.io/pqf9r]. The Many Labs (ML) project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were collected for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., 48 × 36). These summary statistics were collected from the raw ML data, which were cleaned using the original analyses scripts from the ML project to ensure that the data did not contain improper responses.
 
 <!---
 ```{r}
@@ -49,13 +49,13 @@ Thirty-six genuine datasets were collected from the publicly available Many Labs
 Replace thirty-six with actual number
 --->
 
-Thirty-six fabricated sets of summary results were collected for all four anchoring studies. We sampled 2,038 American psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS). Psychology researchers were sampled to improve familiarity with the anchoring effect [@jacowitz1995], for which summary results were fabricated. U.S. researchers were sampled to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies. WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors). 
+Thirty-six fabricated sets of summary results were also collected for all four anchoring studies. We sampled 2,038 American psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS). Psychology researchers were sampled to improve familiarity with the anchoring effect [@jacowitz1995], for which summary results were fabricated. U.S. researchers were sampled to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies. WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors). 
 
 The full sample frame was digitally approached to participate in this study on March XX, 2016 (invitation: osf.io/XXXX). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-address saved at all). The researchers were fully informed that the study would require them to fabricate data and that we conducted this study to test the validity of statistical methods to detect data fabrication. Participants were also informed they could stop at any time without providing a reason. If they wanted, participants received a $30 Amazon gift card as compensation for their participation for which they had to provide their email address. These email addresses were unlinked from email addresses upon completion of the study and sending out the gift cards.
 
-Each respondent was instructed to fabricate summary statistics that fulfilled three hypotheses. That is, 4 (studies) × 2 (conditions) × 2 (sex) × 2 (mean or sd) = 32 statistics were fabricated. We instructed participants to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data that is used to test the detection of data fabrication.
+Each respondent was instructed to fabricate 32 summary statistics (4 studies × 2 conditions × 2 sexes × 2 statistics [mean and sd]) that fulfilled three hypotheses. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. We instructed participants to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
 
-In order to standardize the fabrication process to a minimal extent, we provided participants with a spreadsheet where the fabricated data had to be filled in. The fabricated data are checked against the provided hypotheses and the statistical test are provided instantaneously, given the fabricated means and standard deviations. Figure `r fig <- 1; fig` depicts an example of this spreadsheet. Respondents were required to copy-paste the yellow cells into Qualtrics, to provide a standardized way of reporting the means and standard deviations.
+In order to standardize the fabrication process to a minimal extent, we provided participants with a spreadsheet where the fabricated data had to be filled out. Figure `r fig <- 1; fig` depicts an example of this spreadsheet. The yellow cells are those that the respondent is requested to fabricate and include both the means and the standard deviations. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. When these results corroborate the given expectations, a checkmark appears as in the green cells in Figure `r fig`. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format.
 
 ![spreadsheet](../figures/spreadsheet.png)
 
@@ -67,25 +67,32 @@ Participation was rewarded with a $30 Amazon gift card and the fabricated result
 
 ### Data analysis.
 
-We included two methods to test for data fabrication and we combined the results of these two tests. These statistical tests compute the probability that, given sampling theory, the current data or an even more unlikely set would be observed. As a result, this probability can be seen as a *p*-value for the null hypothesis that the data is genuine (i.e., P[data|genuine]).
+To detect data fabrication in a set of summary results, we first apply the "variance of variances" method [@simonsohn2013] on the fabricated standard deviations across the four anchoring studies. This method tests whether the observed variances contain a reasonable amount of variation expected based on stochastic sampling processes. For example, if four independent samples all yield the variance of 2.22, this could be considered excessively consistent when the probability that this amount of consistency (or more), given genuine samples, is less than 1 out of 1000. 
 
-First we apply the "variance of variances" method [@simonsohn2013]. This method tests whether the observed variances contain a reasonable amount of variation expected based on stochastic sampling processes. For example, if four independent samples all yield the variance of 2.22, this could be considered excessively consistent. More technically, the method first estimates the observed variation of the standardized standard deviations. Second, the method simulates how much variation in the standardized standard deviations can be expected given the sample sizes, means and variances. This yields an estimate of the probability that the observed lack of variation in the variances would be observed, or even less. This is in fact a *p*-value that tests the hypothesis that the observed variances are genuine and originate from a stochastic sampling distribution, under a set of distributional assumptions.
+To compute the "variance of variances" method we use the following procedure. First, we compute the standardized variation in the observed variances for each of the four studies. 
+Second, we compute the mean of these standardized variations, which results in one summary statistic that captures the variation in the variances across all four anchoring studies.
+Third, in order 
 
-Second, we apply the reversed Fisher method, which tests whether there is an excessive amount of high *p*-values. The default Fisher method [@fisher1925] tests whether a set of *p*-values deviates from uniformity, where smaller *p*-values occur more frequently than larger *p*-values (i.e., whether there is evidence for an effect). However, the reversed Fisher method tests whether a set of *p*-values deviates from uniformity in such a way that there are more large *p*-values than small ones. As such, it tests whether a theoretically infeasible distribution of *p*-values is presented in a study, which is overly consistent with the null hypothesis. The reversed Fisher method is computed as 
+Second, we apply the reversed Fisher method to the fabricated nonsignificant *p*-values twice, one for the gender effects hypothesis and once for the interaction effects hypothesis, in order to detect data fabrication. The Fisher method [@fisher1925] tests for evidence of an effect in a set of *p*-values and has previously been used as a meta-analytic method [@hong2008], but we adjust it here to test for results that are overly consistent with the null hypothesis. The original Fisher method is computed as
+
+$\chi^2_{2k}=-2\sum\ln(p_i)$
+
+and tests for right-skew in a set of *p*-values, but we adjust it to the following
 
 $\chi^2_{2k}=-2\sum\ln(1-\frac{p_i-t}{1-t})$
 
-where *t* is the lowerbound (i.e., threshold) of the *k* number of *p*-values taken into account. The resulting *p*-value indicates the probability that the observed nonsignificant *p*-values are actually from a genuine null distribution.
+where it now tests for left-skew (i.e., more larger *p*-values than smaller *p*-values) across the *k* number of *p*-values that falls above the threshold *t*. We set this threshold to .05 in order to include only nonsignificant test results. 
+
+Finally, we combined the results of these three individual tests for data fabrication using the Fisher method. We expect this combination test of the three individual tests for data fabrication to be a more powerful than the individual tests. Based on the results of the combined test results, the three 'best' data fabricators are selected. The three respondents with the highest *p*-values contain the least evidential value for deviating from genuine data and receive an additional $50 Amazon gift card.
+
+For each of these three tests to detect data fabrication we carry out sensitivity and specificity analyses using ROC-curves in order to determine optimal alpha levels. This analysis helps determine the classification performance of these three tests. In order to determine the optimal alpha level, we varied the alpha level from .000001 through .1 and assessed the classification performance of these methods to detect data fabrication. The optimal alpha level is determined by finding that alpha level for which both the true positive classification rate and the true negative classification rate are highest. For example,  
+
 
 <!---
 Something about reporting tendencies?
 --->
 
-Third, we combine the results of the "variance of variances" test and reversed Fisher method by testing for evidential value. To this end, we apply the default Fisher method. The Fisher method tests whether there is sufficient evidence for deviation from genuine data in the two separate tests and is computed as 
 
-$\chi^2_{2k}=-2\sum\ln(p_i)$
-
-Given that this is a combination test, we expect this to be a more powerful test than the "variance of variances" method or the reversed Fisher method alone. The three respondents with the highest *p*-value contained the least evidential value for deviating from genuine data and received an additional $50 Amazon gift card. 
 <!---
 ### Results.
 
