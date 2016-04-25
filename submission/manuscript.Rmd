@@ -2,7 +2,7 @@
 title: "Ecological validity of detecting data fabrication in experimental studies."
 author: "Chris HJ Hartgerink"
 date: '`r format(Sys.time(), "%d %B, %Y")`'
-output: word_document
+output: pdf_document
 csl: ../bibliography/apa.csl
 bibliography: ../bibliography/library.bib
 ---
