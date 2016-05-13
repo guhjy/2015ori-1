@@ -114,8 +114,10 @@ bonus <- NULL
 for (i in 1:dim(dat)[1])
 {
   referrer <- c(referrer, rep(dat$id[i], 16))
-  partgender <- c(partgender, rep(c(rep(0, 2), rep(1, 2)), 4))
-  anchoring <- c(anchoring, rep(rep(c(0, 1), 2), 4))
+  partgender <- c(partgender, rep(c(1, 0, 1, 0), 4))
+  # 0 = male
+  # 1 = female
+  anchoring <- c(anchoring, rep(rep(c(0, 0, 1, 1), 4)))
   anch_n <- c(anch_n, rep(25, 16))
   study <- c(study, sort(rep(1:4, 4)))
   
