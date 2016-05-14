@@ -98,11 +98,207 @@ For each of these three tests to detect data fabrication we carry out sensitivit
 Something about reporting tendencies?
 --->
 
-
-<!---
 ### Results.
+```{r prep data study 1, echo = FALSE}
+options(digits = 20)
+# Compute the summary statistics for Many Labs
+source('../functions/compute_summary_anch_ml.R')
+# Process the collected, fabricated data
+source('../functions/process_qualtrics_anch_01.R')
 
- 
+# Read the data
+ml <- read.csv('../data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
+qualtrics <- read.csv('../data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
+ml$stat_know <- NA
+ml$spss <- NA
+ml$rcran <- NA
+ml$stata <- NA
+ml$sas <- NA
+ml$matlab <- NA
+ml$python <- NA
+ml$other <- NA
+ml$nopro <- NA
+ml$noanch <- NA
+ml$rng <- NA
+ml$full <- NA
+ml$tries <- NA
+ml$descr <- NA
+ml$bonus <- NA
+ml$type <- 'ml'
+qualtrics$type <- 'qualtrics'
+
+dat <- rbind(qualtrics, ml)
+```
+
+```{r compile results for detecting data fabrication, echo = FALSE}
+# conduct the analyses iteratively
+for (pp in unique(dat$referrer))
+{
+  # Loop through each study to compute the ANOVA results
+  for (j in 1:4)
+  {
+    study_nr <- j    
+    indexor <- dat$referrer == pp & dat$study == study_nr
+    
+    harm_mean <- 4^2/(sum(1/dat$anch_n[indexor]))
+    male_mean <- mean(dat$anch_m[indexor & dat$partgender == 0])
+    female_mean <- mean(dat$anch_m[indexor & dat$partgender == 1])
+    control_mean <- mean(dat$anch_m[indexor & dat$anchoring == 0])
+    exp_mean <- mean(dat$anch_m[indexor & dat$anchoring == 1])
+    
+    ss_error <- sum((dat$anch_n[indexor] - 1) * dat$anch_sd[indexor]^2)
+    ss_gender <- (harm_mean * var(c(male_mean, female_mean))) / 2
+    ss_condition <- (harm_mean * var(c(control_mean, exp_mean))) / 2
+    ss_interaction <- harm_mean * var(dat$anch_m[indexor]) * 3/4 - ss_gender - ss_condition
+    ss_total <- ss_error + ss_gender + ss_condition + ss_interaction
+    
+    ms_error <- ss_error / (sum(dat$anch_n[indexor]) - 4)
+    ms_gender <- ss_gender / (2 - 1)
+    ms_condition <- ss_condition / (2 - 1)
+    ms_interaction <- ss_interaction / 1
+    
+    dat$f_gender[indexor] <- ms_gender / ms_error
+    dat$df1_gender[indexor] <- 2 - 1
+    dat$df2_gender[indexor] <- sum(dat$anch_n[indexor]) - 4
+    dat$p_gender[indexor] <- pf(q = ms_gender / ms_error,
+                                df1 = 2 - 1,
+                                df2 = sum(dat$anch_n[indexor]) - 4,
+                                lower.tail = FALSE)
+    
+    dat$f_condition[indexor] <- ms_condition / ms_error
+    dat$df1_condition[indexor] <- 2 - 1
+    dat$df2_condition[indexor] <- sum(dat$anch_n[indexor]) - 4
+    dat$p_condition[indexor] <- pf(q = ms_condition / ms_error,
+                                   df1 = 2 - 1,
+                                   df2 = sum(dat$anch_n[indexor]) - 4,
+                                   lower.tail = FALSE)
+    
+    dat$f_interaction[indexor] <- ms_interaction / ms_error
+    dat$df1_interaction[indexor] <- 1
+    dat$df2_interaction[indexor] <- sum(dat$anch_n[indexor]) - 4
+    dat$p_interaction[indexor] <- pf(q = ms_interaction / ms_error,
+                                     df1 = 1,
+                                     df2 = sum(dat$anch_n[indexor]) - 4,
+                                     lower.tail = FALSE)
+  }
+  
+  sel <- dat$referrer == pp
+  
+  # Variance analysis
+  # Standardizing the sds
+  
+  # Study 1
+  sel1 <- dat$referrer == pp & dat$study == 1
+  ms_w_1 <- sum((dat$anch_n[sel1] - 1) * dat$anch_sd[sel1]^2) / sum((dat$anch_n[sel1] - 1))
+  tilde_s2_1 <- dat$anch_sd[sel1]^2 / ms_w_1
+  # Study 2
+  sel2 <- dat$referrer == pp & dat$study == 2
+  ms_w_2 <- sum((dat$anch_n[sel2] - 1) * dat$anch_sd[sel2]^2) / sum((dat$anch_n[sel2] - 1))
+  tilde_s2_2 <- dat$anch_sd[sel2]^2 / ms_w_2
+  # Study 3
+  sel3 <- dat$referrer == pp & dat$study == 3
+  ms_w_3 <- sum((dat$anch_n[sel3] - 1) * dat$anch_sd[sel3]^2) / sum((dat$anch_n[sel3] - 1))
+  tilde_s2_3 <- dat$anch_sd[sel3]^2 / ms_w_3
+  # Study 4
+  sel4 <- dat$referrer == pp & dat$study == 4
+  ms_w_4 <- sum((dat$anch_n[sel4] - 1) * dat$anch_sd[sel4]^2) / sum((dat$anch_n[sel4] - 1))
+  tilde_s2_4 <- dat$anch_sd[sel4]^2 / ms_w_4
+  
+  obs_sigma_sd <- sd(c(tilde_s2_1, tilde_s2_2, tilde_s2_3, tilde_s2_4))
+  
+  iter <- 100000
+  s2 <- dat$anch_sd[dat$referrer == pp]^2
+  n_min_1 <- dat$anch_n[dat$referrer == pp] - 1
+  ms_w <- c(rep(ms_w_1, 4), rep(ms_w_2, 4),
+            rep(ms_w_3, 4), rep(ms_w_4, 4))
+  sim_sigma <- NULL
+  
+  for (z in 1:16)
+  {
+    sim_sigma <- cbind(sim_sigma, ((rchisq(n = iter, df = n_min_1[z]) *  s2[z]) / n_min_1[z]) / ms_w[z])
+  }
+  
+  sim_sigma_sd <- apply(sim_sigma, 1, sd)
+  
+  dat$variance_sd_p[sel] <- sum(sim_sigma_sd < obs_sigma_sd) / iter
+  
+  # Compute the Fisher method p-values 
+  # for gender and interaction
+  
+  # Safety check to make sure there are 4 unique values
+  # Iteratively made exceptions for the cases that do not
+  if (length(unique(dat$p_gender[sel])) < 4 | 
+      # length(unique(dat$p_condition[sel])) < 4 |
+      length(unique(dat$p_interaction[sel])) < 4)
+  {
+    if (pp == 'R_6opw4qQURhqxT3D')
+    {
+      p_gender <- rep(1, 4)
+    } else
+    {
+      stop(sprintf('Something wrong with the number of p-values available for %s',
+                   pp))
+    }
+  } else 
+  {
+    p_gender <- unique(dat$p_gender[sel])  
+  }
+  
+  dat$gender_fish[sel] <- -2 * sum(log(1 - ((p_gender[p_gender > .05] - .05) / (1 - .05))))
+  dat$gender_fish_df[sel] <- 2 * length(p_gender)
+  dat$gender_fish_p[sel] <- pchisq(-2 * sum(log(1 - ((p_gender[p_gender > .05] - .05) / (1 - .05)))),
+                                   df = 2 * length(p_gender),
+                                   lower.tail = FALSE)  
+  
+  p_interaction <- unique(dat$p_interaction[sel])
+  dat$interaction_fish[sel] <- -2 * sum(log(1 - ((p_interaction[p_interaction > .05] - .05) / (1 - .05))))
+  dat$interaction_fish_df[sel] <- 2 * length(p_interaction)
+  dat$interaction_fish_p[sel] <- pchisq(-2 * sum(log(1 - ((p_interaction[p_interaction > .05] - .05) / (1 - .05)))),
+                                        df = 2 * length(p_interaction),
+                                        lower.tail = FALSE)
+}
+
+dat_summary <- dat[ , -which(names(dat) %in% c("study",
+                                               "partgender",
+                                               "anchoring",
+                                               "anch_n",
+                                               "anch_m",
+                                               "anch_sd",
+                                               "f_gender",
+                                               "df1_gender",
+                                               "df2_gender",
+                                               "p_gender",
+                                               "f_condition",
+                                               "df1_condition",
+                                               "df2_condition",
+                                               "p_condition",
+                                               "f_interaction",
+                                               "df1_interaction",
+                                               "df2_interaction",
+                                               "p_interaction"))]
+dat_summary <- dat_summary[!duplicated(dat_summary$referrer), ]
+dat_summary$fish_combine <- -2 * (log(dat_summary$variance_sd_p) + log(dat_summary$gender_fish_p) + 
+        log(dat_summary$interaction_fish_p))
+dat_summary$fish_combine_p <- pchisq(q = dat_summary$fish_combine,
+                                     df = 2 * 3, lower.tail = FALSE)
+
+write.csv(dat_summary,
+          'test.csv', row.names = FALSE)
+```
+
+```{r inspect results to detect data fabrication, echo = FALSE}
+
+```
+
+
+<!--- 
+
+library(ROCR)
+data(ROCR.simple)
+pred <- prediction( ROCR.simple$predictions, ROCR.simple$labels)
+perf <- performance(pred,"tpr","fpr")
+plot(perf)
+
 # Study 2
 
 To test the validity of statistical methods to detect data fabrication in raw data, we investigated raw data of a Stroop experiment (Stroop 1935). 
