@@ -210,22 +210,49 @@ for (pp in unique(dat$referrer))
   tilde_s2_4 <- dat$anch_sd[sel4]^2 / ms_w_4
   
   obs_sigma_sd <- sd(c(tilde_s2_1, tilde_s2_2, tilde_s2_3, tilde_s2_4))
+  # Add the sigma sd observed per study (NOT PREREGISTERED)
+  # Nog wijzigen adhv mva opmerkingen
+  obs_sigma_sd_study1 <- sd(tilde_s2_1)
+  obs_sigma_sd_study2 <- sd(tilde_s2_2)
+  obs_sigma_sd_study3 <- sd(tilde_s2_3)
+  obs_sigma_sd_study4 <- sd(tilde_s2_4)
   
   iter <- 100000
   s2 <- dat$anch_sd[dat$referrer == pp]^2
   n_min_1 <- dat$anch_n[dat$referrer == pp] - 1
-  ms_w <- c(rep(ms_w_1, 4), rep(ms_w_2, 4),
-            rep(ms_w_3, 4), rep(ms_w_4, 4))
   sim_sigma <- NULL
   
   for (z in 1:16)
   {
-    sim_sigma <- cbind(sim_sigma, ((rchisq(n = iter, df = n_min_1[z]) *  s2[z]) / n_min_1[z]) / ms_w[z])
+    # Made a small error in the preregistration, so this now deviates.
+    sim_sigma <- cbind(sim_sigma, rchisq(n = iter, df = n_min_1[z]) / n_min_1[z])
   }
   
-  sim_sigma_sd <- apply(sim_sigma, 1, sd)
+  # Standardize the generated SDs based on the msW from the simulated values
+  # Per study
+  ms_w_1 <- apply(sim_sigma[,1:4], 1, function(x) sum(n_min_1[1:4] * x) / sum(n_min_1[1:4]))
+  ms_w_2 <- apply(sim_sigma[,5:8], 1, function(x) sum(n_min_1[5:8] * x) / sum(n_min_1[5:8]))
+  ms_w_3 <- apply(sim_sigma[,9:12], 1, function(x) sum(n_min_1[9:12] * x) / sum(n_min_1[9:12]))
+  ms_w_4 <- apply(sim_sigma[,13:16], 1, function(x) sum(n_min_1[13:16] * x) / sum(n_min_1[13:16]))
   
-  dat$variance_sd_p[sel] <- sum(sim_sigma_sd < obs_sigma_sd) / iter
+  sim_sigma[,1:4] <- sim_sigma[,1:4] / ms_w_1
+  sim_sigma[,5:8] <- sim_sigma[,5:8] / ms_w_2
+  sim_sigma[,9:12] <- sim_sigma[,9:12] / ms_w_3
+  sim_sigma[,13:16] <- sim_sigma[,13:16] / ms_w_4
+  
+  # Calculate the variance of the simulated sds
+  sim_sigma_sd_overall <- apply(sim_sigma, 1, sd)
+  sim_sigma_sd_study1 <- apply(sim_sigma[,1:4], 1, sd)
+  sim_sigma_sd_study2 <- apply(sim_sigma[,5:8], 1, sd)
+  sim_sigma_sd_study3 <- apply(sim_sigma[,9:12], 1, sd)
+  sim_sigma_sd_study4 <- apply(sim_sigma[,13:16], 1, sd)
+  
+  # Calculate the p-value overall and per study
+  dat$variance_sd_p_overall[sel] <- sum(sim_sigma_sd_overall < obs_sigma_sd) / iter
+  dat$variance_sd_p_study1[sel] <- sum(sim_sigma_sd_study1 < obs_sigma_sd_study1) / iter
+  dat$variance_sd_p_study2[sel] <- sum(sim_sigma_sd_study2 < obs_sigma_sd_study2) / iter
+  dat$variance_sd_p_study3[sel] <- sum(sim_sigma_sd_study3 < obs_sigma_sd_study3) / iter
+  dat$variance_sd_p_study4[sel] <- sum(sim_sigma_sd_study4 < obs_sigma_sd_study4) / iter
   
   # Compute the Fisher method p-values 
   # for gender and interaction
@@ -250,17 +277,31 @@ for (pp in unique(dat$referrer))
   }
   
   dat$gender_fish[sel] <- -2 * sum(log(1 - ((p_gender[p_gender > .05] - .05) / (1 - .05))))
-  dat$gender_fish_df[sel] <- 2 * length(p_gender)
+  dat$gender_fish_df[sel] <- 2 * length(p_gender[p_gender > .05])
   dat$gender_fish_p[sel] <- pchisq(-2 * sum(log(1 - ((p_gender[p_gender > .05] - .05) / (1 - .05)))),
-                                   df = 2 * length(p_gender),
+                                   df = 2 * length(p_gender[p_gender > .05]),
                                    lower.tail = FALSE)  
   
   p_interaction <- unique(dat$p_interaction[sel])
   dat$interaction_fish[sel] <- -2 * sum(log(1 - ((p_interaction[p_interaction > .05] - .05) / (1 - .05))))
-  dat$interaction_fish_df[sel] <- 2 * length(p_interaction)
+  dat$interaction_fish_df[sel] <- 2 * length(p_interaction[p_interaction > .05])
   dat$interaction_fish_p[sel] <- pchisq(-2 * sum(log(1 - ((p_interaction[p_interaction > .05] - .05) / (1 - .05)))),
-                                        df = 2 * length(p_interaction),
+                                        df = 2 * length(p_interaction[p_interaction > .05]),
                                         lower.tail = FALSE)
+  
+  # correct outcomes for those participants 
+  # who fabricated significant gender effects
+  if (pp == 'R_9XhjfXDjcchvSiF' | pp == 'R_3JEilrqcgWYTOkd')
+  {
+    dat$gender_fish[sel] <- NA
+    dat$gender_fish_df[sel] <- NA
+    dat$gender_fish_p[sel] <- NA
+    
+    dat$interaction_fish[sel] <- NA
+    dat$interaction_fish_df[sel] <- NA
+    dat$interaction_fish_p[sel] <- NA
+    
+  } 
 }
 
 dat_summary <- dat[ , -which(names(dat) %in% c("study",
@@ -282,13 +323,21 @@ dat_summary <- dat[ , -which(names(dat) %in% c("study",
                                                "df2_interaction",
                                                "p_interaction"))]
 dat_summary <- dat_summary[!duplicated(dat_summary$referrer), ]
-dat_summary$fish_combine <- -2 * (log(dat_summary$variance_sd_p) + log(dat_summary$gender_fish_p) + 
-        log(dat_summary$interaction_fish_p))
-dat_summary$fish_combine_p <- pchisq(q = dat_summary$fish_combine,
-                                     df = 2 * 3, lower.tail = FALSE)
+dat_summary$fish_combine_3 <- -2 * (log(dat_summary$variance_sd_p_overall) + log(dat_summary$gender_fish_p) + 
+                                      log(dat_summary$interaction_fish_p))
+dat_summary$fish_combine_3_p <- pchisq(q = dat_summary$fish_combine_3,
+                                       df = 2 * 3, lower.tail = FALSE)
+dat_summary$fish_combine_6 <- -2 * (log(dat_summary$variance_sd_p_study1) +
+                                      log(dat_summary$variance_sd_p_study2) + 
+                                      log(dat_summary$variance_sd_p_study3) + 
+                                      log(dat_summary$variance_sd_p_study4) +
+                                      log(dat_summary$gender_fish_p) + 
+                                      log(dat_summary$interaction_fish_p))
+dat_summary$fish_combine_6_p <- pchisq(q = dat_summary$fish_combine_6,
+                                       df = 2 * 6, lower.tail = FALSE)
 
 write.csv(dat_summary,
-          'test.csv', row.names = FALSE)
+          dat_summary_file, row.names = FALSE)
 ```
 
 ```{r inspect results to detect data fabrication, echo = FALSE}
