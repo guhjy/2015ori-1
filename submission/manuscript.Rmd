@@ -102,13 +102,17 @@ Something about reporting tendencies?
 ```{r prep data study 1, echo = FALSE}
 options(digits = 20)
 # Compute the summary statistics for Many Labs
-source('../functions/compute_summary_anch_ml.R')
+# source('../functions/compute_summary_anch_ml.R')
+source('functions/compute_summary_anch_ml.R')
 # Process the collected, fabricated data
-source('../functions/process_qualtrics_anch_01.R')
+# source('../functions/process_qualtrics_anch_01.R')
+source('functions/process_qualtrics_anch_01.R')
 
 # Read the data
-ml <- read.csv('../data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
-qualtrics <- read.csv('../data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
+# ml <- read.csv('../data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
+# qualtrics <- read.csv('../data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
+ml <- read.csv('data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
+qualtrics <- read.csv('data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
 ml$stat_know <- NA
 ml$spss <- NA
 ml$rcran <- NA
@@ -131,14 +135,15 @@ dat <- rbind(qualtrics, ml)
 ```
 
 ```{r compile results for detecting data fabrication, echo = FALSE}
+dat_summary_file <- 'data/study1_res.csv'
+
 # conduct the analyses iteratively
 for (pp in unique(dat$referrer))
 {
   # Loop through each study to compute the ANOVA results
   for (j in 1:4)
   {
-    study_nr <- j    
-    indexor <- dat$referrer == pp & dat$study == study_nr
+    indexor <- dat$referrer == pp & dat$study == j
     
     harm_mean <- 4^2/(sum(1/dat$anch_n[indexor]))
     male_mean <- mean(dat$anch_m[indexor & dat$partgender == 0])
