@@ -74,7 +74,7 @@ $\tilde{s}^2_j=\frac{s^2_j}{MS_w}=\frac{s^2_j}{\frac{\sum(N_j-1)s^2_j}{\sum(N_j-
 
 where $\tilde{s}_j$ denotes the standardized SD in group *j*. Note that $MS_w$ is the simple arithmetic mean when sample sizes are equal for all cells. We test several different measures to detect data fabrication that utilize these standardized SDs (i.e., $\tilde{s}_j$), including the max-min distance (denoted $\tilde{\sigma}_{max-min}$) and the variance of the standardized SDs [i.e.,  $\tilde{\sigma}_{sd}$; @simonsohn2013]. We compare the observed value for each $\tilde{\sigma}$ measure with the expected distribution of outcomes when the data would be the result of random sampling processes. To this end, we simulate the expected distribution of standardized SDs and compute the expected distribution of each $\tilde{\sigma}$. This expected distribution is used to determine the *p*-value of the observed $\tilde{\sigma}$ value. We simulate the standardized SD for each of the *j* groups as
 
-$\tilde{s}^2_j\sim\Bigg[\frac{\chi^2_{N_j-1}s^2_j}{N_j-1}\Bigg]/MS_w$
+$\tilde{s}^2_j\sim\Bigg[\frac{\chi^2_{N_j-1}}{N_j-1}\Bigg]/MS_w$
 
 These simulated values are used to compute the expected distribution of all $\tilde{\sigma}$ measures.
 
