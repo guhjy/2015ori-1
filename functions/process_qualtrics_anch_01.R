@@ -1,8 +1,10 @@
 if(!require(stringr)) install.packages('stringr')
 library(stringr)
 
-# file <- '../data/study_01/raw_summary_results_fabrication.csv'
+# Add ../ before running rmarkdown, or vice versa when not running there
 file <- 'data/study_01/raw_summary_results_fabrication_qualtrics.csv'
+res_file <- 'data/study_01/qualtrics_processed.csv'
+
 dat_qualtrics <- read.csv(file, stringsAsFactors = FALSE, na.strings = '')
 
 # Remove the description of the question
@@ -327,4 +329,4 @@ res <- data.frame(referrer,
                   descr,
                   bonus)
 
-write.csv(res, 'data/study_01/qualtrics_processed.csv', row.names = FALSE)
+write.csv(res, res_file, row.names = FALSE)

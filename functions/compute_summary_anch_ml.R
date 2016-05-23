@@ -5,7 +5,13 @@ library(foreign)
 library(car)
 library(plyr)
 
-ml_dat <- read.spss('../data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav',
+# Make it easy to switch to rmarkdown files (add ../)
+ml_dat_file <- 'data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
+summary_stat_file <- 'data/study_01/ml_summary_stats.csv'
+pdf_file <- 'archive/gender_interaction.pdf'
+
+# GO
+ml_dat <- read.spss(ml_dat_file,
                     to.data.frame = TRUE,
                     use.value.labels = FALSE)
 
@@ -89,7 +95,7 @@ summary_stat <- rbind(summary_stat_1,
                       summary_stat_4)
 
 write.csv(summary_stat,
-          'data/study_01/ml_summary_stats.csv',
+          summary_stat_file,
           row.names = FALSE)
 
 refer <- unique(ml_dat$referrer)
@@ -141,7 +147,7 @@ for (i in 1:length(refer)){
   inter_p_4 <-c(inter_p_4, anova_mod$`Pr(>F)`[3])
 }
 
-pdf(file = '../archive/gender_interaction.pdf', onefile = TRUE)
+pdf(file = pdf_file, onefile = TRUE)
 par(mfrow = c(2,1)); hist(gender_p_1, breaks = 10); hist(inter_p_1, breaks = 10)
 par(mfrow = c(2,1)); hist(gender_p_2, breaks = 10); hist(inter_p_2, breaks = 10)
 par(mfrow = c(2,1)); hist(gender_p_3, breaks = 10); hist(inter_p_3, breaks = 10)
