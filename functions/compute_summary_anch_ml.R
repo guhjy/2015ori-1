@@ -6,9 +6,9 @@ library(car)
 library(plyr)
 
 # Make it easy to switch to rmarkdown files (add ../)
-ml_dat_file <- 'data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
-summary_stat_file <- 'data/study_01/ml_summary_stats.csv'
-pdf_file <- 'archive/gender_interaction.pdf'
+ml_dat_file <- '../data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
+summary_stat_file <- '../data/study_01/ml_summary_stats.csv'
+pdf_file <- '../archive/gender_interaction.pdf'
 
 # GO
 ml_dat <- read.spss(ml_dat_file,
