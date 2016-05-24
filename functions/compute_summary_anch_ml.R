@@ -6,9 +6,9 @@ library(car)
 library(plyr)
 
 # Make it easy to switch to rmarkdown files (add ../)
-ml_dat_file <- '../data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
-summary_stat_file <- '../data/study_01/ml_summary_stats.csv'
-pdf_file <- '../archive/gender_interaction.pdf'
+ml_dat_file <- 'data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
+summary_stat_file <- 'data/study_01/ml_summary_stats.csv'
+pdf_file <- 'archive/gender_interaction.pdf'
 
 # GO
 ml_dat <- read.spss(ml_dat_file,
@@ -25,7 +25,7 @@ ml_dat$partgender <- ifelse(ml_dat$partgender == 1, NA,
 # listwise deletion of participants without gender
 ml_dat <- ml_dat[!is.na(ml_dat$partgender), ]
 
-summary_stat_1 <- ddply(ml_dat, .(referrer, partgender, anch1group), function(x){
+summary_stat_1 <- ddply(ml_dat, .(referrer, anch1group, partgender), function(x){
   anch1_n <- length(x$anchoring1[!is.na(x$anchoring1)])
   anch1_m <- mean(x$anchoring1, na.rm = TRUE)
   anch1_sd <- sd(x$anchoring1, na.rm = TRUE)
@@ -36,12 +36,12 @@ summary_stat_1 <- ddply(ml_dat, .(referrer, partgender, anch1group), function(x)
                anch1_sd,
                study))
 })
-names(summary_stat_1)[3:6] <- c('anchoring',
+names(summary_stat_1)[c(2,4:6)] <- c('anchoring',
                                 'anch_n',
                                 'anch_m',
                                 'anch_sd')
 
-summary_stat_2 <- ddply(ml_dat, .(referrer, partgender, anch2group), function(x){
+summary_stat_2 <- ddply(ml_dat, .(referrer, anch2group, partgender), function(x){
   anch2_n <- length(x$anchoring2[!is.na(x$anchoring2)])
   anch2_m <- mean(x$anchoring2, na.rm = TRUE)
   anch2_sd <- sd(x$anchoring2, na.rm = TRUE)
@@ -52,12 +52,12 @@ summary_stat_2 <- ddply(ml_dat, .(referrer, partgender, anch2group), function(x)
                anch2_sd,
                study))
 })
-names(summary_stat_2)[3:6] <- c('anchoring',
+names(summary_stat_2)[c(2,4:6)] <- c('anchoring',
                                 'anch_n',
                                 'anch_m',
                                 'anch_sd')
 
-summary_stat_3 <- ddply(ml_dat, .(referrer, partgender, anch3group), function(x){
+summary_stat_3 <- ddply(ml_dat, .(referrer, anch3group, partgender), function(x){
   anch3_n <- length(x$anchoring3[!is.na(x$anchoring3)])
   anch3_m <- mean(x$anchoring3, na.rm = TRUE)
   anch3_sd <- sd(x$anchoring3, na.rm = TRUE)
@@ -68,12 +68,12 @@ summary_stat_3 <- ddply(ml_dat, .(referrer, partgender, anch3group), function(x)
                anch3_sd,
                study))
 })
-names(summary_stat_3)[3:6] <- c('anchoring',
+names(summary_stat_3)[c(2,4:6)] <- c('anchoring',
                                 'anch_n',
                                 'anch_m',
                                 'anch_sd')
 
-summary_stat_4 <- ddply(ml_dat, .(referrer, partgender, anch4group), function(x){
+summary_stat_4 <- ddply(ml_dat, .(referrer, anch4group, partgender), function(x){
   anch4_n <- length(x$anchoring4[!is.na(x$anchoring4)])
   anch4_m <- mean(x$anchoring4, na.rm = TRUE)
   anch4_sd <- sd(x$anchoring4, na.rm = TRUE)
@@ -84,7 +84,7 @@ summary_stat_4 <- ddply(ml_dat, .(referrer, partgender, anch4group), function(x)
                anch4_sd,
                study))
 })
-names(summary_stat_4)[3:6] <- c('anchoring',
+names(summary_stat_4)[c(2,4:6)] <- c('anchoring',
                                 'anch_n',
                                 'anch_m',
                                 'anch_sd')
@@ -93,6 +93,8 @@ summary_stat <- rbind(summary_stat_1,
                       summary_stat_2,
                       summary_stat_3,
                       summary_stat_4)
+summary_stat <- summary_stat[,c('referrer', 'partgender', 'anchoring', 'anch_n', 'anch_m', 'anch_sd', 'study')]
+
 
 write.csv(summary_stat,
           summary_stat_file,
