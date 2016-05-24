@@ -18,7 +18,7 @@ x12 <- '../'
 x12 <- ''
 ml_file <- sprintf('%sdata/study_01/ml_summary_stats.csv', x12)
 qualtrics_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
-dat_summary_file <- sprintf('%sdata/study1_res.csv', x12)
+dat_summary_file <- sprintf('%sdata/study_01/study1_res.csv', x12)
 file <- sprintf('%sdata/study_01/raw_summary_results_fabrication_qualtrics.csv', x12)
 res_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
 ml_dat_file <- sprintf('%sdata/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav', x12)
