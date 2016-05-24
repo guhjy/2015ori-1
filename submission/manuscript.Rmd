@@ -6,6 +6,30 @@ output: pdf_document
 csl: ../bibliography/apa.csl
 bibliography: ../bibliography/library.bib
 ---
+
+```{r prepwork, echo = FALSE}
+if(!require(pROC)){install.packages('pROC')}
+library(pROC)
+if(!require(foreign)){install.packages('foreign')}
+library(foreign)
+
+# Compute the summary statistics for Many Labs
+source('../functions/compute_summary_anch_ml.R')
+# source('functions/compute_summary_anch_ml.R')
+# Process the collected, fabricated data
+source('../functions/process_qualtrics_anch_01.R')
+# source('functions/process_qualtrics_anch_01.R')
+
+# Read the data
+ml <- read.csv('../data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
+qualtrics <- read.csv('../data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
+# ml <- read.csv('data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
+# qualtrics <- read.csv('data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
+
+dat_summary_file <- '../data/study1_res.csv'
+```
+
+
 <!---
 
 # Abstract
@@ -101,18 +125,6 @@ Something about reporting tendencies?
 ### Results.
 ```{r prep data study 1, echo = FALSE}
 options(digits = 20)
-# Compute the summary statistics for Many Labs
-# source('../functions/compute_summary_anch_ml.R')
-source('functions/compute_summary_anch_ml.R')
-# Process the collected, fabricated data
-# source('../functions/process_qualtrics_anch_01.R')
-source('functions/process_qualtrics_anch_01.R')
-
-# Read the data
-# ml <- read.csv('../data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
-# qualtrics <- read.csv('../data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
-ml <- read.csv('data/study_01/ml_summary_stats.csv', stringsAsFactors = FALSE)
-qualtrics <- read.csv('data/study_01/qualtrics_processed.csv', stringsAsFactors = FALSE)
 ml$stat_know <- NA
 ml$spss <- NA
 ml$rcran <- NA
@@ -135,8 +147,6 @@ dat <- rbind(qualtrics, ml)
 ```
 
 ```{r compile results for detecting data fabrication, echo = FALSE}
-dat_summary_file <- 'data/study1_res.csv'
-
 # conduct the analyses iteratively
 for (pp in unique(dat$referrer))
 {
@@ -210,14 +220,13 @@ for (pp in unique(dat$referrer))
   tilde_s2_4 <- dat$anch_sd[sel4]^2 / ms_w_4
   
   obs_sigma_sd <- sd(c(tilde_s2_1, tilde_s2_2, tilde_s2_3, tilde_s2_4))
-  # Add the sigma sd observed per study (NOT PREREGISTERED)
-  # Nog wijzigen adhv mva opmerkingen
+  
   obs_sigma_sd_study1 <- sd(tilde_s2_1)
   obs_sigma_sd_study2 <- sd(tilde_s2_2)
   obs_sigma_sd_study3 <- sd(tilde_s2_3)
   obs_sigma_sd_study4 <- sd(tilde_s2_4)
   
-  iter <- 100000
+  iter <- 10
   s2 <- dat$anch_sd[dat$referrer == pp]^2
   n_min_1 <- dat$anch_n[dat$referrer == pp] - 1
   sim_sigma <- NULL
@@ -342,17 +351,38 @@ write.csv(dat_summary,
 
 ```{r inspect results to detect data fabrication, echo = FALSE}
 
+
+dat_summary <- read.csv(dat_summary_file)
+
+tp <- NULL
+fp <- NULL
+fn <- NULL
+tn <- NULL
+
+i <- 1
+
+for (threshold in seq(0, .1, .01))
+{
+  tp[i] <- sum(dat_summary$fish_combine_6_p < threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
+  fp[i] <- sum(dat_summary$fish_combine_6_p < threshold & dat_summary$type == 'ml', na.rm = TRUE)
+  fn[i] <- sum(dat_summary$fish_combine_6_p > threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
+  tn[i] <- sum(dat_summary$fish_combine_6_p > threshold & dat_summary$type == 'ml', na.rm = TRUE)
+  
+  i <- i + 1
+}
+
+fpr <- fp / (fp + tn)
+tpr <- tp / (tp + fp)
+fnr <- fn / (fn + tp)
+tnr <- tn / (tn + fn)
 ```
-
-
-<!--- 
 
 library(ROCR)
 data(ROCR.simple)
 pred <- prediction( ROCR.simple$predictions, ROCR.simple$labels)
 perf <- performance(pred,"tpr","fpr")
 plot(perf)
-
+--->
 # Study 2
 
 To test the validity of statistical methods to detect data fabrication in raw data, we investigated raw data of a Stroop experiment (Stroop 1935). 
