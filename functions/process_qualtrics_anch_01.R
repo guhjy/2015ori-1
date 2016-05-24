@@ -1,10 +1,6 @@
 if(!require(stringr)) install.packages('stringr')
 library(stringr)
 
-# Add ../ before running rmarkdown, or vice versa when not running there
-file <- '../data/study_01/raw_summary_results_fabrication_qualtrics.csv'
-res_file <- '../data/study_01/qualtrics_processed.csv'
-
 dat_qualtrics <- read.csv(file, stringsAsFactors = FALSE, na.strings = '')
 
 # Remove the description of the question
