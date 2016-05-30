@@ -8,7 +8,7 @@ bibliography: ../bibliography/library.bib
 ---
 
 ```{r prepwork, echo = FALSE}
-VsuppressPackageStartupMessages(if(!require(pROC)){install.packages('pROC')})
+suppressPackageStartupMessages(if(!require(pROC)){install.packages('pROC')})
 suppressPackageStartupMessages(library(pROC))
 suppressPackageStartupMessages(if(!require(foreign)){install.packages('foreign')})
 suppressPackageStartupMessages(library(foreign))
@@ -34,7 +34,7 @@ source(sprintf('%sfunctions/compute_summary_anch_ml.R', x12))
 source(sprintf('%sfunctions/process_qualtrics_anch_01.R', x12))
 # Concatenate, analyze, and write out all ML and qualtrics data
 # Uncomment this line to rerun
-set.seed(123);source(sprintf('%sfunctions/concatenate_analyze_01.R', x12))
+# set.seed(123);source(sprintf('%sfunctions/concatenate_analyze_01.R', x12))
 
 
 ```
@@ -134,39 +134,195 @@ Something about reporting tendencies?
 
 ### Results.
 ```{r inspect results to detect data fabrication, echo = FALSE}
-
-
+# Read in datafile, just in case the computations were not re-run.
 dat_summary <- read.csv(dat_summary_file)
+dat_summary <- dat_summary[!(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus)), ]
+# Select only those from qualtrics who did for bonus
 
-tp <- NULL
-fp <- NULL
-fn <- NULL
-tn <- NULL
+type_index <- which(names(dat_summary) == 'type')
 
-i <- 1
+temp <- dat_summary[, c(type_index, 18:45)]  
 
-for (threshold in seq(0, .1, .01))
+# ggplot(temp) +
+#   facet_grid ()
+# geom_density(aes(Result, group = type, col = type)) + 
+#   xlab(title_name)
+# 
+# p <- ggplot(temp)
+# for (i in 18:45)
+# {
+#   temp <- dat_summary[, c(type_index, i)]  
+#   title_name <- names(temp)[2]
+#   names(temp)[2] <- 'Result'
+#   
+#   ggplot(temp) +
+#     geom_density(aes(Result, group = type, col = type)) + 
+#     xlab(title_name)
+# }
+# dev.off()
+
+
+
+tp <- matrix(NA, ncol = 20, nrow = 101)
+fp <- matrix(NA,ncol = 20, nrow = 101)
+fn <- matrix(NA,ncol = 20, nrow = 101)
+tn <- matrix(NA,ncol = 20, nrow = 101)
+
+temp <- names(dat_summary)[c(18:31, 34, 37, 39, 41, 43, 45)]
+
+j <- 1
+
+for (variables in c(18:31, 34, 37, 39, 41, 43, 45))
 {
-  tp[i] <- sum(dat_summary$fish_combine_6_p < threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
-  fp[i] <- sum(dat_summary$fish_combine_6_p < threshold & dat_summary$type == 'ml', na.rm = TRUE)
-  fn[i] <- sum(dat_summary$fish_combine_6_p > threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
-  tn[i] <- sum(dat_summary$fish_combine_6_p > threshold & dat_summary$type == 'ml', na.rm = TRUE)
+  i <- 1 
   
-  i <- i + 1
+  for (threshold in seq(0, 1, .01))
+  {
+    tp[i,j] <- sum(dat_summary[, variables] <= threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
+    fp[i,j] <- sum(dat_summary[, variables] <= threshold & dat_summary$type == 'ml', na.rm = TRUE)
+    fn[i,j] <- sum(dat_summary[, variables] > threshold & dat_summary$type == 'qualtrics', na.rm = TRUE)
+    tn[i,j] <- sum(dat_summary[, variables] > threshold & dat_summary$type == 'ml', na.rm = TRUE)
+    
+    i <- i + 1
+  }
+  
+  j <- j + 1
 }
 
-fpr <- fp / (fp + tn)
-tpr <- tp / (tp + fp)
-fnr <- fn / (fn + tp)
-tnr <- tn / (tn + fn)
+# loop through matrix for proper comps
+
+for (i in 1:20)
+{
+  tpr[, i] <- tp[, i] / (tp[, i] + fn[, i])
+  fnr[, i] <- fn[, i] / (tp[, i] + fn[, i])
+  fpr[, i] <- fp[, i] / (fp[, i] + tn[, i])
+  tnr[, i] <- tn[, i] / (fp[, i] + tn[, i])
+  
+  ppv[, i] <- tp[, i] / (fp[, i] + tp[, i])
+  fdr[, i] <- fp[, i] / (fp[, i] + tp[, i])
+  npv[, i] <- tn[, i] / (tn[, i] + fn[, i])
+  false_or[, i] <- fn[, i] / (tn[, i] + fn[, i])
+}
+fpr <- as.data.frame(fpr)
+tpr <- as.data.frame(tpr)
+fnr <- as.data.frame(fnr)
+tnr <- as.data.frame(tnr)
+
+ppv <- as.data.frame(ppv)
+fdr <- as.data.frame(fdr)
+npv <- as.data.frame(npv)
+false_or <- as.data.frame(false_or)
+
+names(fpr) <- temp
+names(tpr) <- temp
+names(fnr) <- temp
+names(tnr) <- temp
+
+names(ppv) <- temp
+names(fdr) <- temp
+names(npv) <- temp
+names(false_or) <- temp
+
+for(i in 1:20)
+{
+  plot(fpr[, i], tpr[, i],
+       type = 's', xlim = c(0,1), ylim = c(0,1), main = names(fpr)[i],
+       xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2)
+  abline(a = 0, b = 1)
+}
+
+tp[6,which(temp == 'fish_combine_3_hetero_p')]
+fp[6,which(temp == 'fish_combine_3_hetero_p')]
+fn[6,which(temp == 'fish_combine_3_hetero_p')]
+tn[6,which(temp == 'fish_combine_3_hetero_p')]
+
+plot(fpr$fish_combine_3_hetero_p, tpr$fish_combine_3_hetero_p,
+     type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Fisher combined',
+     xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2)
+abline(a = 0, b = 1)
+roc(response = dat_summary$type, predictor = dat_summary$fish_combine_3_hetero_p)
+
+height = (tpr$fish_combine_3_hetero_p[-1]+tpr$fish_combine_3_hetero_p[-length(tpr$fish_combine_3_hetero_p)])/2
+width = diff(fpr$fish_combine_3_hetero_p) # = diff(rev(omspec))
+sum(height*width)
+
+
+plot(fpr$variance_sd_p_overall_homo, tpr$variance_sd_p_overall_homo,
+     type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance homogeneous',
+     xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2)
+abline(a = 0, b = 1)
+roc(response = dat_summary$type, predictor = dat_summary$variance_sd_p_overall_homo)
+
+height = (tpr$variance_sd_p_overall_homo[-1]+tpr$variance_sd_p_overall_homo[-length(tpr$variance_sd_p_overall_homo)])/2
+width = diff(fpr$variance_sd_p_overall_homo) # = diff(rev(omspec))
+sum(height*width)
+
+plot(fpr$variance_sd_p_overall_hetero, tpr$variance_sd_p_overall_hetero,
+     type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance heterogeneous',
+     xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2)
+abline(a = 0, b = 1)
+roc(response = dat_summary$type, predictor = dat_summary$variance_sd_p_overall_hetero)
+
+height = (tpr$variance_sd_p_overall_hetero[-1]+tpr$variance_sd_p_overall_hetero[-length(tpr$variance_sd_p_overall_hetero)])/2
+width = diff(fpr$variance_sd_p_overall_hetero) # = diff(rev(omspec))
+sum(height*width)
+
+plot(fpr$variance_sd_p_overall_homo, tpr$variance_sd_p_overall_homo,
+     type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance homogeneous',
+     xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2)
+abline(a = 0, b = 1)
+lines(fpr$variance_sd_p_overall_hetero, tpr$variance_sd_p_overall_hetero,
+     type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance heterogeneous',
+     xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2, lty = 2)
+
+legend(x = 0, y = 1, bty = 'n', lty = c(1, 2), lwd = 2, legend = c('Homogeneous', 'Heterogeneous'))
+
+plot(x = roc(response = dat_summary$type,
+             predictor = dat_summary$fish_combine_3_hetero_p,
+             percent = TRUE,
+             ci = TRUE,
+             of = 'se',
+             sp = seq(0, 100, 5)), ci.type="shape")
+
+plot(x = roc(response = dat_summary$type,
+             predictor = dat_summary$variance_sd_p_overall_homo,
+             percent = TRUE,
+             ci = TRUE,
+             of = 'se',
+             sp = seq(0, 100, 5)), ci.type="shape")
+
+for (i in c(18,23))
+{
+  plot(x = roc(response = dat_summary$type,
+               predictor = dat_summary[, i],
+               percent = TRUE,
+               ci = TRUE,
+               of = 'se',
+               sp = seq(0, 100, 5)), ci.type="shape", main = names(dat_summary)[i])
+}
+
+plot(fpr[,1], tpr[,1], type = 's')
+lines(fpr[,6], tpr[,6], type = 's')
+
+plot(x = roc(response = dat_summary$type,
+             predictor = dat_summary$variance_sd_p_overall_homo,
+             percent = TRUE,
+             ci = TRUE,
+             of = 'se',
+             sp = seq(0, 100, 5)), ci.type="shape", main = 'homogeneous')
+plot(x = fpr$variance_sd_p_overall_homo, y = tpr$variance_sd_p_overall_homo, type = 's')
+
+plot(x = roc(response = dat_summary$type,
+             predictor = dat_summary$variance_sd_p_overall_hetero,
+             percent = TRUE,
+             ci = TRUE,
+             of = 'se',
+             sp = seq(0, 100, 5)), ci.type="shape", main = 'homogeneous')
+plot(x = fpr$variance_sd_p_overall_hetero, y = tpr$variance_sd_p_overall_hetero, type = 's')
 ```
 
-library(ROCR)
-data(ROCR.simple)
-pred <- prediction( ROCR.simple$predictions, ROCR.simple$labels)
-perf <- performance(pred,"tpr","fpr")
-plot(perf)
---->
+<!---
+
 # Study 2
 
 To test the validity of statistical methods to detect data fabrication in raw data, we investigated raw data of a Stroop experiment (Stroop 1935). 
