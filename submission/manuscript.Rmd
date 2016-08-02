@@ -1,6 +1,6 @@
 ---
 title: "Ecological validity of detecting data fabrication in experimental studies."
-author: "Chris HJ Hartgerink"
+author: "Chris HJ Hartgerink, Jelte M Wicherts, Marcel ALM van Assen"
 date: '`r format(Sys.time(), "%d %B, %Y")`'
 output: pdf_document
 csl: ../bibliography/apa.csl
@@ -15,7 +15,37 @@ suppressPackageStartupMessages(library(foreign))
 
 # Add ../ before running rmarkdown, or vice versa when not running there
 x12 <- '../'
-x12 <- ''
+# x12 <- ''
+```
+
+
+<!---
+
+# Abstract
+--placeholder--
+
+# Introduction
+
+Data fabrication is malicious to scientific knowledge, hence it is imperative to be able to detect it. An estimated 2% of all researchers admit to having fabricated data at least once, and 14% have said to have witnessed someone fabricate data [@fanelli2009]. In stark contrast to plagiarism, which has a similar admittance rate but double the witness rate [@pupovac2015], hardly any systems are implemented during the editorial process to detect problematic data. Recently, one journal has explicitly stated they are considering such a system (Miller 2015), another is looking BMC SCIENCEMATTERS. Editors and reviewers hardly pay attention to potential problems with the data during the editor process either (Bornmann et al. 2008), which highlights the potential of automated detection systems.
+
+
+
+Similar to how plagiarism scanners are implemented to detect plagiarism, statistical methods can be applied to detect potentially fabricated data. By extracting information from research papers, called content mining (Smith-Unna and Murray-Rust 2014), statistical analyses of the presented research results can be facilitated. Previous statistical content mining methods, extracting for example reported test results across 30,000 papers (Nuijten et al. 2015), indicate the feasibility of extracting statistical information from research papers in large quantities.
+
+However helpful these technological advances are, the statistical methods applied to extracted data in order to detect potential data fabrication require thorough validation. More specifically, the statistical methods need to have a well-balanced trade-off between the false positive rate and the false negative rate. Considering the, presumably, low prevalence rate of data fabrication, false positive rates can have tremendous effects when applied at a large scale. For example, if we assume that 2% of the research papers is fabricated and we can detect it perfectly if it occurs, we would detect approximately 2.5 times more false positives than true positives. And this is if we assume the false positive rate is 5% and no higher.  
+
+How data is fabricated by researchers is not well-known and simulating the properties of statistical methods to detect data fabrication is therefore invalid. When the process is unknown, it is hardly feasible to properly approximate reality and draw valid conclusions. Moreover, it seems reasonable to state that there are many different ways to fabricate data and that these different data fabrication ‘styles’ can be combined. Even if certain fabrication processes were known, simulating ecologically valid processes would still be quite difficult.
+
+Nonetheless, statistical methods to detect data fabrication have been developed based on theoretical principles, which help detect data fabrication in experiments. These methods are based on the tenet that humans are bad at fabricating results that originate from probabilistic processes. Outcome variables that are inspected in experiments are based on a sample which results in observations that are the result of a random variable, hence subject to probabilistic (i.e., stochastic) processes. The inadequacy of humans in generating such sequences is the consequence of mental heuristics. For example, most humans succumb to the gambler’s fallacy, estimating the probability of heads as more likely when we have thrown tails several times (Tversky and Kahneman 1974). Other fallacious heuristics include the local-representativeness heuristic (), .
+
+Statistical methods to detect data fabrication have been successfully applied in ad hoc investigations, but their value in screening processes remains opaque. For example, Simonsohn’s variance of variances method (Simonsohn 2013) has been applied to the Smeesters and Sanna cases, but only after suspicions had already arisen. The value of applying such a method as a screening measure is hard to assess regardless of its previous successes in ad hoc investigations.
+
+In this paper, we experimentally test the validity of a set of statistical methods to detect data fabrication, based on summary results (Study 1) or raw data (Study 2), and assess the optimal balance between decision criterion and detection accuracy. We apply the statistical methods to detect data fabrication to both (assumed) genuine data from the Many Labs experiments and fabricated datasets, which we collected in an experimental setting where researchers were invited to fabricate data according to a controlled set of hypotheses. Both experiments were approved by the Tilburg Ethics committee (EC-2015.50).
+--->
+# Study 1
+
+```{r, echo = FALSE}
+# Dynamically generate path names
 ml_file <- sprintf('%sdata/study_01/ml_summary_stats.csv', x12)
 qualtrics_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
 dat_summary_file <- sprintf('%sdata/study_01/study1_res.csv', x12)
@@ -35,69 +65,35 @@ source(sprintf('%sfunctions/process_qualtrics_anch_01.R', x12))
 # Concatenate, analyze, and write out all ML and qualtrics data
 # Uncomment this line to rerun
 # set.seed(123);source(sprintf('%sfunctions/concatenate_analyze_01.R', x12))
-
-
 ```
 
 
-<!---
-
-# Abstract
---placeholder--
-
-# Introduction
-
-Data fabrication is malicious to scientific knowledge, hence it is imperative to be able to detect it. An estimated 2% of all researchers admit to having fabricated data at least once, and 14% have said to have witnessed someone fabricate data [@fanelli2009]. In stark contrast to plagiarism, which has a similar admittance rate but double the witness rate [@pupovac2015], no systems are implemented during the editorial process to detect problematic data, although at least one journal is considering such a system (Miller 2015). Editors and reviewers hardly pay attention to potential problems with the data during the editor process either (Bornmann et al. 2008), which highlights the potential of automated detection systems.
-
-Similar to how plagiarism scanners are implemented to detect plagiarism, statistical methods can be applied to detect potentially fabricated data. By extracting information from research papers, called content mining (Smith-Unna and Murray-Rust 2014), statistical analyses of the presented research results can be facilitated. Previous statistical content mining methods, extracting for example reported test results across 30,000 papers (Nuijten et al. 2015), indicate the feasibility of extracting statistical information from research papers in large quantities.
-
-However helpful these technological advances are, the statistical methods applied to extracted data in order to detect potential data fabrication require thorough validation. More specifically, the statistical methods need to have a well-balanced trade-off between the false positive rate and the false negative rate. Considering the, presumably, low prevalence rate of data fabrication, false positive rates can have tremendous effects when applied at a large scale. For example, if we assume that 2% of the research papers is fabricated and we can detect it perfectly if it occurs, we would detect approximately 2.5 times more false positives than true positives. And this is if we assume the false positive rate is 5% and no higher.  
-
-How data is fabricated by researchers is not well-known and simulating the properties of statistical methods to detect data fabrication is therefore invalid. When the process is unknown, it is hardly feasible to properly approximate reality and draw valid conclusions. Moreover, it seems reasonable to state that there are many different ways to fabricate data and that these different data fabrication ‘styles’ can be combined. Even if certain fabrication processes were known, simulating ecologically valid processes would still be quite difficult.
-
-Nonetheless, statistical methods to detect data fabrication have been developed based on theoretical principles, which help detect data fabrication in experiments. These methods are based on the tenet that humans are bad at fabricating results that originate from probabilistic processes. Outcome variables that are inspected in experiments are based on a sample which results in observations that are the result of a random variable, hence subject to probabilistic (i.e., stochastic) processes. The inadequacy of humans in generating such sequences is the consequence of mental heuristics. For example, most humans succumb to the gambler’s fallacy, estimating the probability of heads as more likely when we have thrown tails several times (Tversky and Kahneman 1974). Other fallacious heuristics include the local-representativeness heuristic (), .
-
-Statistical methods to detect data fabrication have been successfully applied in ad hoc investigations, but their value in screening processes remains opaque. For example, Simonsohn’s variance of variances method (Simonsohn 2013) has been applied to the Smeesters and Sanna cases, but only after suspicions had already arisen. The value of applying such a method as a screening measure is hard to assess regardless of its previous successes in ad hoc investigations.
-
-In this paper, we experimentally test the validity of a set of statistical methods to detect data fabrication, based on summary results (Study 1) or raw data (Study 2), and assess the optimal balance between decision criterion and detection accuracy. We apply the statistical methods to detect data fabrication to both (assumed) genuine data from the Many Labs experiments and fabricated datasets, which we collected in an experimental setting where researchers were invited to fabricate data according to a controlled set of hypotheses. Both experiments were approved by the Tilburg Ethics committee (EC-2015.50).
---->
-# Study 1
-
-To test the validity of statistical methods to detect data fabrication in summary results, we investigated summary results of four anchoring studies [@tversky1974;@jacowitz1995]. We selected the anchoring effect because it is a well-known psychological phenomenon and many genuine data sets on the effect are available from the Many Labs project [@klein2014]. The unit of analysis for this study is the set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. Respondent is defined here as either one of the Many Labs locations, or a researcher who fabricated the four anchoring studies' summary statistics.
+We tested the performance of statistical methods to detect data fabrication based on summary results with genuine and fabricated summary results of four anchoring studies [@tversky1974;@jacowitz1995]. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively [@tversky1974], despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study.
 
 ## Methods
 
-The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) × 2 (male/female) factorial design.
+The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) × 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. Respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF ([osf.io/b24pq](osf.io/b24pq)) and were preregistered ([osf.io/ejf5x](osf.io/ejf5x); deviations are explicated in this report). 
+
 
 ### Data collection. 
 
-Thirty-six genuine datasets were collected from the publicly available Many Labs project [@klein2014, osf.io/pqf9r]. The Many Labs (ML) project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were collected for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., 48 × 36). These summary statistics were collected from the raw ML data, which were cleaned using the original analyses scripts from the ML project to ensure that the data did not contain improper responses.
+We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project [@klein2014, [osf.io/pqf9r](osf.io/pqf9r)]. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were computed, for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., $3\times4\times4\times36$). We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
 
-<!---
-```{r}
-# Insert the data collection from Many Labs in here (directly!)
-```
---->
+Using quotum sampling, we collected thirty-six fabricated datasets of summary results for all four anchoring studies. The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect [@jacowitz1995;@tversky1974], for which summary results were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because this filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
 
-<!---
-Replace thirty-six with actual number
---->
+A random sample of 1,000 researchers were digitally approached to participate in this study on April 25, 2016 (invitation: [osf.io/s4w8r](osf.io/s4w8r)). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a $30 Amazon gift card as compensation for their participation for which they had to provide their email address, after which they could win an additional $50 Amazon gift card if they were one of three top fabricators. The provided email addresses were unlinked from individual responses upon sending the bonus gift cards. The text of the Qualtrics survey is available at [osf.io/w984b](osf.io/w984b).
 
-Thirty-six fabricated sets of summary results were also collected for all four anchoring studies. We sampled 2,038 American psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS). Psychology researchers were sampled to improve familiarity with the anchoring effect [@jacowitz1995;@tversky1974], for which summary results were fabricated. U.S. researchers were sampled to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies. WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors). 
+Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
 
-The full sample frame was digitally approached to participate in this study on April XX, 2016 (invitation: osf.io/s4w8r). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-address saved at all). The researchers were fully informed that the study would require them to fabricate data and that we conducted this study to test the validity of statistical methods to detect data fabrication. Participants were also informed they could stop at any time without providing a reason. If they wanted, participants received a $30 Amazon gift card as compensation for their participation for which they had to provide their email address. These email addresses were unlinked from email addresses upon completion of the study and sending out the gift cards.
-
-Each respondent was instructed to fabricate 32 summary statistics (4 studies × 2 conditions × 2 sexes × 2 statistics [mean and sd]) that fulfilled three hypotheses. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. We instructed participants to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
-
-In order to standardize the fabrication process to a minimal extent, we provided participants with a spreadsheet where the fabricated data had to be filled out. Figure `r fig <- 1; fig` depicts an example of this spreadsheet. The yellow cells are those that the respondent is requested to fabricate and include both the means and the standard deviations. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. When these results corroborate the given expectations, a checkmark appears as in the green cells in Figure `r fig`. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format.
+We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they choose to fabricate data. Figure `r fig <- 1; fig` depicts an example of this spreadsheet (original:  [osf.io/w6v4u](osf.io/w6v4u)). We requested the respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. When these results confirm the hypotheses, a checkmark appears as depicted in the green cells. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
 
 ![spreadsheet](../figures/spreadsheet.png)
 
-**Figure `r fig`.** Example of a filled in spreadsheet used in the fabrication process.
+**Figure `r fig`.** Example of a filled in template spreadsheet used in the fabrication process. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell.
 
-Upon completing the fabrication of the data, participants were debriefed. Several questions were asked about their statistical knowledge and approach to data fabrication, and they were reminded that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. The full set of questions from the study are available at osf.io/w984b.
+Upon completing the fabrication of the data, respondents were debriefed. Several questions were asked about their statistical knowledge and approach to data fabrication. They were also reminded that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike.
 
-Participation was rewarded with a $30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus $50 Amazon gift card. If the participant wanted to receive a compensation and contend for the bonus $50, he/she had to enter an email to receive the reward. These email addresses were unlinked from individual responses upon sending the gift cards. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum).
+We rewarded participation with a $30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus $50 Amazon gift card. If the participant wanted to receive a compensation and contend for the bonus $50, he/she had to enter an email to receive the reward. These email addresses were unlinked from individual responses upon sending the gift cards. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward).
 
 ### Data analysis.
 
@@ -191,6 +187,16 @@ for (variables in c(18:31, 34, 37, 39, 41, 43, 45))
 
 # loop through matrix for proper comps
 
+tpr <- matrix(NA, ncol = 20, nrow = 101)
+fpr <- matrix(NA,ncol = 20, nrow = 101)
+fnr <- matrix(NA,ncol = 20, nrow = 101)
+tnr <- matrix(NA,ncol = 20, nrow = 101)
+
+ppv <- matrix(NA, ncol = 20, nrow = 101)
+fdr <- matrix(NA,ncol = 20, nrow = 101)
+npv <- matrix(NA,ncol = 20, nrow = 101)
+false_or <- matrix(NA,ncol = 20, nrow = 101)
+
 for (i in 1:20)
 {
   tpr[, i] <- tp[, i] / (tp[, i] + fn[, i])
@@ -276,49 +282,6 @@ lines(fpr$variance_sd_p_overall_hetero, tpr$variance_sd_p_overall_hetero,
      xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2, lty = 2)
 
 legend(x = 0, y = 1, bty = 'n', lty = c(1, 2), lwd = 2, legend = c('Homogeneous', 'Heterogeneous'))
-
-plot(x = roc(response = dat_summary$type,
-             predictor = dat_summary$fish_combine_3_hetero_p,
-             percent = TRUE,
-             ci = TRUE,
-             of = 'se',
-             sp = seq(0, 100, 5)), ci.type="shape")
-
-plot(x = roc(response = dat_summary$type,
-             predictor = dat_summary$variance_sd_p_overall_homo,
-             percent = TRUE,
-             ci = TRUE,
-             of = 'se',
-             sp = seq(0, 100, 5)), ci.type="shape")
-
-for (i in c(18,23))
-{
-  plot(x = roc(response = dat_summary$type,
-               predictor = dat_summary[, i],
-               percent = TRUE,
-               ci = TRUE,
-               of = 'se',
-               sp = seq(0, 100, 5)), ci.type="shape", main = names(dat_summary)[i])
-}
-
-plot(fpr[,1], tpr[,1], type = 's')
-lines(fpr[,6], tpr[,6], type = 's')
-
-plot(x = roc(response = dat_summary$type,
-             predictor = dat_summary$variance_sd_p_overall_homo,
-             percent = TRUE,
-             ci = TRUE,
-             of = 'se',
-             sp = seq(0, 100, 5)), ci.type="shape", main = 'homogeneous')
-plot(x = fpr$variance_sd_p_overall_homo, y = tpr$variance_sd_p_overall_homo, type = 's')
-
-plot(x = roc(response = dat_summary$type,
-             predictor = dat_summary$variance_sd_p_overall_hetero,
-             percent = TRUE,
-             ci = TRUE,
-             of = 'se',
-             sp = seq(0, 100, 5)), ci.type="shape", main = 'homogeneous')
-plot(x = fpr$variance_sd_p_overall_hetero, y = tpr$variance_sd_p_overall_hetero, type = 's')
 ```
 
 <!---
