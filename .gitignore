@@ -1,3 +1,7 @@
 .Rhistory
 .Rproj.user
 data/statcheck_dataset.csv
+submission/manuscript-*
+submission/manuscript.bbl
+submission/manuscript.log
+submission/manuscript.synctex.gz
