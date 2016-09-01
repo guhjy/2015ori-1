@@ -417,15 +417,14 @@ dat_summary <- dat[ , -which(names(dat) %in% c("study",
                                                "f_gender",
                                                "df1_gender",
                                                "df2_gender",
-                                               "p_gender",
+                                               # "p_gender",
                                                "f_condition",
                                                "df1_condition",
                                                "df2_condition",
-                                               "p_condition",
+                                               # "p_condition",
                                                "f_interaction",
                                                "df1_interaction",
-                                               "df2_interaction",
-                                               "p_interaction"))]
+                                               "df2_interaction"))]
 dat_summary <- dat_summary[!duplicated(dat_summary$referrer), ]
 dat_summary$fish_combine_3_homo <- -2 * (log(dat_summary$variance_sd_p_overall_homo) +
                                            log(dat_summary$gender_fish_p) + 
