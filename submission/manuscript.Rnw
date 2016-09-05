@@ -240,7 +240,9 @@ if(!file.exists(sprintf('%sfigures/ddfab_density.pdf', x12)))
 }
 @
 
-The collected data included \Sexpr{table(dat_summary$type)[1]} genuine data from Many Labs 1 \citep[\url{osf.io/pqf9r};][]{klein2014} and \Sexpr{table(dat_summary$type)[2]} fabricated datasets(\url{osf.io/e6zys}). \Sexpr{sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))} participants did not participate for a bonus. Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide a general idea of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. 
+The collected data included \Sexpr{table(dat_summary$type)[1]} genuine data from Many Labs 1 \citep[\url{osf.io/pqf9r};][]{klein2014} and \Sexpr{table(dat_summary$type)[2]} fabricated datasets(\url{osf.io/e6zys}; \Sexpr{sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))} participants did not participate for a bonus). 
+
+Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide an overview of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have previously raised initial suspicions. These data corroborate the idea that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, however). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
 
 % add plot of left and right skew
 \begin{figure}[!ht]
@@ -250,8 +252,6 @@ The collected data included \Sexpr{table(dat_summary$type)[1]} genuine data from
 \label{densities}
 \end{center}
 \end{figure}
-
-The distributions in Figure \ref{densities} indicate little difference between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large differences when subjects were required to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have raised initial suspicions previously. These data confirm that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, nonetheless). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered).
 
 <<generate results p/method, echo = FALSE, results = hide>>=
 tp <- matrix(NA, ncol = sum(grepl(names(dat_summary), pattern = "_p")), nrow = 101)
@@ -327,7 +327,7 @@ names(false_or) <- temp
 
 height = (tpr[-1, ] + tpr[-dim(tpr)[1], ])/2
 width = apply(fpr, 2, diff) # = diff(rev(omspec))
-AUC_res <- apply(height * width, 2, sum)
+auroc_res <- apply(height * width, 2, sum)
 
 Method <- c("$SD_z$ homogeneous all",
                     "$SD_z$ study 1",
@@ -364,37 +364,41 @@ Method <- c("$SD_z$ homogeneous all",
                     "Combined Fisher test (6 results, $SD_z$ homogeneous)",
                     "Combined Fisher test (6 results, $SD_z$ heterogeneous)",
                     "Effect sizes (1-r)")
-AUC <- as.numeric(AUC_res)
-# print(xtable(data.frame(Method, AUC),
-#              caption = "Area Under the Curve (AUC) for the various statistical methods used to detect data fabrication. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
-#              label = "auc", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+auroc <- as.numeric(auroc_res)
+# print(xtable(data.frame(Method, auroc),
+#              caption = "Area Under the Receiver Operating Curve (AUROC) for the various statistical methods used to detect data fabrication. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
+#              label = "auroc", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
 
 @
 
 \subsubsection*{Performance of using SDs to detect data fabrication}
 
-<<AUC for variance methods, echo=FALSE, results=tex>>=
+We applied two different operationalizations to inspect for data fabrication in the genuine- and fabricated datasets based on variance in the SDs. The $SD_z$ method \citep{simonsohn2013} inspects whether there the variance of the SDs themselves varies sufficiently, and we tested another method that inspects the range of the SDs. Table \ref{auroc_variances} indicates that both methods have similar performance when inspected with the Area Under the Receiver Operating Curve (AUROC). 
+
+The AUROC value indicates the probability that a randomly drawn fabricated dataset is classified as fabricated before a randomly drawn genuine dataset is classified as fabricated \citep{doi:10.1148/radiology.143.1.7063747}. In other words, if $AUROC=.5$ this indicates that correctly classifying a randomly drawn dataset in this sample is equal to a coin flip. Considering this, we will regard any AUROC$<.6$ as plainly insufficient for detecting data fabrication, $.6\leq AUROC<.7$ as failed, $.7\leq AUROC<.8$ as sufficient, $.8\leq AUROC<.9$ as good, and $.9\leq AUROC\leq 1$ as excellent.
+
+<<auroc for variance methods, echo=FALSE, results=tex>>=
 selmaxmin <- grepl(Method, pattern = '^.maxmin_')
 selsd <- grepl(x = Method, pattern = '^.SD_z')
-row_table <- c("Homogeneous combined",
-                    "Homogeneous study 1",
-                    "Homogeneous study 2",
-                    "Homogeneous study 3",
-                    "Homogeneous study 4",
-                    "Heterogeneous combined",
-                    "Study 1 low condition",
-                    "Study 1 high condition",
-                    "Study 2 low condition",
-                    "Study 2 high condition",
-                    "Study 3 low condition",
-                    "Study 3 high condition",
-                    "Study 4 low condition",
-                    "Study 4 high condition")
-variances_table <- data.frame(Method = row_table, SDz = AUC[selsd], maxminz = AUC[selmaxmin])
-names(variances_table) <- c("Method", "$SD_z$", "$maxmin_z$")
+row_table <- c("Homogeneous, combined",
+                    "Homogeneous, study 1",
+                    "Homogeneous, study 2",
+                    "Homogeneous, study 3",
+                    "Homogeneous, study 4",
+                    "Heterogeneous, combined",
+                    "Heterogeneous study 1, low anchor condition",
+                    "Heterogeneous study 1, high anchor condition",
+                    "Heterogeneous study 2, low anchor condition",
+                    "Heterogeneous study 2, high anchor condition",
+                    "Heterogeneous study 3, low anchor condition",
+                    "Heterogeneous study 3, high anchor condition",
+                    "Heterogeneous study 4, low anchor condition",
+                    "Heterogeneous study 4, high anchor condition")
+variances_table <- data.frame(Method = row_table, SDz = auroc[selsd], maxminz = auroc[selmaxmin])
+names(variances_table) <- c("Method", "auroc $SD_z$", "auroc $maxmin_z$")
 print(xtable(variances_table,
-             caption = "Area Under the Curve (AUC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
-             label = "auc_variances", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+             caption = "Area Under the Receiver Operating Curve (AUROC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
+             label = "auroc_variances", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
 @
 
 
@@ -424,28 +428,27 @@ if(!file.exists(sprintf('%sfigures/varianceplot.pdf', x12)))
 
 \subsubsection*{Performance of using $p$-values to detect data fabrication}
 
-We asked researchers to fabricate data for nonsignificant effect sizes after inspecting whether the genuine data resembled a uniform distribution. Consequently, our hypothesis was that researchers who fabricate data would be unlikely to fabricate a uniform $p$-value distribution, given many researchers misinterpret the $p$-value (e.g., as the probability of an effect %REF
-). However, as Table \ref{auc_fisher} indicates, the AUC for these methods are hardly better than chance. In other words, for effects that are specifically fabricated to be nonsignificant, researchers might not fabricate such large $p$-values to be suspicious.
+We asked researchers to fabricate data for nonsignificant effect sizes after inspecting whether the genuine data resembled a uniform distribution. Consequently,  However, as Table \ref{auroc_fisher} indicates, the auroc for these methods are hardly better than chance. In other words, for effects that are specifically fabricated to be nonsignificant, researchers might not fabricate such large $p$-values to be suspicious.
 
-<<AUC for single fisher methods, echo=FALSE, results=tex>>=
+<<auroc for single fisher methods, echo=FALSE, results=tex>>=
 sel <- grepl(Method, pattern = '^(Fisher test)')
 row_table <- Method[sel]
-tabl <- data.frame(Method = row_table, AUC = AUC[sel])
+tabl <- data.frame(Method = row_table, auroc = auroc[sel])
 print(xtable(tabl,
-             caption = "Area Under the Curve (AUC) for PLACEHOLDER",
-             label = "auc_fisher", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+             caption = "Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER",
+             label = "auroc_fisher", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
 @
 
 \subsubsection*{Performance of combining SDs and $p$-value methods to detect data fabrication}
 
 
-<<AUC for combined fisher methods, echo=FALSE, results=tex>>=
+<<auroc for combined fisher methods, echo=FALSE, results=tex>>=
 sel <- grepl(Method, pattern = 'Combined Fisher test')
 row_table <- Method[sel]
-tabl <- data.frame(Method = row_table, AUC = AUC[sel])
+tabl <- data.frame(Method = row_table, auroc = auroc[sel])
 print(xtable(tabl,
-             caption = "Area Under the Curve (AUC) for PLACEHOLDER",
-             label = "auc_combined", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+             caption = "Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER",
+             label = "auroc_combined", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
 @
 
 
@@ -499,6 +502,12 @@ statcheck_data$es[sel] <- statcheck_data$Value[sel]
 
 % Discuss how the PPV is likely to be overestimated because prevalence is 50% in this study
 % How we don't know the prevalence, in fact.
+
+% Discuss alpha choice based on sample has large error (small sample).
+% Only provides a first indication
+
+% Comparison between methods not tested, large error given small sample.
+% This provides just initial work
 
 
 \bibliography{../bibliography/library}
