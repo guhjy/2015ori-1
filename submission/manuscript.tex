@@ -74,7 +74,7 @@ and tests for right-skew in a set of $p$-values, but we adjust it to the followi
 \chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
 \label{fisheradjusted}
 \end{equation}
-where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. We set this threshold to .05 in order to include only nonsignificant test results.
+where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. We set this threshold to .05 in order to include only nonsignificant test results. The theoretical idea behind this method is that researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution, given the frequent misinterpretation of $p$-values \citep[e.g., as the probability of an effect,][]{Goodman2008135,Altman_1995}. % I can add more refs but it is just a rabbit hole to start with more.
 
 
 % add plot of left and right skew
@@ -86,14 +86,16 @@ where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-
 \end{center}
 \end{figure}
 
-Finally, we combined the three methods to detect data fabrication into an overall detection method (i.e., combination method). This included the $SD_z$ measure across all studies and the Fisher test (Equation \ref{fisheradjusted}) of the gender hypothesis test and the interaction test.  We expected this combination test of the three individual tests for data fabrication to be more powerful than the individual tests, given that these tests inspect different manifestations of data fabrications. Based on the results of the combined test results, the three least detectable data fabricators were selected. The three respondents with the highest $p$-values on this combined method to detect data fabrication contained the least evidential value for deviating from genuine data and received an additional \$50 Amazon gift card.
+Finally, we combined the aforementioned methods to detect data fabrication with the Fisher method. This included the $SD_z$ measure across all studies and the Fisher test (Equation \ref{fisheradjusted}) of the gender hypothesis test and the interaction test.  We expected this combination test of the three individual tests for data fabrication to be more powerful than the individual tests, given that these tests inspect different manifestations of data fabrications. Based on the results of the combined test results, the three least detectable data fabricators were selected. The three respondents with the highest $p$-values on this combined method to detect data fabrication contained the least evidential value for deviating from genuine data and received an additional \$50 Amazon gift card.
 
-For each of these four tests to detect data fabrication ($SD_z$, Fisher test for the gender and interaction hypotheses, combination method) we carried out sensitivity and specificity analyses using ROC-curves. With these ROC-curves, more informed decisions about optimal alpha levels can be made. In order to determine the optimal alpha level, we varied the alpha level from .000001 through .1. The optimal alpha level was determined by finding that alpha level for which the combination of true positive rate (TPR) and the true negative rate (TNR) were highest. For example, if $\alpha=.04$ results in $TPR=.30$ and $TNR=.7$, but $\alpha=.05$ results in $TPR=.5$ and $TNR=.5$, then .05 was chosen as an optimal decision criterion based on the sample.
+For each of these four tests to detect data fabrication ($SD_z$, Fisher test for the gender and interaction hypotheses, combined methods) we carried out sensitivity and specificity analyses using ROC-curves. ROC-curves indicate the sensitivity (i.e., True Positive Rate [TPR]) and specificity (i.e., True Negative Rate [TNR]) for various decision criteria (e.g., $\alpha=0, .01, .02, ..., .99, 1$). With these ROC-curves, informed decisions about optimal alpha levels can be made based on various criteria. In this case, we determine the optimal alpha level by finding that alpha level for which the combination of TPR and TNR were highest. For example, if $\alpha=.04$ results in $TPR=.30$ and $TNR=.70$, but $\alpha=.05$ results in $TPR=.5$ and $TNR=.5$, .05 was chosen as an optimal decision criterion based on the sample. 
 
 \subsection*{Results}
 
 
-The collected data included 36 genuine data from Many Labs 1 \citep[\url{osf.io/pqf9r};][]{klein2014} and 39 fabricated datasets(\url{osf.io/e6zys}). 3 participants did not participate for a bonus. Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide a general idea of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. 
+The collected data included 36 genuine data from Many Labs 1 \citep[\url{osf.io/pqf9r};][]{klein2014} and 39 fabricated datasets(\url{osf.io/e6zys}; 3 participants did not participate for a bonus). 
+
+Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide an overview of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have previously raised initial suspicions. These data corroborate the idea that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, however). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
 
 % add plot of left and right skew
 \begin{figure}[!ht]
@@ -104,37 +106,39 @@ The collected data included 36 genuine data from Many Labs 1 \citep[\url{osf.io/
 \end{center}
 \end{figure}
 
-The distributions in Figure \ref{densities} indicate little difference between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large differences when subjects were required to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have raised initial suspicions previously. These data confirm that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, nonetheless). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered).
-
 
 \subsubsection*{Performance of using SDs to detect data fabrication}
 
+We applied two different operationalizations to inspect for data fabrication in the genuine- and fabricated datasets based on variance in the SDs. The $SD_z$ method \citep{simonsohn2013} inspects whether there the variance of the SDs themselves varies sufficiently, and we tested another method that inspects the range of the SDs. Table \ref{auroc_variances} indicates that both methods have similar performance when inspected with the Area Under the Receiver Operating Curve (AUROC). 
+
+The AUROC value indicates the probability that a randomly drawn fabricated dataset is classified as fabricated before a randomly drawn genuine dataset is classified as fabricated \citep{doi:10.1148/radiology.143.1.7063747}. In other words, if $AUROC=.5$ this indicates that correctly classifying a randomly drawn dataset in this sample is equal to a coin flip. Considering this, we will regard any AUROC$<.6$ as plainly insufficient for detecting data fabrication, $.6\leq AUROC<.7$ as failed, $.7\leq AUROC<.8$ as sufficient, $.8\leq AUROC<.9$ as good, and $.9\leq AUROC\leq 1$ as excellent.
+
 % latex table generated in R 3.3.1 by xtable 1.8-2 package
-% Thu Sep  1 17:46:56 2016
+% Mon Sep  5 09:04:38 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrr}
   \hline
-Method & $SD_z$ & $maxmin_z$ \\ 
+Method & auroc $SD_z$ & auroc $maxmin_z$ \\ 
   \hline
-Homogeneous combined & 0.423 & 0.303 \\ 
-  Homogeneous study 1 & 0.368 & 0.374 \\ 
-  Homogeneous study 2 & 0.421 & 0.446 \\ 
-  Homogeneous study 3 & 0.510 & 0.521 \\ 
-  Homogeneous study 4 & 0.540 & 0.542 \\ 
-  Heterogeneous combined & 0.770 & 0.756 \\ 
-  Study 1 low condition & 0.643 & 0.643 \\ 
-  Study 1 high condition & 0.438 & 0.438 \\ 
-  Study 2 low condition & 0.751 & 0.751 \\ 
-  Study 2 high condition & 0.612 & 0.612 \\ 
-  Study 3 low condition & 0.668 & 0.668 \\ 
-  Study 3 high condition & 0.651 & 0.651 \\ 
-  Study 4 low condition & 0.796 & 0.796 \\ 
-  Study 4 high condition & 0.555 & 0.555 \\ 
+Homogeneous, combined & 0.423 & 0.303 \\ 
+  Homogeneous, study 1 & 0.368 & 0.374 \\ 
+  Homogeneous, study 2 & 0.421 & 0.446 \\ 
+  Homogeneous, study 3 & 0.510 & 0.521 \\ 
+  Homogeneous, study 4 & 0.540 & 0.542 \\ 
+  Heterogeneous, combined & 0.770 & 0.756 \\ 
+  Heterogeneous study 1, low anchor condition & 0.643 & 0.643 \\ 
+  Heterogeneous study 1, high anchor condition & 0.438 & 0.438 \\ 
+  Heterogeneous study 2, low anchor condition & 0.751 & 0.751 \\ 
+  Heterogeneous study 2, high anchor condition & 0.612 & 0.612 \\ 
+  Heterogeneous study 3, low anchor condition & 0.668 & 0.668 \\ 
+  Heterogeneous study 3, high anchor condition & 0.651 & 0.651 \\ 
+  Heterogeneous study 4, low anchor condition & 0.796 & 0.796 \\ 
+  Heterogeneous study 4, high anchor condition & 0.555 & 0.555 \\ 
    \hline
 \end{tabular}
-\caption{Area Under the Curve (AUC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.} 
-\label{auc_variances}
+\caption{Area Under the Receiver Operating Curve (AUROC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.} 
+\label{auroc_variances}
 \end{table}
 
 
@@ -148,34 +152,33 @@ Homogeneous combined & 0.423 & 0.303 \\
 
 \subsubsection*{Performance of using $p$-values to detect data fabrication}
 
-We asked researchers to fabricate data for nonsignificant effect sizes after inspecting whether the genuine data resembled a uniform distribution. Consequently, our hypothesis was that researchers who fabricate data would be unlikely to fabricate a uniform $p$-value distribution, given many researchers misinterpret the $p$-value (e.g., as the probability of an effect %REF
-). However, as Table \ref{auc_fisher} indicates, the AUC for these methods are hardly better than chance. In other words, for effects that are specifically fabricated to be nonsignificant, researchers might not fabricate such large $p$-values to be suspicious.
+We asked researchers to fabricate data for nonsignificant effect sizes after inspecting whether the genuine data resembled a uniform distribution. Consequently,  However, as Table \ref{auroc_fisher} indicates, the auroc for these methods are hardly better than chance. In other words, for effects that are specifically fabricated to be nonsignificant, researchers might not fabricate such large $p$-values to be suspicious.
 
 % latex table generated in R 3.3.1 by xtable 1.8-2 package
-% Thu Sep  1 17:46:56 2016
+% Mon Sep  5 09:04:38 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{lr}
   \hline
-Method & AUC \\ 
+Method & auroc \\ 
   \hline
 Fisher test gender hypothesis & 0.521 \\ 
   Fisher test interaction hypothesis & 0.535 \\ 
    \hline
 \end{tabular}
-\caption{Area Under the Curve (AUC) for PLACEHOLDER} 
-\label{auc_fisher}
+\caption{Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER} 
+\label{auroc_fisher}
 \end{table}
 \subsubsection*{Performance of combining SDs and $p$-value methods to detect data fabrication}
 
 
 % latex table generated in R 3.3.1 by xtable 1.8-2 package
-% Thu Sep  1 17:46:56 2016
+% Mon Sep  5 09:04:38 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{lr}
   \hline
-Method & AUC \\ 
+Method & auroc \\ 
   \hline
 Combined Fisher test (3 results, $SD_z$ homogeneous) & 0.602 \\ 
   Combined Fisher test (3 results, $SD_z$ heterogeneous) & 0.736 \\ 
@@ -183,8 +186,8 @@ Combined Fisher test (3 results, $SD_z$ homogeneous) & 0.602 \\
   Combined Fisher test (6 results, $SD_z$ heterogeneous) & 0.643 \\ 
    \hline
 \end{tabular}
-\caption{Area Under the Curve (AUC) for PLACEHOLDER} 
-\label{auc_combined}
+\caption{Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER} 
+\label{auroc_combined}
 \end{table}
 
 \subsubsection*{Performance of large effect sizes to detect data fabrication}
@@ -204,6 +207,12 @@ Combined Fisher test (3 results, $SD_z$ homogeneous) & 0.602 \\
 
 % Discuss how the PPV is likely to be overestimated because prevalence is 50% in this study
 % How we don't know the prevalence, in fact.
+
+% Discuss alpha choice based on sample has large error (small sample).
+% Only provides a first indication
+
+% Comparison between methods not tested, large error given small sample.
+% This provides just initial work
 
 
 \bibliography{../bibliography/library}
