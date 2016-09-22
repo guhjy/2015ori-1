@@ -7,7 +7,7 @@ The application does not provide clear evidence that the type of misconduct to w
 
 ## Response
 
-We never aimed to support such claim; we only aimed to sketch the problem with the way estimates of data fabrication are now constructed.
+We never aimed to support such a claim; we only aimed to sketch the problem with the way estimates of data fabrication are now constructed. We fully agree with the reviewer that there is no way of knowing whether the data fabrication admitted to is the same as the data fabrication these methods could detect.
 
 # Reviewer remark 2
 
@@ -15,7 +15,7 @@ The application did not explain why it only focuses on social and medical scienc
 
 ## Response
 
-We focus only on the social- and medical sciences given the widespread use of randomized experimental procedures and our familiarity with the measures applied here. We could expand to other fields with sufficient resources, but given the constraints of the current grant scheme we focused on these fields.
+We focus only on the social- and medical sciences given the widespread use of randomized experimental procedures in these fields and our familiarity with the misconduct cases in these fields. We could expand to other fields with sufficient resources, but given the constraints of the current grant scheme we focused on these fields.
 
 # Reviewer remark 3
 
@@ -47,8 +47,6 @@ We did not intend to propose this to be our innovation --- we only wanted to imp
 There are some weaknesses in Project 1, which include: 1) The application does not consider the situation where researchers do not fabricate the entire data but only modify some numbers in real data, 2) Researchers can improve the way they fabricate data if they know what kinds of statistical methods are used for fabrication detection, 3) Twenty participants might not cover all or most of fabrication behaviors, and 4) There is a possibility that none of the methods can distinguish genuine data from fabricated data. Therefore, it is unclear how the applicant will continue to Project 2 and 3.
 
 ## Response
-
-Project 1 is indeed limited by focusing on only fabrication and not falsification. We hope to expand on this in Phase II. With respect to the prob
 
 Weakness 1: The reviewer correctly identifies that the projects only look at fabrication, and not falsification. This is a limitation and we look to improve upon this in the Phase II grant proposal. 
 
