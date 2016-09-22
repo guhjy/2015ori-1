@@ -1,27 +1,19 @@
 # Materials list
 
 - [ ] [Protocol](#protocol)
+- [x] [Invitation email](#invitation-email)
 - [ ] [Consent form](#consent-form)
 - [ ] [Instructions](#instructions)
 - [ ] [Fabrication spreadsheet](#fabrication-spreadsheet)
-- [x] [Invitation email](#invitation-email)
 - [x] [Sampling frame](#sampling-frame)
 
 # Protocol
 
-# Consent form
-
-# Instructions
-
-## Overview study
-
-## Hypotheses
-
-## Questionnaire fabricator characteristics
-
-# Fabrication spreadsheet
-
-See [https://github.com/chartgerink/2015ori/raw/master/materials/study_02/template%20UNLOCKED.xlsx](spreadsheet).
+1. Invite
+2. Qualtrics (consent + general Qs + instructions and spreadsheet download)
+3. Plan interview
+4. Conduct interview
+5. Reward top three fabricators
 
 # Invitation email
 
@@ -44,6 +36,22 @@ Chris Hartgerink
 Jan Völkel
 Marcel van Assen
 Jelte Wicherts
+
+# Consent form
+
+# Instructions
+
+## Overview study
+
+## Hypotheses
+
+## Questionnaire fabricator characteristics
+
+# Fabrication spreadsheet
+
+See [https://github.com/chartgerink/2015ori/raw/master/materials/study_02/template%20UNLOCKED.xlsx](spreadsheet).
+
+
 
 # Sampling Frame
 
