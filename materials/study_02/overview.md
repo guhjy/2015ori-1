@@ -22,7 +22,9 @@ NOTE: copied from [study 01 consent form and revised](https://github.com/chartge
 Dear fellow scientist,
 
 We are conducting a study on statistical methods to distinguish genuine psychological data from fabricated data. To this end, we are looking for scientists who have recently published on the Stroop task and want to participate in our study.
- 
+
+NOTE: We will not test your studies on whether they are fabricated or not. Rather, we would like to ask you to help in improving the statistical methods to detect data fabrication.
+
 We would like to invite you to participate in this study, where we request you to fabricate a dataset on the Stroop task and would like to interview you on how you fabricated the data. To compensate you for your time, you will receive 100 euro's, with a potential additional 100 euro's if your fabricated results are one of the three that are hardest to detect (out of 20). Participation would entail fabricating a dataset before the interview on how the data were fabricated. The interview would take  approximately 45 minutes, fabricating the data at least 30 minutes but is not limited.
 
 The data of our study will be used to examine the performance of statistical methods to detect fabricated data. This study has been approved by the Psychological Ethics Committee of Tilburg University (reference EC-2015.50).
