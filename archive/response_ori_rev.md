@@ -7,7 +7,7 @@ The application does not provide clear evidence that the type of misconduct to w
 
 ## Response
 
-We never aimed to support such a claim; we only aimed to sketch the problem with the way estimates of data fabrication are now constructed. We fully agree with the reviewer that there is no way of knowing whether the data fabrication admitted to is the same as the data fabrication these methods could detect.
+We never aimed to support such a claim; we only aimed to sketch the problem with the way estimates of data fabrication are now constructed. We fully agree with the reviewer that there is no way of knowing whether the data fabrication admitted to is the same as the data fabrication these methods could detect. Project 1 and 2 were also designed to shed more light on the question how misconduct occurs so that they will help not only in identifying whether the proposed method are sufficient but also provide helpful data for developing new methods if the proposed ones fail.
 
 # Reviewer remark 2
 
@@ -15,7 +15,7 @@ The application did not explain why it only focuses on social and medical scienc
 
 ## Response
 
-We focus only on the social- and medical sciences given the widespread use of randomized experimental procedures in these fields and our familiarity with the misconduct cases in these fields. We could expand to other fields with sufficient resources, but given the constraints of the current grant scheme we focused on these fields.
+We focus only on the social- and medical sciences given the widespread use of randomized experimental procedures in these fields and our familiarity with the misconduct cases in these fields. We could expand to other fields with sufficient resources, but given the constraints of the current grant scheme we focused on these fields. Regardless, the methods investigated can be applied to other fields as well.
 
 # Reviewer remark 3
 
