@@ -98,7 +98,7 @@ After you fill out the highlighted yellow cells, the spreadsheet automatically c
 
 # Fabrication spreadsheet
 
-See [https://github.com/chartgerink/2015ori/raw/master/materials/study_02/template%20UNLOCKED.xlsx](spreadsheet).
+See [https://github.com/chartgerink/2015ori/raw/master/materials/study_02/templateUNLOCKED.xlsx](spreadsheet).
 
 
 
