@@ -1,0 +1,12 @@
+Task: Search for open-source software to transcribe from Audio to text files
+Approach: Google
+* No -> Name -> Link -> English? -> Last update?
+* Software 1: CMU Sphinx -> http://cmusphinx.sourceforge.net/ -> Yes -> 05.09.2016
+* Software 2: HTK Speech Recognition -> http://htk.eng.cam.ac.uk/ -> Yes -> 28.06.2016
+* Software 3: Julius -> http://julius.osdn.jp/en_index.php -> Yes -> 15.01.2014
+
+-> Alternative: oTranscribe (This does not transcribe automatically, but makes transcribing easier)
+-> As I had problems understanding the three softwares above, I searched for some non-open source, but
+still free softwares and found "Speechlogger"
+	* Either play it on the dictaphone (-> use normal speakers of laptop) or as a file on the computer (use voicemeter program)
+	* We need to play it slowly -> Less errors
