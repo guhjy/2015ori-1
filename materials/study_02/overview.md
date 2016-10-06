@@ -119,7 +119,7 @@ Now, we would like to request you to plan an interview with the research assista
 
 Multiple suggestions are a necessity, given travel time has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule. 
 
-# Instructions of Doodle MeetMe page
+# Instructions on Doodle MeetMe page
 
 Please suggest several dates on this page for the interview.
 
@@ -177,6 +177,16 @@ Then, please indicate your address in the location field and follow the necessar
 - Are you familiar with statistical methods to detect data fabrication?
 
 	- [if yes] can you describe or name the methods you are familiar with?
+
+# Step-by-step protocol for interview 
+
+
+# Step-by-step protocol for handing over data from Jan to Chris 
+
+- How it is shared?
+(Surfdrive)
+- How we ensure anonymity
+
 
 # Participant reward receipt
 
