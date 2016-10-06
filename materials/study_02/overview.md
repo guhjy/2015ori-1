@@ -119,6 +119,16 @@ Now, we would like to request you to plan an interview with the research assista
 
 Multiple suggestions are a necessity, given travel time has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule. 
 
+# Instructions of Doodle MeetMe page
+
+Please suggest several dates on this page for the interview.
+
+First, please mark your time-slot proposals in the calendar and click on "Create meeting request.
+
+Multiple suggestions are necessary as multiple interviews conducted. In the case that none of your suggestions are possible, Jan will contact you to reschedule the interview.
+
+Then, please indicate your address in the location field and follow the necessary steps to send the request.
+
 # Interview questions
 
 - How long do you estimate that it took you to fabricate the data?
