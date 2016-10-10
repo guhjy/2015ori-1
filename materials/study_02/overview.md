@@ -129,55 +129,6 @@ Multiple suggestions are necessary as multiple interviews conducted. In the case
 
 Then, please indicate your address in the location field and follow the necessary steps to send the request.
 
-# Interview questions
-
-- How long do you estimate that it took you to fabricate the data?
-
-- Did you apply a specific data fabrication strategy or did you experiment with whatever came to mind?
-
-	- [if a specific strategy was used] Why did you choose for this specific strategy?
-
-	- [if experimentation was used] What criteria did you use to determine if the data fabrication approach was successful?
-
-- Were there things you spent particular focus on during the data fabrication in order to make them look more genuine?
-
-	- [if yes] what aspects did you spend particular attention to?
-
-	- [if no] in hindsight, are there things you think you should have paid specific attention to?
-
-- How many different datasets do you estimate that you you fabricated before getting to the final, fabricated dataset?
-
-- Besides the supplied spreadsheet, did you use any other programs to fabricate data?
-
-	- [if yes] Did you use a random number generator to simulate data during this study?
-
-	- [if no] Was there a specific reason why you did not use the computer in the data fabrication process?
-
-- Did you take into consideration other relations than those in the hypotheses?
-	
-	- [if confused] For example, correlations between the means and the standard deviations?
-
-- Is there anything else you can recall about the data fabrication process that you think is worth mentioning?
-
-- How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
-
-- Which statistical analysis programs do you use at least once a week? [multiple answers possible]
- 
- - [ ] SPSS
- - [ ] R
- - [ ] Stata
- - [ ] SAS
- - [ ] Matlab
- - [ ] Python
- - [ ] Other, namely: _____________
- - [ ] None
-
-- How many studies including a Stroop task have you conducted? [CHJH: Scrap? We pre-selected on this after all]
-
-- Are you familiar with statistical methods to detect data fabrication?
-
-	- [if yes] can you describe or name the methods you are familiar with?
-
 # Step-by-step protocol for interview [Including full list of interview questions]
 
 ## Step 1: Introduction
