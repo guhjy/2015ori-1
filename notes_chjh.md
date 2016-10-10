@@ -13,3 +13,7 @@
 1. Got ethics approval recently (November 2, 2015)
 2. Meet with Marcel and Jelte today on more
 3. Control question: where are you from originally (us/non-us)?
+
+# October 10, 2016
+1. Redo Collection of emails for study 2 done
+2. Used following procedure: Web of science --> 2005-2016 and topic "Stroop" (5,577 results) --> psychology only ("Web of Science categories"; 899 results) --> only articles ("Document Types"; 797 results) --> Netherlands + Belgium only ("Countries/Territories"; 90 results) --> download marked list --> extract corresponding author email --> retain only unique emails (80; don't know how this is lower than from before, WoS is odd...)
