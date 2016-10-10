@@ -119,54 +119,171 @@ Now, we would like to request you to plan an interview with the research assista
 
 Multiple suggestions are a necessity, given travel time has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule. 
 
-# Interview questions
+# Instructions on Doodle MeetMe page
 
-- How long do you estimate that it took you to fabricate the data?
+Please suggest several dates on this page for the interview.
 
+First, please mark your time-slot proposals in the calendar and click on "Create meeting request.
+
+Multiple suggestions are necessary as multiple interviews conducted. In the case that none of your suggestions are possible, Jan will contact you to reschedule the interview.
+
+Then, please indicate your address in the location field and follow the necessary steps to send the request.
+
+# Step-by-step protocol for interview [Including full list of interview questions]
+
+## Step 1: Introduction
+
+Dear _________________,
+First of all, on behalf of all researchers involved in this study, thank you very much for participating in our study. We highly appreciate the time and effort that you spent to create the fabricated dataset.
+My name is Jan. I am a research assistant and I would like to conduct the interview with you today. The interview will take around 45 minutes and it will be semi structured. That is, I have prepared some questions to understand how you proceed to fabricate the data, but you are free to bring in the information you find most important and to focus on certain areas.
+Before we begin with the actual interview, I would like to ask you to copy the spreadsheet with the fabricated data to this usb stick in the folder: Participant No. __________.
+
+[Participants copies fabricated data to stick]
+
+#### NOTE: We have to decide whether I give them the stick which I think is the easiest thing to do. But then we have to make sure that they cannot copy the data from other participants that might be on that stick.
+
+Ok, thank you very much. Now, we come to the interview. In order to maximize the amount of information that we can use from the interview, I would like to record the interview. Are you ok with recording the video? Note that I will be the only person who can connect your interview data to the fabricated data file and we will delete any personally identifying information as soon as we have sent out the prices for the best fabricated data sets.
+
+[Participants indicates that they are ok with recording the interview]
+
+#### NOTE: Do we need another form which they sign to declare that they are fine with the recording? Or is the consent form on qualtrics enough.
+
+#### NOTE: What do we do if they are not ok with recording the interview?
+Alright, thank you. Then I would like to start with the interview now.
+
+[Turn on Dictaphone]
+
+## Step 2: Interview
+
+In this interview, I will ask you open questions. Please feel free to elaborate as much as you want on every point that is important to you.
+
+### Step 2a: Warm-up question? 
+
+#### NOTE: I have read that one should ask some personal background questions first. But I am a bit hesitant to do this in the context of the actual interview. What do you think?
+
+### Step 2b: Broad question
+Please tell me how you fabricated your data set, beginning when you downloaded the instructions from the qualtrics page.
+
+### Step 2c: Follow-up questions (If this was not already covered)
+
+Part 1: Preparations
+- Did you make a plan how you would fabricate the data?
+- Did you spend some time informing yourself about methods to fabricate data?
+	* [if yes] – what were your sources?
+
+Part 2: Actually fabricating
+- How did you fabricate your first data set?
 - Did you apply a specific data fabrication strategy or did you experiment with whatever came to mind?
-
-	- [if a specific strategy was used] Why did you choose for this specific strategy?
-
-	- [if experimentation was used] What criteria did you use to determine if the data fabrication approach was successful?
-
+	* [if a specific strategy was used] Why did you choose for this specific strategy?
+	* [if experimentation was used] What criteria did you use to determine if the data fabrication approach was successful 		in being difficult to be detected?
 - Were there things you spent particular focus on during the data fabrication in order to make them look more genuine?
+	* [if yes] what aspects did you spend particular attention to?
+	* [if no] in hindsight, are there things you think you should have paid specific attention to?
 
-	- [if yes] what aspects did you spend particular attention to?
-
-	- [if no] in hindsight, are there things you think you should have paid specific attention to?
-
-- How many different datasets do you estimate that you you fabricated before getting to the final, fabricated dataset?
-
-- Besides the supplied spreadsheet, did you use any other programs to fabricate data?
-
-	- [if yes] Did you use a random number generator to simulate data during this study?
-
-	- [if no] Was there a specific reason why you did not use the computer in the data fabrication process?
-
+Part 3: Test and retest – Improving the data set
+- How did you test the quality of your data set?
+- How many different datasets do you estimate that you fabricated before getting to the final, fabricated dataset?
 - Did you take into consideration other relations than those in the hypotheses?
-	
-	- [if confused] For example, correlations between the means and the standard deviations?
+	* [if confused] For example, correlations between the means and the standard deviations?
+- Are you familiar with statistical methods to detect data fabrication?
+	* [if yes] can you describe or name the methods you are familiar with?
+	* [if yes] did you use these methods and if so, how?
 
+Part 4: Others
+- How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
+- Which statistical analysis programs do you use at least once a week? [multiple answers possible]
+	* SPSS        R        Stata        SAS        Matlab        Python        
+	* Other, namely: _____________
+	* None
+- How many studies including a Stroop task have you conducted? [CHJH: Scrap? We pre-selected on this after all]
+- How long do you estimate that it took you to fabricate the data?
+- Besides the supplied spreadsheet, did you use any other programs to fabricate data?
+	* [if yes] Did you use a random number generator to simulate data during this study?
+	* [if no] Was there a specific reason why you did not use the computer in the data fabrication process?
+
+Part 5: Final questions
+- How do you rate the quality of your fabricated data set? (1 = extremely poor; 10 = excellent)
+- How likely do you think is it that your fabricated data set can be detected by existing methods to detect data fabrication? (1 = very unlikely; 10 = very likely)
 - Is there anything else you can recall about the data fabrication process that you think is worth mentioning?
 
-- How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
+Ok, then this is the end of the interview. 
 
-- Which statistical analysis programs do you use at least once a week? [multiple answers possible]
- 
- - [ ] SPSS
- - [ ] R
- - [ ] Stata
- - [ ] SAS
- - [ ] Matlab
- - [ ] Python
- - [ ] Other, namely: _____________
- - [ ] None
+[Turn off Dictaphone]
 
-- How many studies including a Stroop task have you conducted? [CHJH: Scrap? We pre-selected on this after all]
+## Step 3: Post-Interview
 
-- Are you familiar with statistical methods to detect data fabrication?
+I will now give you the 100 € for the participation. 
 
-	- [if yes] can you describe or name the methods you are familiar with?
+[Hand out 100 €]
+[Hand out receipt]
+
+Please read and sign this form to indicate that you have received the 100 €. Note that for the additional 100 € that you may receive, we first have to determine which dataset is hardest to detect. You will be informed in around _____ weeks whether you will receive the additional money.
+
+[Participant signs receipt]
+
+Thank you very much for participating in our study. As a final reminder, I have to emphasize that fabricating data is only allowed within this experiment and should not be taken as an invitation to fabricate research results elsewhere. Data fabrication is a serious form of scientific misconduct and is widely and explicitly condemned by professional organizations, institutions, and funding agencies alike.
+If you have any questions about this project, you can ask them now. 
+
+[Wait for questions by the participant]
+
+#### NOTE: How should I deal with the situation when they have questions that I cannot answer? Give them Chris’ email address?
+
+Ok, if you do not have [anymore] questions, thanks again for your participation! You will hear from us about the potential bonus treatment. Have a nice day!
+
+# Step-by-step protocol for handing over data from Jan to Chris 
+
+## Data
+- Spreadsheet with fabricated data
+- Interview recordings
+
+## Tasks
+- We have to be able to link spreadsheet and interview recordings
+- We have to store the data
+- All identifiable information have to be deleted
+
+## Problems
+- Do we want to store the initial recordings of the interviews or only the transcripts?
+- We need the identifiable information so that we can send the 100€ to the winner
+
+## Procedure
+
+After Interview starting situation:
+- 20 spreadsheets are on a USB stick
+- 20 interview recordings are on the Dictaphone
+- 20 receipts for 100 €
+
+Step 1: Jan hands in receipts to HR office
+- To whom exactly?
+
+Step 2: Jan creates files
+- Jan assigns Id to spreadsheets and to interview recordings so that they can be linked
+- Jan creates a separate password-protected document in which ID and person + contact details are linked (Nobody else has access to this document)
+
+Step 3: Jan ensures that all spreadsheet data is not identifiable
+- Destroying metadata of files / Copying everything into new files (?)
+
+Step 4: Jan sends spreadsheet data to Chris
+- Jan uploads spreadsheet with ID to platform (github?) and shares it with Chris
+
+Step 5: Jan transcribes interviews
+- Jan uses automatic transcription software
+- Jan double-checks and corrects results of transcription software
+
+Step 6: Jan deletes raw interview data / uploads to secret password-protected platform (What do you want?)
+
+Step 7: Jan sends transcripts to Chris
+- Jan uploads transcripts to platform (github?) and shares it with Chris
+
+Step 8: Chris determines winners of fabrication competition and sends Jan the respective IDs
+
+Step 9: Jan identifies winners with help of the ID->name spreadsheet
+
+Step 10: Jan brings price to winners and collects 3 receipts
+
+Step 11: Jan hands in receipts to HR office
+- To whom exactly?
+
+Step 12: Jan deletes ID->name spreadsheet
 
 # Participant reward receipt
 
