@@ -29,15 +29,16 @@ NOTE: copied from [study 01 consent form and revised](https://github.com/chartge
 
 Dear fellow scientist,
 
-We are conducting a study on statistical methods to distinguish genuine psychological data from fabricated data. To this end, we are looking for scientists who have recently published on the Stroop task and want to participate in our study.
+We are conducting a study on statistical methods to distinguish genuine psychological data from fabricated data (using the Stroop task). To this end, we are looking for scientists from the Netherlands and Belgium who have published on the Stroop task and want to participate in our study. We retrieved your email from the "Web of Science" database (if you are not a resident of the Netherlands/Belgium, our apologies for e-mailing you and you can discard this message). 
 
-NOTE: This study is **not** about testing your published studies for fabrication.
+We would like to invite you to participate in this study, where we request you to fabricate a dataset on the Stroop task and would like to conduct an interview on how you fabricated the data. To compensate you for your time, you will receive 100 euros at the end of the interview. You may earn an additional 100 euros if your fabricated results prove to be one of the three that are hardest to detect (out of 20). Participation would entail fabricating a dataset before the face-to-face interview. The face-to-face interview will take approximately 45 minutes, fabricating the data will take at least 30 minutes but the time spent on fabricating data is at your discretion.
 
-We would like to invite you to participate in this study, where we request you to fabricate a dataset on the Stroop task and would like to interview you on how you fabricated the data. To compensate you for your time, you will receive 100 euro's at the end of the interview. You may earn an additional 100 euro's if your fabricated results prove to be one of the three that are hardest to detect (out of 20). Participation would entail fabricating a dataset before the face-to-face interview. The face-to-face interview will take approximately 45 minutes, fabricating the data will take at least 30 minutes but the time spent on fabricating data is at your discretion.
-
-The data of our study will be used to examine the performance of statistical methods to detect fabricated data. This study has been approved by the Psychological Ethics Committee of Tilburg University (reference EC-2015.50).
+The data of our study will only be used to examine the performance of statistical methods to detect fabricated data. Our study has been approved by the Psychological Ethics Committee of Tilburg University (reference EC-2015.50).
 
 Participation in this study requires the use of a PC, because we require you to use spreadsheets to process the fabricated data.
+
+If you would like to participate, click here or copy the link below into the address bar of your browser. 
+<!-- This needs to be incorporated in Qualtrics of course -->
 
 If you have any questions, please feel free to reply to this e-mail.
 
@@ -57,7 +58,7 @@ If you choose to participate, you will take part in a study about "Validating st
 
 ### Benefits
 
-You will receive 100 euro's at the end of the face-to-face interview, with a potential additional 100 euro's if your fabricated results are one of the three that are hardest to detect (out of 20). 
+You will receive 100 euros at the end of the face-to-face interview, with a potential additional 100 euros if your fabricated results are one of the three that are hardest to detect (out of 20). 
 
 Your participation will help us investigate the performance of statistical methods to detect fabricated data. We focus on studying whether fabricated data can be detected in a valid manner (e.g., the power and the false positive rate), where the goal is to become better informed about the validity of these methods and whether these methods are valuable to apply in practice.
 
