@@ -54,13 +54,13 @@ Jelte Wicherts
 
 ### Description
 
-If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results. 
+If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results of the Stroop task. 
 
 ### Benefits
 
 You will receive 100 euros at the end of the face-to-face interview, with a potential additional 100 euros if your fabricated results are one of the three that are hardest to detect (out of 20). 
 
-Your participation will help us investigate the performance of statistical methods to detect fabricated data. We focus on studying whether fabricated data can be detected in a valid manner (e.g., the power and the false positive rate), where the goal is to become better informed about the validity of these methods and whether these methods are valuable to apply in practice.
+Your participation will help us investigate the performance of statistical methods to detect fabricated data. We focus on studying the statistical properties (e.g., the power and the false positive rate) of methods to detect data fabrication, where the goal is to examine whether these statistical methods are valuable to apply in practice.
 
 ### Risks/discomforts
 
@@ -72,7 +72,7 @@ To ensure anonymity, we disabled the logging of your e-mail address or IP-addres
 
 ### Voluntary nature of participation
 
-Your decision to participate in this study is completely voluntary. If you choose to participate, you may terminate your participation at any time.
+Your decision to participate in this study is completely voluntary. If you choose to participate, you may terminate your participation at any time. Due to limited resources, we can only reward participants who complete the study.
 
 ### Contact information
 
