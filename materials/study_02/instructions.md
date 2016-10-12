@@ -24,7 +24,7 @@ The yellow cells depict incongruent response latencies.
 
 Each row depicts the data for one participant. 
 
-The spreadsheet automatically calculates and displays the test statistics (t-value and p-value) concerning one hypothesis. How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that
+The spreadsheet automatically calculates and displays the test statistics (t-value and p-value) concerning the Stroop effect. How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that
 
 **You can spend as much time as you think is needed on fabricating the data, until the face-to-face interview takes place. This does not need to be done within this browser window.**
 
