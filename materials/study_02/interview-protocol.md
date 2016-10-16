@@ -49,6 +49,7 @@ Part 3: Test and retest – Improving the data set
 	* [if yes] did you use these methods and if so, how?
 
 Part 4: Others
+- What was the timeline of your work? (Did you work constantly on the dataset or did you do everything on one day)?
 - How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
 - Which statistical analysis programs do you use at least once a week? [multiple answers possible]
 	* SPSS        R        Stata        SAS        Matlab        Python        
