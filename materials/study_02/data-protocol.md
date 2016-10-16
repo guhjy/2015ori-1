@@ -13,9 +13,27 @@
 - Do we want to store the initial recordings of the interviews or only the transcripts?
 - We need the identifiable information so that we can send the 100€ to the winner
 
+## Instruments needed
+- 4 USB sticks (transfer stick, spreadsheet stick, interview stick, ???)
+
 ## Procedure
 
-After Interview starting situation:
+### Getting spreadsheets from participants (During interview)
+
+1. Jan gives empty USB stick (transfer stick) to participant.
+2. Participant copies their spreadsheet to the transfer stick.
+
+### Assigning IDs (After each interview, but before the next)
+
+1. Jan copies spreadsheet from transfer stick to spreadsheet stick.
+2. Jan assigns ID to spreadsheet (names file ID.xls).
+3. Jan deletes spreadsheet from transfer stick.
+4. Jan copies interview from dictaphone to interview stick.
+5. Jan assigns ID to interview (names file ID.dataFormat).
+6. Jan deletes interview from dictaphone.
+
+### Materials after all interviews are conducted
+
 - 20 spreadsheets are on a USB stick with response-id
 - 20 interview recordings are on the Dictaphone with response-id
 - 20 unidentifiable receipts for 100 euros
