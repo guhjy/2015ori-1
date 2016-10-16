@@ -1,6 +1,6 @@
 ## Description
 
-If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results of the Stroop task and be interviewed about how you fabricated the interview. 
+If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results of the Stroop task.
 
 ## Benefits
 
