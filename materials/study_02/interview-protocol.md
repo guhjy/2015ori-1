@@ -2,22 +2,28 @@
 
 ## Step 1: Introduction
 
-Dear _________________,
 First of all, on behalf of all researchers involved in this study, thank you very much for participating in our study. We highly appreciate the time and effort that you spent to create the fabricated dataset.
 
 My name is Jan. I am a research assistant and I would like to conduct the interview with you today. The interview will take around 45 minutes and it will be semi-structured. That is, I have prepared some questions to understand how you fabricated data.
-Before we begin with the actual interview, I would like to ask you to copy the spreadsheet with the fabricated data to this usb stick.
+Before we begin with the actual interview, I would like to ask you to hand over the spreadsheet with the fabricated data you created. You can either give me the spreadhsheet on a USB stick or you can use this usb stick.
 
-[Participants copies fabricated data to EMPTY transfer stick]
+[If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop]
+[If participant does not have their own stick, participants copies fabricated data to EMPTY transfer stick]
 
-Thank you very much. Now, we come to the interview. I will start the recording now. [Turn on recording] All personally identifying information will be deleted as soon as possible, including the audio recordings.
+Thank you very much. Now, we come to the interview. I will start the recording now. 
+
+[Turn on recording] 
+[CLICK ON RECORD BUTTOM FOR THE FIRST TIME TO CHECK WHETHER SOUND IS OK (Bars should be in the middle)]
+[CLICK ON RECORD BUTTOM FOR THE SECOND TIME ACTUALLY START RECORDING]
+
+All personally identifying information will be deleted as soon as possible, except for the recording of this interview. However, the recordings will be stroed on an encrypted USB stick to which only two researchers have access to.
 
 ## Step 2: Interview
 
-I will ask you a set of questions. Please feel free to elaborate beyond the actual question.
+I will ask you a set of questions. Please feel free to elaborate beyond the actual question. Just to let you know, I will take notes while you speak to make sure that all parts of the fabrication process are addressed. These notes will be deleted after the interview is over.
 
 ### Step 2a: Broad question
-Please tell me how you fabricated your data set, beginning when you downloaded the instructions from the qualtrics page.
+Please tell me how you fabricated your data set, beginning after you downloaded the instructions from the qualtrics page.
 
 ### Step 2b: Follow-up questions (If this was not already covered)
 
@@ -29,8 +35,8 @@ Part 2: Actually fabricating
 - What criteria did you use to determine if the data fabrication approach was successful?
 - How did you fabricate the data for the Stroop task?
 - Did you apply a specific strategy to fabricate data?
-	* [if a specific strategy was used] Why did you choose for this specific strategy (or these specific strategies)?
-	* [if not] Did you use a trial-and-error approach?
+	* [if a specific strategy was used] Please describe these strategies
+	* [if a specific strategy was used] Why did you choose for this specific strategy (or these specific strategies)?		* [anyway] Did you use a trial-and-error approach?
 - Were there things you particularly focused on during the data fabrication in order to make them look more genuine?
 	* [if yes] what aspects did you spend particular attention to?
 	* [if no] in hindsight, are there things you think you should have paid specific attention to?
@@ -62,7 +68,7 @@ Part 4: Others
 
 Part 5: Final questions
 - How do you rate the quality of your fabricated data set? (1 = extremely poor; 10 = excellent)
-- How likely do you think is it that your fabricated data set can be detected by existing methods to detect data fabrication? (1 = very unlikely; 10 = very likely)
+- How likely do you think is it that your fabricated data set can be detected by existing methods to detect data fabrication? Please answer with a probability between 0 % and 100 %
 - Is there anything else you can recall about the data fabrication process that you think is worth mentioning?
 
 Ok, then this is the end of the interview. 
@@ -76,7 +82,7 @@ If you sign the receipt I can hand you the 100 euros [have envelope ready]. The 
 [Hand out receipt]
 [When signed; Hand out 100 €]
 
-Note that for the additional 100 euros that you may receive, we first have to determine which dataset is hardest to detect. If you are one out of those three, you will receive the money in around _____ weeks. We cannot communicate about who received the rewards, due to confidentiality of the participants.
+Note that for the additional 100 euros that you may receive, we first have to determine which dataset is hardest to detect. If you are one out of those three, you will receive the money in around 2-4 weeks. We cannot communicate about who received the rewards, due to confidentiality of the participants.
 <!-- Needs to be determined based on the scheduling of the interviews -->
 
 [Participant signs receipt]
