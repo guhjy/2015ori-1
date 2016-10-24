@@ -31,7 +31,8 @@
 4. Jan copies interview from dictaphone to results stick.
 5. Jan assigns ID to interview (names file ID.dataFormat).
 6. Jan deletes interview from dictaphone.
-7. Jan copies ID.xls and ID.dataFormat to backup stick.
+7. Jan deletes interview script.
+8. Jan copies ID.xls and ID.dataFormat to backup stick [at the end of the day].
 
 ### Materials after all interviews are conducted
 
