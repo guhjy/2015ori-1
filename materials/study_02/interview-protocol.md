@@ -77,13 +77,11 @@ Ok, then this is the end of the interview.
 
 ## Step 3: Post-Interview
 
-If you sign the receipt I can hand you the 100 euros [have envelope ready]. The identifying, bottom part of the receipt will be destroyed once the prizes are awarded to the datasets that were hardest to detect as fabricated.
+If you sign the receipt we will transfer the 100 euros to you in the coming weeks. The identifying, bottom part of the receipt will be destroyed once the prizes are awarded to the datasets that were hardest to detect as fabricated.
 
 [Hand out receipt]
-[When signed; Hand out 100 €]
 
-Note that for the additional 100 euros that you may receive, we first have to determine which dataset is hardest to detect. If you are one out of those three, you will receive the money in around 2-4 weeks. We cannot communicate about who received the rewards, due to confidentiality of the participants.
-<!-- Needs to be determined based on the scheduling of the interviews -->
+Note that for the additional 100 euros that you may receive, we first have to determine which dataset is hardest to detect. If you are one out of those three, you will receive an additional 100 euros. We will let you know if you will receive an additional 100 euros.
 
 [Participant signs receipt]
 
