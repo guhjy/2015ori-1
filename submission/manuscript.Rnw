@@ -30,10 +30,22 @@ suppressPackageStartupMessages(if(!require(xtable)){install.packages('xtable')})
 suppressPackageStartupMessages(library(xtable))
 suppressPackageStartupMessages(if(!require(httr)){install.packages('httr')})
 suppressPackageStartupMessages(library(httr))
+suppressPackageStartupMessages(if (!require(car)) install.packages('car'))
+suppressPackageStartupMessages(library(car))
+suppressPackageStartupMessages(if (!require(effects)) install.packages('effects'))
+suppressPackageStartupMessages(library(effects))
+suppressPackageStartupMessages(if (!require(lsr)) install.packages('lsr'))
+suppressPackageStartupMessages(library(lsr))
+suppressPackageStartupMessages(if (!require(data.table)) install.packages('data.table'))
+suppressPackageStartupMessages(library(data.table))
+suppressPackageStartupMessages(if (!require(dplyr)) install.packages('dplyr'))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(if (!require(reshape2)) install.packages('reshape2'))
+suppressPackageStartupMessages(library(reshape2))
 
 # Add ../ before running rmarkdown, or vice versa when not running there
 x12 <- '../'
-# x12 <- ''
+x12 <- ''
 @
 
 \section*{Study 1}
@@ -47,11 +59,14 @@ file <- sprintf('%sdata/study_01/raw_summary_results_fabrication_qualtrics.csv',
 res_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
 ml_dat_file <- sprintf('%sdata/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav', x12)
 summary_stat_file <- sprintf('%sdata/study_01/ml_summary_stats.csv', x12)
+ml3_dat_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/ML3 Stroop Data/ML3StroopRaw.csv', x12)
+ml3_clean_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/ML3 Stroop Data/StroopCleanSet.csv', x12)
 pdf_file <- sprintf('%sarchive/gender_interaction.pdf', x12)
 
 # Set the number of iterations to use in calculations
 iter <- 100000
 
+# Study 1
 # Compute the summary statistics for Many Labs
 source(sprintf('%sfunctions/compute_summary_anch_ml.R', x12))
 # Process the collected, fabricated data
@@ -62,25 +77,29 @@ if(!file.exists(sprintf('%sdata/study_01/study1_res.csv', x12)))
 {
   set.seed(123);source(sprintf('%sfunctions/concatenate_analyze_01.R', x12))  
 }
+
+# Study 2
+# Compute the processed raw data for Many Labs 3 stroop
+source(sprintf('%sfunctions/compute_raw_stroop_ml3.R', x12))
 @
 
 We tested the performance of statistical methods to detect data fabrication based on summary results with genuine and fabricated summary results of four anchoring studies \citep{tversky1974,jacowitz1995}. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively \citep{tversky1974}, despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study.
 
 \subsection*{Methods}
 
-The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF (\url{osf.io/b24pq}) and were preregistered (\url{osf.io/ejf5x}; deviations are explicated in this report).
+The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF (\url{https://osf.io/b24pq}) and were preregistered (\url{https:// .io/ejf5x}; deviations are explicated in this report).
 
 \subsubsection*{Data collection}
 
-We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project \citep[\url{osf.io/pqf9r};][]{klein2014}. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were computed for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., $3\times4\times4\times36$). We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
+We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project \citep[\url{https://osf.io/pqf9r};][]{klein2014}. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were computed for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., $3\times4\times4\times36$). We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
 
 Using quotum sampling, we collected thirty-six fabricated datasets of summary results for all four anchoring studies. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward). The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect \citep{jacowitz1995,tversky1974}, for which summary results were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because this filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
 
-A random sample of 1,000 researchers were approached via e-mail to participate in this study on April 25, 2016 (invitation: \url{osf.io/s4w8r}). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a \$30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional \$50 Amazon gift card if they were one of three top fabricators. The provided email addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at \url{osf.io/w984b}.
+A random sample of 1,000 researchers were approached via e-mail to participate in this study on April 25, 2016 (invitation: \url{https://osf.io/s4w8r}). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a \$30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional \$50 Amazon gift card if they were one of three top fabricators. The provided email addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at \url{https://osf.io/w984b}.
 
 Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
 
-We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure \ref{fig1} depicts an example of this spreadsheet (original:  \url{osf.io/w6v4u}). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure \ref{fig1}. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
+We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure \ref{fig1} depicts an example of this spreadsheet (original:  \url{https://osf.io/w6v4u}). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure \ref{fig1}. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
 
 \begin{figure}
 \begin{center}
@@ -155,7 +174,8 @@ if(!file.exists(sprintf('%sfigures/fisherfig.pdf', x12)))
 
 Finally, we combined the aforementioned methods to detect data fabrication with the Fisher method. This included the $SD_z$ measure across all studies and the Fisher test (Equation \ref{fisheradjusted}) of the gender hypothesis test and the interaction test.  We expected this combination test of the three individual tests for data fabrication to be more powerful than the individual tests, given that these tests inspect different manifestations of data fabrications. Based on the results of the combined test results, the three least detectable data fabricators were selected. The three respondents with the highest $p$-values on this combined method to detect data fabrication contained the least evidential value for deviating from genuine data and received an additional \$50 Amazon gift card.
 
-For each of these four tests to detect data fabrication ($SD_z$, Fisher test for the gender and interaction hypotheses, combined methods) we carried out sensitivity and specificity analyses using ROC-curves. ROC-curves indicate the sensitivity (i.e., True Positive Rate [TPR]) and specificity (i.e., True Negative Rate [TNR]) for various decision criteria (e.g., $\alpha=0, .01, .02, ..., .99, 1$). With these ROC-curves, informed decisions about optimal alpha levels can be made based on various criteria. In this case, we determine the optimal alpha level by finding that alpha level for which the combination of TPR and TNR were highest. For example, if $\alpha=.04$ results in $TPR=.30$ and $TNR=.70$, but $\alpha=.05$ results in $TPR=.5$ and $TNR=.5$, .05 was chosen as an optimal decision criterion based on the sample. 
+For each of these four tests to detect data fabrication ($SD_z$, Fisher test for the gender and interaction hypotheses, combined methods) we carried out sensitivity and specificity analyses using ROC-curves. ROC-analyses indicate the sensitivity (i.e., True Positive Rate [TPR]) and specificity (i.e., True Negative Rate [TNR]) for various decision criteria (e.g., $\alpha=0, .01, .02, ..., .99, 1$). With these ROC-curves, informed decisions about optimal alpha levels can be made based on various criteria. In this case, we determine the optimal alpha level by finding that alpha level for which the combination of TPR and TNR were highest. For example, if $\alpha=.04$ results in $TPR=.30$ and $TNR=.70$, but $\alpha=.05$ results in $TPR=.5$ and $TNR=.5$, .05 was chosen as an optimal decision criterion based on the sample. 
+% Maybe include bootstrapped errors here.
 
 \subsection*{Results}
 
@@ -240,7 +260,7 @@ if(!file.exists(sprintf('%sfigures/ddfab_density.pdf', x12)))
 }
 @
 
-The collected data included \Sexpr{table(dat_summary$type)[1]} genuine data from Many Labs 1 \citep[\url{osf.io/pqf9r};][]{klein2014} and \Sexpr{table(dat_summary$type)[2]} fabricated datasets(\url{osf.io/e6zys}; \Sexpr{sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))} participants did not participate for a bonus). 
+The collected data included \Sexpr{table(dat_summary$type)[1]} genuine data from Many Labs 1 \citep[\url{https://osf.io/pqf9r};][]{klein2014} and \Sexpr{table(dat_summary$type)[2]} fabricated datasets(\url{https://osf.io/e6zys}; \Sexpr{sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))} participants did not participate for a bonus). 
 
 Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide an overview of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have previously raised initial suspicions. These data corroborate the idea that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, however). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
 
@@ -327,7 +347,7 @@ names(false_or) <- temp
 
 height = (tpr[-1, ] + tpr[-dim(tpr)[1], ])/2
 width = apply(fpr, 2, diff) # = diff(rev(omspec))
-auroc_res <- apply(height * width, 2, sum)
+AUC_res <- apply(height * width, 2, sum)
 
 Method <- c("$SD_z$ homogeneous all",
                     "$SD_z$ study 1",
@@ -364,67 +384,89 @@ Method <- c("$SD_z$ homogeneous all",
                     "Combined Fisher test (6 results, $SD_z$ homogeneous)",
                     "Combined Fisher test (6 results, $SD_z$ heterogeneous)",
                     "Effect sizes (1-r)")
-auroc <- as.numeric(auroc_res)
-# print(xtable(data.frame(Method, auroc),
-#              caption = "Area Under the Receiver Operating Curve (AUROC) for the various statistical methods used to detect data fabrication. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
-#              label = "auroc", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+AUC <- as.numeric(AUC_res)
+# print(xtable(data.frame(Method, AUC),
+#              caption = "Area Under the Curve (AUC) for the various statistical methods used to detect data fabrication. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
+#              label = "auc", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
+
+temp <- names(dat_summary)[grepl(names(dat_summary), pattern = "_p")]
+df <- data.frame(Method = temp,
+                     AUROC = NA,
+                     CI.lb = NA,
+                     CI.ub = NA)
+Method <- c("$SD_z$ homogeneous all",
+            "$SD_z$ study 1",
+            "$SD_z$ study 2",
+            "$SD_z$ study 3",
+            "$SD_z$ study 4",
+            "$maxmin_z$ homogeneous all",
+            "$maxmin_z$ study 1",
+            "$maxmin_z$ study 2",
+            "$maxmin_z$ study 3",
+            "$maxmin_z$ study 4",
+            "$SD_z$ heterogeneous all",
+            "$SD_z$ study 1 low condition",
+            "$SD_z$ study 1 high condition",
+            "$SD_z$ study 2 low condition",
+            "$SD_z$ study 2 high condition",
+            "$SD_z$ study 3 low condition",
+            "$SD_z$ study 3 high condition",
+            "$SD_z$ study 4 low condition",
+            "$SD_z$ study 4 high condition",
+            "$maxmin_z$ heterogeneous all",
+            "$maxmin_z$ study 1 low condition",
+            "$maxmin_z$ study 1 high condition",
+            "$maxmin_z$ study 2 low condition",
+            "$maxmin_z$ study 2 high condition",
+            "$maxmin_z$ study 3 low condition",
+            "$maxmin_z$ study 3 high condition",
+            "$maxmin_z$ study 4 low condition",
+            "$maxmin_z$ study 4 high condition",
+            "Fisher test gender hypothesis",
+            "Fisher test interaction hypothesis",
+            "Combined Fisher test (3 results, $SD_z$ homogeneous)",
+            "Combined Fisher test (3 results, $SD_z$ heterogeneous)",
+            "Combined Fisher test (6 results, $SD_z$ homogeneous)",
+            "Combined Fisher test (6 results, $SD_z$ heterogeneous)",
+            "Effect sizes (1-r)")
 
 @
 
 \subsubsection*{Performance of using SDs to detect data fabrication}
 
-We applied two different operationalizations to inspect for data fabrication in the genuine- and fabricated datasets based on variance in the SDs. The $SD_z$ method \citep{simonsohn2013} inspects whether there the variance of the SDs themselves varies sufficiently, and we tested another method that inspects the range of the SDs. Table \ref{auroc_variances} indicates that both methods have similar performance when inspected with the Area Under the Receiver Operating Curve (AUROC). 
+We applied two different operationalizations to inspect for data fabrication in the genuine- and fabricated datasets based on variance in the SDs. The $SD_z$ method \citep{simonsohn2013} inspects whether the variance of the SDs themselves varies sufficiently, and we tested another method that inspects the range of the SDs varies sufficiently. These two methods operate similarly, except for the final computation. Other operationalizations are possible and we invite others to reuse the data from this study (\url{https://osf.io/b24pq}).
 
-The AUROC value indicates the probability that a randomly drawn fabricated dataset is classified as fabricated before a randomly drawn genuine dataset is classified as fabricated \citep{doi:10.1148/radiology.143.1.7063747}. In other words, if $AUROC=.5$ this indicates that correctly classifying a randomly drawn dataset in this sample is equal to a coin flip. Considering this, we will regard any AUROC$<.6$ as plainly insufficient for detecting data fabrication, $.6\leq AUROC<.7$ as failed, $.7\leq AUROC<.8$ as sufficient, $.8\leq AUROC<.9$ as good, and $.9\leq AUROC\leq 1$ as excellent.
+Table \ref{auroc_variances} indicates that both methods show similar performance when inspected with the Area Under the Receiver Operating Curve (AUROC), but with a preference for $SD_z$. This preference is due to the variance of variances outperforming the range of variances when all studies are combined in one test and its past application \citep{simonsohn2013}. Throughout the rest of this section, we will only discuss the results of $SD_z$ further.
 
 <<auroc for variance methods, echo=FALSE, results=tex>>=
 selmaxmin <- grepl(Method, pattern = '^.maxmin_')
 selsd <- grepl(x = Method, pattern = '^.SD_z')
-row_table <- c("Homogeneous, combined",
-                    "Homogeneous, study 1",
-                    "Homogeneous, study 2",
-                    "Homogeneous, study 3",
-                    "Homogeneous, study 4",
-                    "Heterogeneous, combined",
-                    "Heterogeneous study 1, low anchor condition",
-                    "Heterogeneous study 1, high anchor condition",
-                    "Heterogeneous study 2, low anchor condition",
-                    "Heterogeneous study 2, high anchor condition",
-                    "Heterogeneous study 3, low anchor condition",
-                    "Heterogeneous study 3, high anchor condition",
-                    "Heterogeneous study 4, low anchor condition",
-                    "Heterogeneous study 4, high anchor condition")
-variances_table <- data.frame(Method = row_table, SDz = auroc[selsd], maxminz = auroc[selmaxmin])
-names(variances_table) <- c("Method", "auroc $SD_z$", "auroc $maxmin_z$")
+row_table <- c("Homogeneous, all studies combined",
+               "Homogeneous, study 1",
+               "Homogeneous, study 2",
+               "Homogeneous, study 3",
+               "Homogeneous, study 4",
+               "Heterogeneous, all studies combined",
+               "Heterogeneous study 1, low anchor condition",
+               "Heterogeneous study 1, high anchor condition",
+               "Heterogeneous study 2, low anchor condition",
+               "Heterogeneous study 2, high anchor condition",
+               "Heterogeneous study 3, low anchor condition",
+               "Heterogeneous study 3, high anchor condition",
+               "Heterogeneous study 4, low anchor condition",
+               "Heterogeneous study 4, high anchor condition")
+variances_table <- data.frame(Method = row_table, SDz = AUC[selsd], maxminz = AUC[selmaxmin])
+names(variances_table) <- c("Method", "AUROC $SD_z$", "AUROC $maxmin_z$")
 print(xtable(variances_table,
              caption = "Area Under the Receiver Operating Curve (AUROC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.",
              label = "auroc_variances", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
 @
 
+The AUROC indicates the probability that a randomly drawn fabricated dataset is classified as fabricated before a randomly drawn genuine dataset is classified as fabricated \citep{doi:10.1148/radiology.143.1.7063747}. In other words, if AUROC $=.5$ this indicates that correctly classifying a randomly drawn dataset in this sample is equal to a coin flip. For this setting, we will regard any AUROC $<.6$ as plainly insufficient for detecting data fabrication, $.6\leq$ AUROC $<.7$ as failed, $.7\leq$ AUROC $<.8$ as sufficient, $.8\leq$ AUROC $<.9$ as good, and $.9\leq$ AUROC $\leq 1$ as excellent.
 
-<<generate variance ROC, echo=FALSE, results=hide>>=
-if(!file.exists(sprintf('%sfigures/varianceplot.pdf', x12)))
-{
-  pdf(sprintf('%sfigures/varianceplot.pdf', x12), width = 8, height = 6)
-  plot(fpr$variance_sd_p_overall_homo, tpr$variance_sd_p_overall_homo,
-       type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance analysis',
-       xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2, lty = 2)
-  abline(a = 0, b = 1)
-  lines(fpr$variance_sd_p_overall_hetero, tpr$variance_sd_p_overall_hetero,
-        type = 's', xlim = c(0,1), ylim = c(0,1), main = 'Variance heterogeneous',
-        xlab = 'Sensitivity / TPR', ylab = 'Specificity / TNR', lwd = 2, lty = 1)
-  legend(x = 0, y = 1, bty = 'n', lty = c(2, 1), lwd = 2, legend = c('Homogeneous', 'Heterogeneous'))
-  dev.off()
-}
-@
+The AUROC for the variance of variance analyses is insufficient or sufficient depending on the assumption regarding population variances. Table \ref{auroc_variances} indicates that AUROC $=.423$ when homogeneous population variances are assumed, whereas AUROC $=.770$ when heterogeneous population variances are assumed. For the anchoring studies, homogeneous population variances across conditions seem unreasonable and greatly affect the performance of the statistical method. The method that incorporates heterogeneous population variances (i.e., one per anchoring condition) greatly improves the performance of the variance of variances analysis.
 
-\begin{figure}[!ht]
-\begin{center}
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/varianceplot.pdf}
-\caption{PLACEHOLDER}
-\label{varianceplot}
-\end{center}
-\end{figure}
+Further inspecting the heterogeneous variance of variances analysis indicates that no false positives occur until $\alpha=\Sexpr{seq(0, 1, .01)[max(which(tnr$variance_sd_p_overall_hetero == 1))]}$. 
 
 \subsubsection*{Performance of using $p$-values to detect data fabrication}
 
@@ -433,7 +475,7 @@ We asked researchers to fabricate data for nonsignificant effect sizes after ins
 <<auroc for single fisher methods, echo=FALSE, results=tex>>=
 sel <- grepl(Method, pattern = '^(Fisher test)')
 row_table <- Method[sel]
-tabl <- data.frame(Method = row_table, auroc = auroc[sel])
+tabl <- data.frame(Method = row_table, AUROC = AUC[sel])
 print(xtable(tabl,
              caption = "Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER",
              label = "auroc_fisher", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
@@ -441,11 +483,10 @@ print(xtable(tabl,
 
 \subsubsection*{Performance of combining SDs and $p$-value methods to detect data fabrication}
 
-
 <<auroc for combined fisher methods, echo=FALSE, results=tex>>=
 sel <- grepl(Method, pattern = 'Combined Fisher test')
 row_table <- Method[sel]
-tabl <- data.frame(Method = row_table, auroc = auroc[sel])
+tabl <- data.frame(Method = row_table, AUROC = AUC[sel])
 print(xtable(tabl,
              caption = "Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER",
              label = "auroc_combined", digits = 3), include.rownames = FALSE, sanitize.text.function=identity)
@@ -458,9 +499,9 @@ print(xtable(tabl,
 if(!file.exists(sprintf('%sdata/statcheck_dataset.csv', x12)))
 {
   url <- 'https://github.com/chartgerink/2016statcheck_data/raw/master/statcheck_dataset.csv'
-  # If link is broken, more persistent version availabl at
+  # If link is broken, more persistent version available at
   # http://dx.doi.org/10.17026/dans-2cm-v9j9
-
+  
   GET(url,
       write_disk(sprintf('%sdata/statcheck_dataset.csv', x12),
                  overwrite = TRUE))
@@ -508,6 +549,15 @@ statcheck_data$es[sel] <- statcheck_data$Value[sel]
 
 % Comparison between methods not tested, large error given small sample.
 % This provides just initial work
+
+<<study 2 stuff, echo = FALSE, eval = FALSE>>=
+# Computing the Stroop effect in ML3
+mean(Stroop$StroopEffect,na.rm=TRUE)
+t.test(Stroop$StroopEffect,y=NULL,alternative="two.sided",mu=0,paired=FALSE,var.equal=FALSE,conf.level=.95)
+#Cohen's d for one sample
+d<-mean(Stroop$StroopEffect,na.rm=TRUE)/sd(Stroop$StroopEffect,na.rm=TRUE)
+d
+@
 
 
 \bibliography{../bibliography/library}
