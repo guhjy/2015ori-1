@@ -4,7 +4,7 @@ If you choose to participate, you will take part in a study about "Validating st
 
 ## Benefits
 
-You will receive 100 euros at the end of the face-to-face interview, with a potential additional 100 euros if your fabricated results are one of the three that are hardest to detect (out of 20). 
+You will receive 100 euros 2-4 weeks after the end of the face-to-face interview, with a potential additional 100 euros if your fabricated results are one of the three that are hardest to detect (out of 20).
 
 Your participation will help us investigate the performance of statistical methods to detect fabricated data. We focus on studying the statistical properties (e.g., the power and the false positive rate) of methods to detect data fabrication, where the goal is to examine whether these statistical methods are valuable to apply in practice.
 
@@ -14,7 +14,7 @@ Fabricating the data will take at least 30 minutes, but how long you spend on it
 
 ## Confidentiality
 
-To ensure anonymity, we disabled the logging of your e-mail address or IP-address by Qualtrics when responding to the invitation. We are required by law to have receipts that you, the participant has received the reward at the end of the study. These receipts are temporarily linked to the responses in order to identify the participants who fabricated results that are hardest to detect (top three out of 20). These temporary links are permanently removed after the rewards are awarded. The audio-recording of the interview will be deleted once transcribed. The unlinked and anonymous data and transcripts from this study will be made publicly available at the Open Science Framework for as long as possible, such that other researchers can verify and reanalyze the data.
+To ensure anonymity, we disabled the logging of your e-mail address or IP-address by Qualtrics when responding to the invitation. We are required by law to have receipts that you, the participant has received the reward at the end of the study. These receipts are temporarily linked to the responses in order to identify the participants who fabricated results that are hardest to detect (top three out of 20). These temporary links are permanently removed after the rewards are awarded. The unlinked audio-recording of the interview will be stored on an encrypted drive only the PI and research assistant have access to. The unlinked, anonymous data and transcripts from this study will be made publicly available at the Open Science Framework for as long as possible, such that other researchers can verify and reanalyze the data.
 
 ## Voluntary nature of participation
 

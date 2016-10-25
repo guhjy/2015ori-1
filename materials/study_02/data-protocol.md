@@ -27,7 +27,7 @@ After Interview starting situation:
 2. Jan copy-pastes from each spreadsheet rows 8-33 into a text file. Save the text file as `ID.txt`
 3. Jan hands over unidentifiable receipts and `ID.txt` files to Chris (Chris checks and uploads `ID.txt` to Github)
 4. Chris analyzes the data and identifies the three IDs that were hardest to detect
-5. Chris sends Jan the IDs, Jan gives the bank information to send the bonus to.
+5. Chris sends Jan the IDs, Jan gives the bank information to send the bonus to and sends participants an email that they will receive a bonus.
 6. Jan destroys identifying part of receipt.
 7. Jan uses [oTranscribe](http://otranscribe.com/) to transcribe interviews
 8. Jan sends transcripts to Chris; Chris uploads transcripts to Github after checking for potential identifiability in text
