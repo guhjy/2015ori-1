@@ -10,7 +10,7 @@ In the Stroop task, participants are asked to determine the color a word is pres
 
 Your task is to confirm the existence of a Stroop effect with fabricated data, while attempting to cover up the data fabrication by making them look as genuine as possible. In other words, the hypothesis is that there is an effect of congruency on the response latencies in the Stroop task, such that responses in the incongruent condition are slower than in the congruent condition.
 
-## Filling out the spreadsheet
+## Fabrication instructions
 
 We require you to fabricate the mean and standard deviation of the response latencies of 25 (fictional) individuals in both congruent and incongruent conditions (i.e., 25 individuals × 2 conditions × 2 statistics = 100 data points). Each participant sees 30 trials of the Stroop task in the congruent condition, and 30 trials in the incongruent condition. 
 
@@ -32,11 +32,11 @@ The spreadsheet automatically calculates and displays the test statistics (t-val
 <!-- This has to be on the same page as the "Filling out the spreadsheet" -->
 
  - [ ] [Download the spreadsheet](https://github.com/chartgerink/2015ori/raw/master/materials/study_02/templateUNLOCKED.xlsx)
- - [ ] [Download a copy of the instructions]()
+ - [ ] [Download a copy of the instructions](https://gitprint.com/chartgerink/2015ori/blob/master/materials/study_02/instructions.md)
 
 <!-- Still need to make a PDF of the instructions -->
 
-## Schedule the interview
+## Schedule the face-to-face interview
 
 Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout the Netherlands and Belgium, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. 
 
