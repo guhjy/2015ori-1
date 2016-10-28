@@ -1,6 +1,6 @@
 ## Description
 
-If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results of the Stroop task and be interviewed about how you fabricated the interview.
+If you choose to participate, you will take part in a study about "Validating statistical methods to detect (potential) data fabrication". If you participate, you will be asked to fabricate research results of the Stroop task and be interviewed about how you fabricated the data.
 
 ## Benefits
 
@@ -10,7 +10,7 @@ Your participation will help us investigate the performance of statistical metho
 
 ## Risks/discomforts
 
-Fabricating the data will take at least 30 minutes, but how long you spend on it is at your discretion. The face-to-face interview will take approximately 45 minutes and will be audio-recorded. There is a small risk that you may become uncomfortable during the study given the unethical nature of the behavior that we request you to perform in this controlled setting. If any feelings of discomfort emerge you are free to contact the principal investigator with any questions or concerns using the email address listed at the bottom of this consent form. This study has been approved by the Tilburg University Psychological Ethics Committee (reference EC-2015.50).
+ Fabricating the data will take at least 30 minutes, but beyond that you can decide yourself how long you spend on it. The face-to-face interview will take approximately 45 minutes and will be audio-recorded. There is a small risk that you may become uncomfortable during the study given the unethical nature of the behavior that we request you to perform in this controlled setting. If any feelings of discomfort emerge you are free to contact the principal investigator with any questions or concerns using the email address listed at the bottom of this consent form. This study has been approved by the Tilburg University Psychological Ethics Committee (reference EC-2015.50).
 
 ## Confidentiality
 
