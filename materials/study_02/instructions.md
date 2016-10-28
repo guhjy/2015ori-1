@@ -31,8 +31,8 @@ The spreadsheet automatically calculates and displays the test statistics (t-val
 ### Download files
 <!-- This has to be on the same page as the "Filling out the spreadsheet" -->
 
- - [ ] [Download the spreadsheet](https://github.com/chartgerink/2015ori/raw/master/materials/study_02/templateUNLOCKED.xlsx)
- - [ ] [Download a copy of the instructions]()
+ - [ ] [Download the spreadsheet](https://surfdrive.surf.nl/files/index.php/s/ELp70g71Y7bosCW)
+ - [ ] [Download a copy of the instructions](https://surfdrive.surf.nl/files/index.php/s/mMDkgCILKU8rhhD)
 
 <!-- Still need to make a PDF of the instructions -->
 
