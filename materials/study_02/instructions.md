@@ -36,7 +36,7 @@ The spreadsheet automatically calculates and displays the test statistics (t-val
 
 ## Schedule the face-to-face interview
 
-Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout Belgium and the Netherlands, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within the Netherlands or Belgium.
+Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout Belgium and the Netherlands, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within Belgium or the Netherlands.
 
 Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule.
 
