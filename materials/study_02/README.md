@@ -5,7 +5,7 @@
 - [x] [Consent form](consent-form.md)
 - [x] [Instructions](instructions.md)
 - [x] [Doodle page text](doodle.md)
-- [x] [Fabrication spreadsheet](templateUNLOCKED.xlsx)
+- [x] [Fabrication spreadsheet](template.xlsx)
 - [x] [Interview planning mails](interview-planning.md)
 - [x] [Interview protocol](interview-protocol.md)
 - [x] [Participant reward receipt](receipt.odt)

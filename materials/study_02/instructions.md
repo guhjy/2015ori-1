@@ -24,7 +24,7 @@ The yellow cells depict the corresponding statistics for incongruent response la
 
 Each row depicts the data for one participant. 
 
-The spreadsheet automatically calculates and displays the test statistics (t-value and p-value) concerning the Stroop effect. How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that
+The spreadsheet automatically calculates and displays the test statistics (t-value and p-value) concerning the Stroop effect. How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that the mean *congruent* response latency is lower than the mean *incongruent* response latency.
 
 **You can spend as much time as you think is needed on fabricating the data, until the face-to-face interview takes place. This does not need to be done within this browser window.**
 
@@ -36,7 +36,7 @@ The spreadsheet automatically calculates and displays the test statistics (t-val
 
 ## Schedule the face-to-face interview
 
-Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout the Netherlands and Belgium, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within the Netherlands or Belgium.
+Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout Belgium and the Netherlands, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within the Netherlands or Belgium.
 
 Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule.
 
