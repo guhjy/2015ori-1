@@ -23,12 +23,6 @@ If you have any questions, please feel free to reply to this e-mail.
 
 Kind regards,
 
-Chris Hartgerink
-
-Jan Völkel
-
-Marcel van Assen
-
-Jelte Wicherts
+Chris Hartgerink, Jan Völkel, Marcel van Assen, and Jelte Wicherts
 
 Tilburg University, the Netherlands
