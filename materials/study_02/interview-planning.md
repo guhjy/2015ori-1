@@ -33,9 +33,9 @@ Jan Voelkel
 
 Dear ___,
 
-This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place in 3 days.
+This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place in [LOCATION] in 3 days, [DATE], at [TIME].
 
-Please make sure that you have fabricated the data by then.
+Please make sure that you have fabricated the data by then. If you want to download the instructions again, please click here: https://surfdrive.surf.nl/files/index.php/s/mMDkgCILKU8rhhD
 
 Looking forward to meet you and thanks again for your willingness to participate in our research.
 
@@ -47,7 +47,7 @@ Jan Voelkel
 
 Dear ___,
 
-This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place tomorrow in [LOCATION] at [TIME]. 
+This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place in [LOCATION] tomorrow, [DATE], at [TIME].
 
 Please bring the filled out spreadsheet with the fabricated data to the interview, either on a USB stick or on your computer.
 
