@@ -11,7 +11,7 @@ If you would like to redownload the materials, find the spreadsheet [here](https
 <!-- Need to add these with Surfdrive links (to prevent them from getting onto the Github page immediately) -->
 
 Kind regards,
-Jan Volkel 
+Jan Voelkel 
 
 ## Alternative if no suitable date
 
@@ -26,4 +26,30 @@ Suggestion 2: DATE and TIME
 Suggestion 3: DATE and TIME
 
 Kind regards,
-Jan Volkel 
+Jan Voelkel 
+
+
+## Reminder 3 days before the interview
+
+Dear ___,
+
+This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place in [LOCATION] in 3 days, [DATE], at [TIME].
+
+Please make sure that you have fabricated the data by then. If you want to download the instructions again, please click here: https://surfdrive.surf.nl/files/index.php/s/mMDkgCILKU8rhhD
+
+Looking forward to meet you and thanks again for your willingness to participate in our research.
+
+Kind regards,
+Jan Voelkel 
+
+
+## Reminder 1 day before the interview
+
+Dear ___,
+
+This is a friendly reminder that the interview for the study on data fabrication in which you participate will take place in [LOCATION] tomorrow, [DATE], at [TIME].
+
+Please bring the filled out spreadsheet with the fabricated data to the interview, either on a USB stick or on your computer.
+
+Thank you and kind regards,
+Jan Voelkel
