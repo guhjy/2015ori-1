@@ -12,11 +12,11 @@ Your task is to confirm the existence of a Stroop effect with fabricated data, w
 
 ## Fabrication instructions
 
-We require you to fabricate the mean and standard deviation of the response latencies of 25 (fictional) individuals in both congruent and incongruent conditions (i.e., 25 individuals × 2 conditions × 2 statistics = 100 data points). Each participant sees 30 trials of the Stroop task in the congruent condition, and 30 trials in the incongruent condition. 
+We require you to fabricate both the mean and standard deviation of the response latencies of 25 (fictional) individuals, in both congruent and incongruent conditions (i.e., 25 individuals × 2 conditions × 2 statistics = 100 data points). Each participant sees 30 trials of the Stroop task in the congruent condition, and 30 trials in the incongruent condition. 
 
 At the bottom of this page, a link is provided to a spreadsheet in which you have to fill out your fabricated data. 
 
-Your task is to fabricate the mean and standard deviation of the response latencies in milliseconds (i.e., 1 second = 1000 milliseconds) for each person for both the congruent condition and the incongruent condition. How you decide to fabricate these data is fully in your own hands. 
+Your task is to fabricate the mean and standard deviation of the response latencies in milliseconds (i.e., 1 second = 1,000 milliseconds) for each person for both the congruent condition and the incongruent condition. How you decide to fabricate these data is fully in your own hands. 
 
 The means of the congruent response latencies and their standard deviations are depicted in the spreadsheet in green. 
 
@@ -36,11 +36,11 @@ The spreadsheet automatically calculates and displays the test statistics (t-val
 
 ## Schedule the face-to-face interview
 
-Now, we would like to request you to plan an interview with research assistant Jan. In order to facilitate the planning of the face-to-face interviews throughout Belgium and the Netherlands, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within Belgium or the Netherlands.
+Now, we would like to request you to plan an interview with research assistant Jan Voelkel. In order to facilitate the planning of the face-to-face interviews throughout Belgium and the Netherlands, we would like to ask you to suggest several options (at least three) in his calendar via Doodle.com with the address where the interview would take place. Note that you can choose the address as long as it is within Belgium or the Netherlands.
 
-Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan, he will contact you to try and reschedule.
+Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan Voelkel, he will contact you to try to reschedule.
 
-Please visit the link below to schedule the interview and return to this page to continue (**do not close this window**).
+Please visit the link below to schedule the interview and return to this page to continue (**do not close the current window**).
 
  - [ ] [Schedule the interview here](http://doodle.com/jangvoelkel)
 
@@ -55,6 +55,6 @@ Thank you very much for wanting to participate in our study. We will finalize th
 
 As a reminder, we would like to note that fabricating data is only allowed within this experiment and should not be taken as an invitation to fabricate research results elsewhere. Data fabrication is a serious form of scientific misconduct and is widely and explicitly condemned by professional organizations, institutions, and funding agencies alike.
 
-If there are any remaining questions about this study, feel free to email Chris Hartgerink ([c.h.j.hartgerink@tilburguniversity.edu](mailto:c.h.j.hartgerink@tilburguniversity.edu))
+If there are any remaining questions about this study, feel free to e-mail Chris Hartgerink ([c.h.j.hartgerink@tilburguniversity.edu](mailto:c.h.j.hartgerink@tilburguniversity.edu)) or to call him (+31134664126).
 
 You can close this window now.

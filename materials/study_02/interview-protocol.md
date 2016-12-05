@@ -9,7 +9,9 @@ The interview will take around 45 minutes, in which I will ask you some question
 Before we begin with the actual interview, I would like to ask you to hand over the spreadsheet with the fabricated data you created. You can either give me the spreadsheet on a USB stick or you can use this usb stick.
 
 [If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop]
-[If participant does not have their own stick, participants copies fabricated data to EMPTY transfer stick]
+[If participant does not have their own stick but a laptop, participant copies fabricated data to EMPTY transfer stick]
+[If participant does not have their own stick and not a laptop, Jan asks participants to go to their computer/laptop and copy the fabricated data to EMPTY transfer stick]
+[If participant does not have any spreadsheet, Jan asks participant whether they tried to fabricate a dataset or not. If the participant tried something, the interview will be conducted. If the participant did not try anything, the interview will be canceled at this point.]
 
 Thank you very much. Now, we come to the interview. As was mentioned in the consent form, this interview will be audio-recorded and transcribed. The audio-recordings, except for excerpts from one randomly chosen interview, will be deleted. The unlinked excerpts will be stored on an encrypted drive for verification purposes. 
 
@@ -21,12 +23,12 @@ I will start the recording now.
 
 ## Step 2: Interview
 
-I will ask you a set of questions. Please feel free to elaborate on your answer. I will take notes while you speak to make sure that all parts of the fabrication process are addressed. These notes will be destroyed immediately after the interview is over. You are free to look at your fabricated data to remind you of any specifics.
+I will ask you a set of questions. Please feel free to elaborate on your answer. I will take notes while you speak to make sure that all parts of the fabrication process are addressed. These notes will be destroyed immediately after the interview is over. You are free to look at your fabricated data to remind you of any specifics, or at possible notes you made when fabricating the data.
 
 ### Warm-up
 
 - How many years has it been since you got your PhD?
-- How many experiments including a Stroop task have you conducted?
+- How many experiments including a Stroop task have you conducted in your career?
 - Which statistical analysis programs do you use at least once a week? [multiple answers possible]
 	* SPSS        R        Stata        SAS        Matlab        Python        
 	* Other, namely: _____________
@@ -38,7 +40,7 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 
 - Did you fabricate the data in one day or spread the data fabrication over several days?
 	[if spread over days] on how many days did you work on fabricating the data?
-- How long do you estimate that it took you to fabricate the data in their entirety?
+- How much time do you estimate that it took you to fabricate the data in their entirety?
 - Did you prepare in any way *before* starting to fabricate data?
 	* [if yes]
 		- how much time do you estimate you spent on preparing?
@@ -46,12 +48,14 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 			* [if yes] can you describe or name the methods you read about?
 		- did you look into previous cases of data fabrication and how they had been detected?
 			* [if yes] can you name the cases you looked into?
+		- how did you prepare?/other ways?
 		- did this preparation influence your approach to fabricating data?
+- Do you have other comments?
 
 ### What 
 
-- could you name three specific characteristics that would make data look (more) weird in your opinion?
-- could you name three specific characteristics that would make data look (more) genuine in your opinion?
+- could you name specific characteristics that would make data look (more) weird in your opinion?
+- could you name specific characteristics that would make data look (more) genuine in your opinion?
 - Did you take these characteristics you just mentioned into account when fabricating the data? 
 	* If so, how did you take these into account?
 - Did you take into consideration relations in the data other than the Stroop effect itself?
@@ -60,14 +64,14 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 	* Did you use different criteria for the means and standard deviations?
 		* [if yes] how did these criteria differ for the means and standard deviations?
 - in hindsight, are there things you think you should have paid specific attention to while fabricating the data?
+- Do you have other comments?
 
 ### How
 
 - Could you indicate what steps you took to fabricate the means for the participants?
 - Could you indicate what steps you took to fabricate the standard deviations for the participants?
 - Did you repeatedly fabricate data until you were satisfied with the results?
-	* what constituted one trial for you?
-	* how did you determine whether you were satisfied with the fabricated data or that they needed 	to be adjusted?
+	* how did you determine whether you were satisfied with the fabricated data or that they needed to be adjusted?
 	* Did you try to inspect whether the fabricated data looked weird? If yes, how?
 	* Did you try to inspect whether the fabricated data looked genuine? If yes, how?
 - How many different mean-sd combinations did you fabricate before getting to the final, fabricated dataset?
@@ -76,6 +80,7 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 - Did you use real data during the fabrication process?
 	* [if yes] how much real data did you use?
 	* [if yes] how did you use these real data?
+- Do you have other comments?
 
 ### Why
 
