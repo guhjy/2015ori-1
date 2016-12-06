@@ -11,7 +11,9 @@ Before we begin with the actual interview, I would like to ask you to hand over 
 [If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop]
 [If participant does not have their own stick but a laptop, participant copies fabricated data to EMPTY transfer stick]
 [If participant does not have their own stick and not a laptop, Jan asks participants to go to their computer/laptop and copy the fabricated data to EMPTY transfer stick]
-[If participant does not have any spreadsheet, Jan asks participant whether they tried to fabricate a dataset or not. If the participant tried something, the interview will be conducted. If the participant did not try anything, the interview will be canceled at this point.]
+[If participant does not have any spreadsheet, Jan asks participant whether they tried to fabricate a dataset or not]
+[If the participant tried something, the interview will be conducted as below, but starting with the question "Why did you give up?"]
+[If the participant did not try anything, the interview will be canceled at this point.]
 
 Thank you very much. Now, we come to the interview. As was mentioned in the consent form, this interview will be audio-recorded and transcribed. The audio-recordings, except for excerpts from one randomly chosen interview, will be deleted. The unlinked excerpts will be stored on an encrypted drive for verification purposes. 
 
