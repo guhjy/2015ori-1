@@ -41,6 +41,7 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 - Did you fabricate the data in one day or spread the data fabrication over several days?
 	[if spread over days] on how many days did you work on fabricating the data?
 - How much time do you estimate that it took you to fabricate the data in their entirety?
+- How much effort did you invest to fabricate the data on a scale from 1(no effort at all) to 7 (a lot of effort)?
 - Did you prepare in any way *before* starting to fabricate data?
 	* [if yes]
 		- how much time do you estimate you spent on preparing?
