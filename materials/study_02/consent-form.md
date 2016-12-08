@@ -14,7 +14,7 @@ You may become uncomfortable during the study given the unethical nature of fabr
 
 ## Confidentiality
 
-No information about you is collected within the Qualtrics environment (e.g., IP address). We are required by law to have receipts that you, as participant, have received the reward at the end of the study. These receipts are temporarily linked to the responses in order to identify the participants who fabricated results that are hardest to detect (top three out of 20). These temporary links are permanently removed after the rewards are awarded. The audio-recording of the interview will be transcribed and deleted, except for one randomly chosen recording (for verification purposes; this is stored on an encrypted drive and stored for 10 years). The unlinked, anonymous data and transcripts from this study will be made publicly available at the Open Science Framework for as long as possible.
+No information about you is collected unknowingly within the Qualtrics environment (e.g., IP address). We are required by law to have receipts that you, as participant, have received the reward at the end of the study. These receipts are temporarily linked to the responses in order to identify the participants who fabricated results that are hardest to detect (top three out of 20). All temporary links are permanently removed after the rewards are awarded. The audio-recording of the interview will be transcribed and deleted, except for one randomly chosen recording (for verification purposes; this is stored on an encrypted drive and stored for 10 years). The unlinked, anonymous data and transcripts from this study will be made publicly available at the Open Science Framework for as long as possible.
 
 ## Voluntary nature of participation
 
