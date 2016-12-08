@@ -67,6 +67,14 @@ You can select the specific time when you are available and the location where t
 <!-- force response on this page -->
 
 [Next page]
+
+Does your preferred location differ depending on the days you just chose?
+- [ ] Yes
+- [ ] No
+
+[BRANCH: FIRST DIRECTION]
+[If different location question answered with YES]
+
 <!-- loop and merge on this page for all selected days -->
 
 Please choose the time when you are available on [selected day].
@@ -76,12 +84,37 @@ Each time windows has to contain at least one hour.
 If you want to offer more than one time window for this day, please use the third and fourth option as well.
 
 I am available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 I am also available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 
 [Next page]
 <!-- loop and merge on this page for all selected days -->
 
 Please indicate the location where the interview should be conducted if it happens on ${lm://Field/1}.
+
+Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
+
+Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+
+[BRANCH: SECOND DIRECTION]
+[If different location question answered with NO]
+
+<!-- loop and merge on this page for all selected days -->
+
+Please choose the time when you are available on [selected day].
+
+Each time windows has to contain at least one hour.
+
+If you want to offer more than one time window for this day, please use the third and fourth option as well.
+
+I am available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+I am also available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
+[Next page]
+Please indicate the location where the interview should be conducted.
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
