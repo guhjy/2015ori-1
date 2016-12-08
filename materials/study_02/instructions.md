@@ -85,9 +85,13 @@ Please indicate the location where the interview should be conducted if it happe
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
+Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+
 ## E-mail address
 
 Now, please indicate your e-mail-address that we need to contact you for scheduling the interview. Your e-mail-address will be deleted as soon as possible so that it cannot be matched with your data.
+
+Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
 
 ## End of survey message
 
