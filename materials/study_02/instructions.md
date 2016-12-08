@@ -71,7 +71,7 @@ You can select the specific time when you are available and the location where t
 
 Please choose the time when you are available on [selected day].
 
-Each time windows has to contain at least 1,5 hours.
+Each time windows has to contain at least one hour.
 
 If you want to offer more than one time window for this day, please use the third and fourth option as well.
 
