@@ -18,13 +18,13 @@ At the bottom of this page, a link is provided to a spreadsheet in which you hav
 
 Your task is to fabricate the mean and standard deviation of the response latencies in milliseconds (i.e., 1 second = 1,000 milliseconds) for each person for both the congruent condition and the incongruent condition. How you decide to fabricate these data is fully in your own hands. 
 
-The means of the congruent response latencies and their standard deviations are depicted in the spreadsheet in green. 
+The green columns in the spreadsheet depict where you have to fill in the means of the congruent response latencies and their standard deviations. 
 
-The yellow cells depict the corresponding statistics for incongruent response latencies. 
+The yellow columns in the spreadsheet depict the corresponding statistics for incongruent response latencies. 
 
 Each row depicts the data for one participant. 
 
-The spreadsheet automatically calculates and displays the test statistics (t-value and p-value) concerning the Stroop effect. How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that the mean *congruent* response latency is lower than the mean *incongruent* response latency.
+The spreadsheet automatically calculates and displays the test statistic (t-value and p-value) concerning the within-person difference of the conditions (i.e., the Stroop effect). How you decide to fabricate the results that you fill out in the spreadsheet is up to you. Your task is to fabricate means and standard deviations such that the mean *congruent* response latency is lower than the mean *incongruent* response latency.
 
 **You can spend as much time as you think is needed on fabricating the data, until the face-to-face interview takes place. This does not need to be done within this browser window.**
 
