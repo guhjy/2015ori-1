@@ -8,7 +8,7 @@ The interview will take around 45 minutes, in which I will ask you some question
 
 Before we begin with the actual interview, I would like to ask you to hand over the spreadsheet with the fabricated data you created. You can either give me the spreadsheet on a USB stick or you can use this usb stick.
 
-[If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop]
+[If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop; laptop already ready setup before to reduce waittime]
 
 [If participant does not have their own stick but a laptop, participant copies fabricated data to EMPTY transfer stick]
 
@@ -25,7 +25,9 @@ Thank you very much. Now, we come to the interview. As was mentioned in the cons
 I will start the recording now. 
 
 [Turn on recording] 
+
 [CLICK ON RECORD BUTTOM FOR THE FIRST TIME TO CHECK WHETHER SOUND IS OK (Bars should be in the middle)]
+
 [CLICK ON RECORD BUTTOM FOR THE SECOND TIME ACTUALLY START RECORDING]
 
 ## Step 2: Interview
