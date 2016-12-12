@@ -9,9 +9,16 @@ The interview will take around 45 minutes, in which I will ask you some question
 Before we begin with the actual interview, I would like to ask you to hand over the spreadsheet with the fabricated data you created. You can either give me the spreadsheet on a USB stick or you can use this usb stick.
 
 [If participant has spreadsheet on their own stick, Jan copies spreadsheet to his laptop]
+
 [If participant does not have their own stick but a laptop, participant copies fabricated data to EMPTY transfer stick]
+
 [If participant does not have their own stick and not a laptop, Jan asks participants to go to their computer/laptop and copy the fabricated data to EMPTY transfer stick]
-[If participant does not have any spreadsheet, Jan asks participant whether they tried to fabricate a dataset or not. If the participant tried something, the interview will be conducted. If the participant did not try anything, the interview will be canceled at this point.]
+
+[If participant does not have any spreadsheet, Jan asks participant whether they tried to fabricate a dataset or not]
+
+[If the participant tried something, the interview will be conducted as below, but starting with the question "Why did you give up?"]
+
+[If the participant did not try anything, the interview will be canceled at this point.]
 
 Thank you very much. Now, we come to the interview. As was mentioned in the consent form, this interview will be audio-recorded and transcribed. The audio-recordings, except for excerpts from one randomly chosen interview, will be deleted. The unlinked excerpts will be stored on an encrypted drive for verification purposes. 
 
@@ -41,6 +48,7 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 - Did you fabricate the data in one day or spread the data fabrication over several days?
 	[if spread over days] on how many days did you work on fabricating the data?
 - How much time do you estimate that it took you to fabricate the data in their entirety?
+- How much effort did you invest to fabricate the data on a scale from 1(no effort at all) to 7 (a lot of effort)?
 - Did you prepare in any way *before* starting to fabricate data?
 	* [if yes]
 		- how much time do you estimate you spent on preparing?
