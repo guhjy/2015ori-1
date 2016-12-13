@@ -1,5 +1,9 @@
 # Step-by-step protocol for interview [Including full list of interview questions]
 
+## Background knowledge for interviewer
+
+[Insert definitin of fabricated data set]
+
 ## Step 1: Introduction
 
 First of all, on behalf of all researchers involved in this study, thank you very much for participating in our study. We highly appreciate the time and effort that you spent to create the fabricated dataset and take part in this interview.
@@ -20,9 +24,15 @@ Before we begin with the actual interview, I would like to ask you to hand over 
 
 [If the participant did not try anything, the interview will be canceled at this point.]
 
+[Jan checks whether the spreadsheet can be opened on his laptop and fits with the spreadsheet in the materials]
+
 Thank you very much. Now, we come to the interview. As was mentioned in the consent form, this interview will be audio-recorded and transcribed. The audio-recordings, except for excerpts from one randomly chosen interview, will be deleted. The unlinked excerpts will be stored on an encrypted drive for verification purposes. 
 
-I will start the recording now. 
+I will first test the recording now. 
+
+[Jan tests the recording]
+
+Now, I will turn on the recording for our interview.
 
 [Turn on recording] 
 
@@ -34,6 +44,10 @@ I will start the recording now.
 
 I will ask you a set of questions. Please feel free to elaborate on your answer. I will take notes while you speak to make sure that all parts of the fabrication process are addressed. These notes will be destroyed immediately after the interview is over. You are free to look at your fabricated data to remind you of any specifics, or at possible notes you made when fabricating the data.
 
+[Memory for Jan: Don't ask suggestive questions]
+
+Some of the questions may sound repetitive. So, feel free to say that you already answered this question. Even if I as the interviewer feel that a question is repetitive, I would like you to make the decision whether we should go on with the next question as you may think of valuable additional information that you would like to give for this question.
+
 ### Warm-up
 
 - How many years has it been since you got your PhD?
@@ -42,7 +56,8 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 	* SPSS        R        Stata        SAS        Matlab        Python        
 	* Other, namely: _____________
 	* None
-- How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
+- How would you rate your knowledge of statistics relative to your peers? (1 = extremely poor; 10 = excellent)
+	* If someone asks for clarification: relative to other researchers/scientists in your field
 - How confident are you that your fabricated data will go undetected as fabricated? (1 = extremely insecure; 10 = extremely confident)
 
 ### When
@@ -64,7 +79,7 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 
 ### What 
 
-- could you name specific characteristics that would make data look (more) weird in your opinion?
+- could you name specific characteristics that would make data look (more) fabricated in your opinion?
 - could you name specific characteristics that would make data look (more) genuine in your opinion?
 - Did you take these characteristics you just mentioned into account when fabricating the data? 
 	* If so, how did you take these into account?
@@ -114,7 +129,7 @@ Note that for the additional 100 euros that you may receive, we first have to de
 [Participant signs receipt]
 
 Thank you very much for participating in our study. As a final reminder, I have to emphasize that fabricating data is only allowed within this experiment and should not be taken as an invitation to fabricate research results elsewhere. Data fabrication is a serious form of scientific misconduct and is widely and explicitly condemned by professional organizations, institutions, and funding agencies alike.
-If you have any questions about this project, you can contact the Principal Investigator
+If you have any questions about this project, you can contact the Principal Investigator. Note, however, that questions can only be answered after the data collection is completed.
 
 [Hand over contact slip]
 
