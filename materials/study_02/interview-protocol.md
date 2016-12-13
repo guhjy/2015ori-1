@@ -46,9 +46,11 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 
 [Memory for Jan: Don't ask suggestive questions]
 
-Some of the questions may sound repetitive. So, feel free to say that you already answered this question. Even if I as the interviewer feel that a question is repetitive, I would like you to make the decision whether we should go on with the next question as you may think of valuable additional information that you would like to give for this question.
+The interview will consist of 5 different blocks of questions. Some of the questions may be a bit repetitive. So, feel free to say that you already answered this question. Even if I as the interviewer feel that a question is repetitive, I would like you to make the decision whether we should go on with the next question as you may think of valuable additional information that you would like to give for this question.
 
-### Warm-up
+### Block 1: General Information
+
+Now, we will start with the first block. The goal of this block is to get some general information about you.
 
 - How many years has it been since you got your PhD?
 - How many experiments including a Stroop task have you conducted in your career?
@@ -60,7 +62,9 @@ Some of the questions may sound repetitive. So, feel free to say that you alread
 	* If someone asks for clarification: relative to other researchers/scientists in your field
 - How confident are you that your fabricated data will go undetected as fabricated? (1 = extremely insecure; 10 = extremely confident)
 
-### When
+### Block 2: Timeline of Data Fabrication Process (When?)
+
+This is the end of the first block about general information. Now, we will start with the second block. The goal of this block is to get some information about the timeline of the data fabrication process.
 
 - Did you fabricate the data in one day or spread the data fabrication over several days?
 	[if spread over days] on how many days did you work on fabricating the data?
@@ -75,9 +79,12 @@ Some of the questions may sound repetitive. So, feel free to say that you alread
 			* [if yes] can you name the cases you looked into?
 		- how did you prepare?/other ways?
 		- did this preparation influence your approach to fabricating data?
-- Do you have other comments?
 
-### What 
+This is the end of the second block. Do you have any other comments about the timeline of the data fabrication process that you think could be interesting for us to know?
+
+### Block 3: Broad Framework of Data Fabrication Process (What?)
+
+Then, we will now start with the third block. The goal of this block is to get some information about the broad framework of the data fabrication process.
 
 - could you name specific characteristics that would make data look (more) fabricated in your opinion?
 - could you name specific characteristics that would make data look (more) genuine in your opinion?
@@ -91,7 +98,11 @@ Some of the questions may sound repetitive. So, feel free to say that you alread
 - in hindsight, are there things you think you should have paid specific attention to while fabricating the data?
 - Do you have other comments?
 
-### How
+This is the end of the third block. Do you have any other comments about the broad framework of the data fabrication process that you think could be interesting for us to know?
+
+### Block 4: Specific Steps of Data Fabrication Process (How?)
+
+Then, we will now start with the fourth block. The goal of this block is to get some information about the specifics steps of the data fabrication process.
 
 - Could you indicate what steps you took to fabricate the means for the participants?
 - Could you indicate what steps you took to fabricate the standard deviations for the participants?
@@ -107,14 +118,20 @@ Some of the questions may sound repetitive. So, feel free to say that you alread
 	* [if yes] how did you use these real data?
 - Do you have other comments?
 
-### Why
+This is the end of the fourth block. Do you have any other comments about the specifics steps of the data fabrication process that you think could be interesting for us to know?
+
+### Block 5: Underlying Rationale of Data Fabrication Process (Why?)
+
+Then, we will now start with the fifth block. The goal of this block is to get some information about the underlying rationale of the data fabrication process.
 
 - Did you consider fabricating these data a difficult task to complete?
 - Do you think your approach to data fabrication will be difficult to detect as fabricated?
 	* Why?
 - Why did you decide to participate in this study? 
 
-Ok, then this is the end of the interview. If there is anything else you can recall about the data fabrication process that you think is worth mentioning, now is the time to mention that.
+This is the end of the fifth block. Do you have any other comments about the underlying rationale of the data fabrication process that you think could be interesting for us to know?
+
+Ok, then this is the end of the interview. Is there anything else you can recall about the data fabrication process that you think is worth mentioning?
 
 [Turn off recording]
 
