@@ -1,5 +1,9 @@
 # Step-by-step protocol for interview [Including full list of interview questions]
 
+## Background knowledge for interviewer
+
+[Insert definitin of fabricated data set]
+
 ## Step 1: Introduction
 
 First of all, on behalf of all researchers involved in this study, thank you very much for participating in our study. We highly appreciate the time and effort that you spent to create the fabricated dataset and take part in this interview.
@@ -20,9 +24,15 @@ Before we begin with the actual interview, I would like to ask you to hand over 
 
 [If the participant did not try anything, the interview will be canceled at this point.]
 
+[Jan checks whether the spreadsheet can be opened on his laptop and fits with the spreadsheet in the materials]
+
 Thank you very much. Now, we come to the interview. As was mentioned in the consent form, this interview will be audio-recorded and transcribed. The audio-recordings, except for excerpts from one randomly chosen interview, will be deleted. The unlinked excerpts will be stored on an encrypted drive for verification purposes. 
 
-I will start the recording now. 
+I will first test the recording now. 
+
+[Jan tests the recording]
+
+Now, I will turn on the recording for our interview.
 
 [Turn on recording] 
 
@@ -34,7 +44,13 @@ I will start the recording now.
 
 I will ask you a set of questions. Please feel free to elaborate on your answer. I will take notes while you speak to make sure that all parts of the fabrication process are addressed. These notes will be destroyed immediately after the interview is over. You are free to look at your fabricated data to remind you of any specifics, or at possible notes you made when fabricating the data.
 
-### Warm-up
+[Memory for Jan: Don't ask suggestive questions]
+
+The interview will consist of 5 different blocks of questions. Some of the questions may be a bit repetitive. So, feel free to say that you already answered this question. Even if I as the interviewer feel that a question is repetitive, I would like you to make the decision whether we should go on with the next question as you may think of valuable additional information that you would like to give for this question.
+
+### Block 1: General Information
+
+Now, we will start with the first block. The goal of this block is to get some general information about you.
 
 - How many years has it been since you got your PhD?
 - How many experiments including a Stroop task have you conducted in your career?
@@ -42,10 +58,13 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 	* SPSS        R        Stata        SAS        Matlab        Python        
 	* Other, namely: _____________
 	* None
-- How would you rate your knowledge of statistics? (1 = extremely poor; 10 = excellent)
+- How would you rate your knowledge of statistics relative to your peers? (1 = extremely poor; 10 = excellent)
+	* If someone asks for clarification: relative to other researchers/scientists in your field
 - How confident are you that your fabricated data will go undetected as fabricated? (1 = extremely insecure; 10 = extremely confident)
 
-### When
+### Block 2: Timeline of Data Fabrication Process (When?)
+
+This is the end of the first block about general information. Now, we will start with the second block. The goal of this block is to get some information about the timeline of the data fabrication process.
 
 - Did you fabricate the data in one day or spread the data fabrication over several days?
 	[if spread over days] on how many days did you work on fabricating the data?
@@ -60,11 +79,14 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 			* [if yes] can you name the cases you looked into?
 		- how did you prepare?/other ways?
 		- did this preparation influence your approach to fabricating data?
-- Do you have other comments?
 
-### What 
+This is the end of the second block. Do you have any other comments about the timeline of the data fabrication process that you think could be interesting for us to know?
 
-- could you name specific characteristics that would make data look (more) weird in your opinion?
+### Block 3: Broad Framework of Data Fabrication Process (What?)
+
+Then, we will now start with the third block. The goal of this block is to get some information about the broad framework of the data fabrication process.
+
+- could you name specific characteristics that would make data look (more) fabricated in your opinion?
 - could you name specific characteristics that would make data look (more) genuine in your opinion?
 - Did you take these characteristics you just mentioned into account when fabricating the data? 
 	* If so, how did you take these into account?
@@ -76,7 +98,11 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 - in hindsight, are there things you think you should have paid specific attention to while fabricating the data?
 - Do you have other comments?
 
-### How
+This is the end of the third block. Do you have any other comments about the broad framework of the data fabrication process that you think could be interesting for us to know?
+
+### Block 4: Specific Steps of Data Fabrication Process (How?)
+
+Then, we will now start with the fourth block. The goal of this block is to get some information about the specifics steps of the data fabrication process.
 
 - Could you indicate what steps you took to fabricate the means for the participants?
 - Could you indicate what steps you took to fabricate the standard deviations for the participants?
@@ -92,14 +118,20 @@ I will ask you a set of questions. Please feel free to elaborate on your answer.
 	* [if yes] how did you use these real data?
 - Do you have other comments?
 
-### Why
+This is the end of the fourth block. Do you have any other comments about the specifics steps of the data fabrication process that you think could be interesting for us to know?
+
+### Block 5: Underlying Rationale of Data Fabrication Process (Why?)
+
+Then, we will now start with the fifth block. The goal of this block is to get some information about the underlying rationale of the data fabrication process.
 
 - Did you consider fabricating these data a difficult task to complete?
 - Do you think your approach to data fabrication will be difficult to detect as fabricated?
 	* Why?
 - Why did you decide to participate in this study? 
 
-Ok, then this is the end of the interview. If there is anything else you can recall about the data fabrication process that you think is worth mentioning, now is the time to mention that.
+This is the end of the fifth block. Do you have any other comments about the underlying rationale of the data fabrication process that you think could be interesting for us to know?
+
+Ok, then this is the end of the interview. Is there anything else you can recall about the data fabrication process that you think is worth mentioning?
 
 [Turn off recording]
 
@@ -114,7 +146,7 @@ Note that for the additional 100 euros that you may receive, we first have to de
 [Participant signs receipt]
 
 Thank you very much for participating in our study. As a final reminder, I have to emphasize that fabricating data is only allowed within this experiment and should not be taken as an invitation to fabricate research results elsewhere. Data fabrication is a serious form of scientific misconduct and is widely and explicitly condemned by professional organizations, institutions, and funding agencies alike.
-If you have any questions about this project, you can contact the Principal Investigator
+If you have any questions about this project, you can contact the Principal Investigator. Note, however, that questions can only be answered after the data collection is completed.
 
 [Hand over contact slip]
 
