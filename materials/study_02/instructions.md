@@ -40,7 +40,7 @@ Now, we would like to request you to plan an interview with research assistant J
 
 In order to facilitate the planning of the face-to-face interviews throughout the Netherlands and Belgium, we would like to ask you to suggest several options (at least three) below and the address where the interview would take place. Note that you can choose the address as long as it is within Belgium or the Netherlands.
 
-Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan Voelkel, he will contact you to try and reschedule.
+Multiple suggestions are a necessity because travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan Voelkel, he will contact you to try and reschedule.
 
 Please answer the following questions to schedule the interview.
 
@@ -118,13 +118,13 @@ Please indicate the location where the interview should be conducted.
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
 
 ## E-mail address
 
-Now, please indicate your e-mail-address that we need to contact you for scheduling the interview. Your e-mail-address will be deleted as soon as possible so that it cannot be matched with your data.
+Now, please indicate your e-mail address that we need to contact you for scheduling the interview. Your e-mail address will be deleted as soon as possible so that it cannot be matched with your data.
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
 
 ## End of survey message
 
