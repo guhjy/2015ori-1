@@ -85,6 +85,7 @@ If you want to offer more than one time window for this day, please use the thir
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
 I am also available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 
@@ -110,6 +111,7 @@ If you want to offer more than one time window for this day, please use the thir
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
 I am also available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 
