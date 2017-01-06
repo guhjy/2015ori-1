@@ -28,7 +28,7 @@ Suggestion 3: DATE and TIME
 
 Kind regards, also on behalf of Chris Hartgerink, Marcel van Assen, and Jelte Wicherts,
 
-Jan Volkel 
+Jan Voelkel 
 
 ## Reminder 3 days before the interview
 
@@ -41,4 +41,5 @@ Please make sure that you have fabricated the data by then. If you want to downl
 Looking forward to meet you and thanks again for your willingness to participate in our research.
 
 Kind regards, also on behalf of Chris Hartgerink, Marcel van Assen, and Jelte Wicherts,
+
 Jan Voelkel
