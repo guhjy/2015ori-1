@@ -81,7 +81,7 @@ Please choose the time when you are available on [selected day].
 
 Each time windows has to contain at least one hour.
 
-If you want to offer more than one time window for this day, please use the third and fourth option as well.
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
@@ -107,7 +107,7 @@ Please choose the time when you are available on [selected day].
 
 Each time windows has to contain at least one hour.
 
-If you want to offer more than one time window for this day, please use the third and fourth option as well.
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
