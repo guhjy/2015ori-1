@@ -96,7 +96,7 @@ Please indicate the location where the interview should be conducted if it happe
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
 
 [BRANCH: SECOND DIRECTION]
 [If different location question answered with NO]
