@@ -48,6 +48,8 @@ Please select the days on which you are available for the interview (at least 3)
 
 You can select the specific time when you are available and the location where the interview should be conducted on the next pages.
 
+### Days for first sampling frame
+
 - [ ] Monday, January 23, 2017
 - [ ] Tuesday, January 24, 2017
 - [ ] Wednesday, January 25, 2017
@@ -63,6 +65,24 @@ You can select the specific time when you are available and the location where t
 - [ ] Wednesday, February 8, 2017
 - [ ] Thursday, February 9, 2017
 - [ ] Friday, February 10, 2017
+
+### Days for second sampling frame
+
+- [ ] Monday, February 13, 2017
+- [ ] Tuesday, February 14, 2017
+- [ ] Wednesday, February 15, 2017
+- [ ] Thursday, February 16, 2017
+- [ ] Friday, February 17, 2017
+- [ ] Monday, February 20, 2017
+- [ ] Tuesday, February 21, 2017
+- [ ] Wednesday, February 22, 2017
+- [ ] Thursday, February 23, 2017
+- [ ] Friday, February 24, 2017
+- [ ] Monday, February 27, 2017
+- [ ] Tuesday, February 28, 2017
+- [ ] Wednesday, March 1, 2017
+- [ ] Thursday, March 2, 2017
+- [ ] Friday, March 3, 2017
 
 <!-- force response on this page -->
 
