@@ -52,7 +52,10 @@ The interview will consist of 5 different blocks of questions. Some of the quest
 
 Now, we will start with the first block. The goal of this block is to get some general information about you.
 
-- How many years has it been since you got your PhD?
+- Are you a PhD Student?
+	* [if no]
+		- How many years has it been since you got your PhD?
+- What is your broad study area in psychology? By broad study area, I mean fields like social psychology or cognitive psychology.
 - How many experiments including a Stroop task have you conducted in your career?
 - Which statistical analysis programs do you use at least once a week? [multiple answers possible]
 	* SPSS        R        Stata        SAS        Matlab        Python        
