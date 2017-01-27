@@ -55,7 +55,7 @@ Now, we will start with the first block. The goal of this block is to get some g
 - Are you a PhD Student?
 	* [if no]
 		- How many years has it been since you got your PhD?
-- What is your broad study area in psychology? By broad study area, I mean fields like social psychology or cognitive psychology.
+- What is your field within psychology? For example, social, cognitive, etc.
 - How many experiments including a Stroop task have you conducted in your career?
 - Which statistical analysis programs do you use at least once a week? [multiple answers possible]
 	* SPSS        R        Stata        SAS        Matlab        Python        
