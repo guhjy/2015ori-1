@@ -40,7 +40,7 @@ Now, we would like to request you to plan an interview with research assistant J
 
 In order to facilitate the planning of the face-to-face interviews throughout the Netherlands and Belgium, we would like to ask you to suggest several options (at least three) below and the address where the interview would take place. Note that you can choose the address as long as it is within Belgium or the Netherlands.
 
-Multiple suggestions are a necessity, given travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan Voelkel, he will contact you to try and reschedule.
+Multiple suggestions are a necessity because travel time by public transport has to be taken into account. In the case that the suggestions are not physically possible for Jan Voelkel, he will contact you to try and reschedule.
 
 Please answer the following questions to schedule the interview.
 
@@ -68,12 +68,19 @@ You can select the specific time when you are available and the location where t
 
 [Next page]
 
+Do the time intervals when you would be free for the interview differ depending on the days you just chose?
+- [ ] Yes
+- [ ] No
+
 Does your preferred location differ depending on the days you just chose?
 - [ ] Yes
 - [ ] No
 
-[BRANCH: FIRST DIRECTION]
-[If different location question answered with YES]
+<!-- force response on this page -->
+
+[SPLIT UP IN FOUR DIFFERENT BRANCHES - Start]
+[BRANCH: 1]
+[If different time intervals and different location questions both answered with YES]
 
 <!-- loop and merge on this page for all selected days -->
 
@@ -81,10 +88,11 @@ Please choose the time when you are available on [selected day].
 
 Each time windows has to contain at least one hour.
 
-If you want to offer more than one time window for this day, please use the third and fourth option as well.
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
 I am also available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 
@@ -95,21 +103,20 @@ Please indicate the location where the interview should be conducted if it happe
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
 
-[BRANCH: SECOND DIRECTION]
-[If different location question answered with NO]
+[BRANCH: 2]
+[If different time intervals and different location questions both answered with NO]
 
-<!-- loop and merge on this page for all selected days -->
-
-Please choose the time when you are available on [selected day].
+Please choose the time when you are available on all of the chosen days.
 
 Each time windows has to contain at least one hour.
 
-If you want to offer more than one time window for this day, please use the third and fourth option as well.
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
 
 I am available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
 I am also available from [start time] to [end time].
 - [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
 
@@ -118,13 +125,63 @@ Please indicate the location where the interview should be conducted.
 
 Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
+
+[BRANCH: 3]
+[If different time intervals question answered with YES and different location questions answered with NO]
+
+<!-- loop and merge on this page for all selected days -->
+
+Please choose the time when you are available on [selected day].
+
+Each time windows has to contain at least one hour.
+
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
+
+I am available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
+I am also available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
+[Next page]
+Please indicate the location where the interview should be conducted.
+
+Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
+
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
+
+[BRANCH: 4]
+[If different time intervals question answered with NO and different location questions answered with YES]
+
+Please choose the time when you are available on all of the chosen days.
+
+Each time windows has to contain at least one hour.
+
+If you want to offer more than one time window for this day, please use the third and fourth field as well.
+
+I am available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
+I am also available from [start time] to [end time].
+- [Both start and end time can be chosen from 10.00 to 18.00 in 15 min steps]
+
+[Next page]
+<!-- loop and merge on this page for all selected days -->
+
+Please indicate the location where the interview should be conducted if it happens on ${lm://Field/1}.
+
+Please indicate the address below including street, house number, post code, city, country, building name (if appropriate), and room number (if appropriate).
+
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
+
+[SPLIT UP IN FOUR DIFFERENT BRANCHES - End]
 
 ## E-mail address
 
-Now, please indicate your e-mail-address that we need to contact you for scheduling the interview. Your e-mail-address will be deleted as soon as possible so that it cannot be matched with your data.
+Now, please indicate your e-mail address that we need to contact you for scheduling the interview. Your e-mail address will be deleted as soon as possible so that it cannot be matched with your data.
 
-Note that we need this information to set up the interview, but we will permanently delete it after the interview took place.
+Note that we need this information to set up the interview, but we will permanently delete it after the interview.
 
 ## End of survey message
 

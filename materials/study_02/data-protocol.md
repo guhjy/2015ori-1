@@ -33,6 +33,7 @@
 6. Jan deletes interview from dictaphone.
 7. Jan deletes interview script.
 8. Jan copies ID.xls and ID.dataFormat to backup stick [at the end of the day].
+9. Jan sends text file (ID.txt) with spreadsheet information to Chris.
 
 ### Materials after all interviews are conducted
 
