@@ -38,7 +38,7 @@ Dear fellow scientist,
 
 We are developing and validating statistical methods to detect data fabrication. We are currently studying the performance of such statistical methods to distinguish genuine from fabricated data using the Stroop task. To this end, we are looking for psychologists from the Netherlands, familiar with the Stroop task, and who want to participate in our study where we ask you to fabricate a new dataset on the Stroop task. Participation is compensated with 100 euros.
 
-We retrieved your e-mail address from the website of your department. If you are not currently a psychological researcher living in the Netherlands, our apologies for e-mailing you and you can discard this message.
+We retrieved your e-mail address from the website of your department. If you are not currently a psychology researcher living in the Netherlands, our apologies for e-mailing you and you can discard this message.
 
 We would like to invite you to participate in our current study on the performance of statistical methods to distinguish genuine psychological data from fabricated data. In this study, we request you to fabricate a dataset on the Stroop task (means and standard deviations of response latency for 25 participants in two conditions each). We would also like to conduct a face-to-face interview on how you fabricated the data, in order to get a qualitative understanding of how researchers might fabricate data.
 
