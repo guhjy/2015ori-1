@@ -74,7 +74,7 @@ myTbl$SUBEXCL<-0
 myTblNoLong<-filter(myTbl,TRIAL_LATENCY<10000,TRIAL_LATENCY>=0)
 
 myFastTbl<-filter(myTbl) %>%
-  summarise(FASTM=sum(TRIAL_LATENCY<300)/length(TRIAL_LATENCY))
+  dplyr::summarise(FASTM=sum(TRIAL_LATENCY<300)/length(TRIAL_LATENCY))
 
 isTooFast<-filter(myFastTbl,FASTM>.10)%>%
   select(SESSION_ID)
@@ -88,7 +88,7 @@ myTblNotFast<-group_by(myTblNoLong,SESSION_ID,CONGRUENT)
 #NOTE: in TRIAL_ERROR, 0=error, 1=correct
 
 meanReplace<-filter(myTblNotFast,TRIAL_ERROR==1) %>%
-  summarise(blockMean=mean(TRIAL_LATENCY)+600)
+  dplyr::summarise(blockMean=mean(TRIAL_LATENCY)+600)
 # meanReplace
 # head(meanReplace)
 # str(meanReplace)
@@ -112,10 +112,10 @@ Incongruent<-subset(Corrected,Corrected$CONGRUENT=="Incongruent")
 # head(Congruent)
 # head(Incongruent)
 
-blockMeans1<-summarise(group_by(Congruent,SESSION_ID),MC=mean(TRIAL_LATENCY),SDC=sd(TRIAL_LATENCY),NC=length(TRIAL_LATENCY))
+blockMeans1<-dplyr::summarise(group_by(Congruent,SESSION_ID),MC=mean(TRIAL_LATENCY),SDC=sd(TRIAL_LATENCY),NC=length(TRIAL_LATENCY))
 tblM1<-blockMeans1
 
-blockMeans2<-summarise(group_by(Incongruent,SESSION_ID),MI=mean(TRIAL_LATENCY),SDI=sd(TRIAL_LATENCY),NI=length(TRIAL_LATENCY))
+blockMeans2<-dplyr::summarise(group_by(Incongruent,SESSION_ID),MI=mean(TRIAL_LATENCY),SDI=sd(TRIAL_LATENCY),NI=length(TRIAL_LATENCY))
 tblM2<-blockMeans2
 
 Means<-merge(tblM1,tblM2,by="SESSION_ID")
