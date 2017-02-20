@@ -119,6 +119,8 @@ blockMeans2<-dplyr::summarise(group_by(Incongruent,SESSION_ID),MI=mean(TRIAL_LAT
 tblM2<-blockMeans2
 
 Means<-merge(tblM1,tblM2,by="SESSION_ID")
+tmp <- data.frame(SESSION_ID = Latency$SESSION_ID, study_name = Latency$study_name)
+Means <- merge(Means, tmp, by="SESSION_ID")
 # head(Means)
 # list(Means$NC)
 # list(Means$NI)
