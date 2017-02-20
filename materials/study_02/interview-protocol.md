@@ -131,6 +131,9 @@ Then, we will now start with the fifth block. The goal of this block is to get s
 - Do you think your approach to data fabrication will be difficult to detect as fabricated?
 	* Why?
 - Why did you decide to participate in this study? 
+- Did you discuss this study or the fabrication of the dataset for this study with other people? [Added after the first interview]
+	* [if yes] Did these people help you in fabricating data? [Added after the first interview]
+		* [if yes] How did they help you? [Added after the first interview]
 
 This is the end of the fifth block. Do you have any other comments about the underlying rationale of the data fabrication process that you think could be interesting for us to know?
 
