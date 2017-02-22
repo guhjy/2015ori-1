@@ -119,7 +119,9 @@ blockMeans2<-dplyr::summarise(group_by(Incongruent,SESSION_ID),MI=mean(TRIAL_LAT
 tblM2<-blockMeans2
 
 Means<-merge(tblM1,tblM2,by="SESSION_ID")
-tmp <- data.frame(SESSION_ID = Latency$SESSION_ID, study_name = Latency$study_name)
+tmp <- data.frame(SESSION_ID = Latency$SESSION_ID,
+                  study_name = Latency$study_name)
+tmp <- tmp[!duplicated(tmp),]
 Means <- merge(Means, tmp, by="SESSION_ID")
 # head(Means)
 # list(Means$NC)
@@ -139,4 +141,4 @@ Stroop$StroopEffect <- (Stroop$MI - Stroop$MC) / Stroop$SDPooled
 # Stroop
 # head(Stroop)
 
-write.csv(Stroop, sprintf('%sdata/study_02/ml3_stroop.csv', x12))
+write.csv(Stroop, sprintf('%sdata/study_02/ml3_stroop.csv', x12), row.names = FALSE)
