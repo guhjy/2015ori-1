@@ -6,10 +6,12 @@
 \usepackage{natbib}
 \usepackage{hyperref}
 \usepackage{adjustbox}
+\usepackage{eurosym}
 \bibliographystyle{apalike}
 
 \title{Ecological performance of detecting data fabrication with summary statistics}
-\author{Chris HJ Hartgerink, Jelte M Wicherts, Marcel ALM van Assen}
+\author{Chris HJ Hartgerink, Jan G Voelkel, Jelte M Wicherts, Marcel ALM van Assen\\
+Preregistration conducted by first author}
 
 \usepackage{Sweave}
 \begin{document}
@@ -33,6 +35,161 @@ The effectiveness of detection mechanisms and their consequences, hence their ex
 Throughout this paper, we inspect statistical methods to detect data fabrication that can be applied to (1) summary results or (2) raw data. Even though the data available look different depending on the structure of the study, there are certain common characteristics of results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale \citep{Stevens_1946}.
 
 We present a set of studies that directly test the validity of statistical methods to detect data fabrication. To this end, Study 1 inspected the performance of statistical methods to detect data fabrication when using only summary results (e.g., means and standard deviations) as typically reported in empirical research articles. Study 2 inspected the performance of statistical methods aimed at detecting data fabrication in raw data (i.e., the data underlying summary results). These two studies provide a first indication of how applicable and effective statistical methods are to detect data fabrication in practice, with actual researchers fabricating actual data.
+
+
+\section*{Study 1}
+
+
+We tested the performance of statistical methods to detect data fabrication based on summary results with genuine and fabricated summary results of four anchoring studies \citep{tversky1974,jacowitz1995}. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively \citep{tversky1974}, despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study.
+
+\subsection*{Methods}
+
+The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF (\url{https://osf.io/b24pq}) and a preregistration is available at \url{https://osf.io/ejf5x} (deviations are explicated in this report).
+
+\subsubsection*{Data collection}
+
+We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project \citep[\url{https://osf.io/pqf9r};][]{klein2014}. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were computed for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., $3\times4\times4\times36$). We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
+
+Using quotum sampling, we collected thirty-six fabricated datasets of summary results for all four anchoring studies. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward). The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect \citep{jacowitz1995,tversky1974}, for which summary results were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because this filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
+
+A random sample of 1,000 researchers were approached via e-mail to participate in this study on April 25, 2016 (invitation: \url{https://osf.io/s4w8r}). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a \$30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional \$50 Amazon gift card if they were one of three top fabricators. The provided email addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at \url{https://osf.io/w984b}.
+
+Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
+
+We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure \ref{fig1} depicts an example of this spreadsheet (original:  \url{https://osf.io/w6v4u}). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure \ref{fig1}. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/spreadsheet.png}
+\caption{Example of a filled in template spreadsheet used in the fabrication process of Study 1. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell (one of four template spreadsheets available at \url{https://osf.io/w6v4u/}).}
+\label{fig1}
+\end{center}
+\end{figure}
+
+Upon completing the fabrication of the data, respondents were debriefed. Respondents answered several questions about their statistical knowledge and approach to data fabrication and finally we reminded them that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. We rewarded participation with a \$30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus \$50 Amazon gift card.
+
+\subsubsection*{Data analysis}
+
+To detect data fabrication in a set of summary results, we first tested the standardized standard deviations (SDs) for data fabrication \citep{simonsohn2013} across the four anchoring studies. This method tests whether the observed SDs contain a reasonable amount of variation, as expected based on random sampling processes. For example, if four independent samples all yield the variance $2.22$, this could be considered excessively consistent when the probability that this amount of consistency (or more) is less than 1 out of 1000 in truly random samples. To compute this probability, we first standardized the SDs for each of the four studies with
+\begin{equation}
+z_j=\sqrt{\frac{s^2_j}{MS_w}}=\sqrt{\frac{s^2_j}{\left(\frac{\sum\limits^k_{j=1}(N_j-1)s^2_j}{\sum\limits^k_{j=1}(N_j-1)}\right)}}
+\label{s2_j}
+\end{equation}
+where $z_j$ denotes the standardized SD in group $j$ ($MS_w$ is the simple arithmetic mean when sample sizes are equal for all cells, which is the case for the fabricated datasets). We tested different measures to detect data fabrication that utilize these standardized SDs (i.e., $z_j$). We included the variance of the standardized SDs \citep[i.e.,  $SD_{z}$;][]{simonsohn2013} and tried out the max-min distance of the standardized SDs (denoted $max-min_{z}$) as an alternative measure. We compared the observed value for each measure with the expected distribution when the summary results are used to generate random samples. To this end, we simulated the expected distribution of standardized SDs and computed the expected distribution of each measure. This expected distribution was used to determine the $p$-value of the observed $SD_z$ and $max-min_z$. We simulated the standardized variance for each of the $j$ groups as
+\begin{equation}
+z^2_j\sim\left(\frac{\chi^2_{N_j-1}}{N_j-1}\right)/MS_w
+\label{simvar}
+\end{equation}
+These simulated values are used to compute the expected distribution of the $SD_z$ and $max-min_z$  measures.
+
+Testing the standardized SDs for potential data fabrication can be done either for each study separately or all studies combined; the test can also be done under different assumptions of population variances across conditions. The assumptions of population variance can either by that all SDs originate from the same distribution \citep[as in][]{simonsohn2013}, the SDs within a factor are from the same distribution, or each group comes from its own distribution. We preregistered the method that assumes the SDs are drawn from the same distribution for the various conditions (i.e., homogeneous SDs) and are tested across all studies. However, upon conducting the analyses, we decided homogenous SDs are not unequivocal and included computations where the SDs for the low anchor and high anchor are from different distributions (i.e., heterogeneous SDs). Additionally, the signal for data fabrication across the four anchoring studies might result in different studies cancelling each other out, so we also included analyses where each study was analyzed separately.
+
+Second, we applied the reversed Fisher method to detect data fabrication to the nonsignificant $p$-values twice: once for the results of gender effects hypothesis in each study and once for the results of the interaction effect hypothesis for each study. The Fisher method \citep{fisher1925} tests for evidence of an effect in a set of $p$-values by testing for a right-skew $p$-value distribution, but we adjusted it here to test for results that are overly consistent with the null hypothesis and result in a left-skew distribution (see Figure \ref{leftskew}). The original Fisher method is computed as
+\begin{equation}
+\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(p_i)
+\label{fishertest}
+\end{equation}
+and tests for right-skew in a set of $p$-values, but we adjust it to the following
+\begin{equation}
+\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
+\label{fisheradjusted}
+\end{equation}
+where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. We set this threshold to .05 in order to include only nonsignificant test results. The theoretical idea behind this method is that researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution, given the frequent misinterpretation of $p$-values \citep[e.g., as the probability of an effect,][]{Goodman2008135,Altman_1995}. % I can add more refs but it is just a rabbit hole to start with more.
+
+
+% add plot of left and right skew
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/fisherfig.pdf}
+\caption{Conceptual representation of what the Fisher test inspects (Equation \ref{fishertest}; panel A) and what the adjusted Fisher test inspects (Equation \ref{fisheradjusted}; panel B). Both panels test whether there is sufficient evidence that the solid line deviates from the dashed line, except that the type of deviation that the test is sensitive to is the exact opposite.}
+\label{leftskew}
+\end{center}
+\end{figure}
+
+Finally, we combined the aforementioned methods to detect data fabrication with the Fisher method. This included the $SD_z$ measure across all studies and the Fisher test (Equation \ref{fisheradjusted}) of the gender hypothesis test and the interaction test.  We expected this combination test of the three individual tests for data fabrication to be more powerful than the individual tests, given that these tests inspect different manifestations of data fabrications. Based on the results of the combined test results, the three least detectable data fabricators were selected. The three respondents with the highest $p$-values on this combined method to detect data fabrication contained the least evidential value for deviating from genuine data and received an additional \$50 Amazon gift card.
+
+For each of these four tests to detect data fabrication ($SD_z$, Fisher test for the gender and interaction hypotheses, combined methods) we carried out sensitivity and specificity analyses using ROC-curves. ROC-analyses indicate the sensitivity (i.e., True Positive Rate [TPR]) and specificity (i.e., True Negative Rate [TNR]) for various decision criteria (e.g., $\alpha=0, .01, .02, ..., .99, 1$). With these ROC-curves, informed decisions about optimal alpha levels can be made based on various criteria. In this case, we determine the optimal alpha level by finding that alpha level for which the combination of TPR and TNR were highest. For example, if $\alpha=.04$ results in $TPR=.30$ and $TNR=.70$, but $\alpha=.05$ results in $TPR=.5$ and $TNR=.5$, .05 was chosen as an optimal decision criterion based on the sample. 
+% Maybe include bootstrapped errors here.
+
+\subsection*{Results}
+
+
+
+\subsection*{Discussion}
+
+% variance analysis and effect size best ways to inspect
+% but severely correlated: smaller variances = larger effects
+% easiest way is too look for massive effects in the effects
+
+% Simonsohn method not invalid under homogeneous, just somethign to take into account
+% easily adjusted
+
+% Discuss how the PPV is likely to be overestimated because prevalence is 50% in this study
+% How we don't know the prevalence, in fact.
+
+% Discuss alpha choice based on sample has large error (small sample).
+% Only provides a first indication
+
+% Comparison between methods not tested, large error given small sample.
+% This provides just initial work
+
+
+\section*{Study 2}
+
+In Study 2 we investigated detecting data fabrication in raw data as an extension of Study 1, which presented results of detecting data fabrication in summary results. In essence, the procedure is similar: we asked actual researchers to fabricate data that they thought would go undetected. For Study 2 we included a face-to-face interview to qualitatively assess how data fabrication occurs. A preregistration of this study occurred during the seeking of funding \citep{10.3897/rio.2.e8860} and during data collection (\url{https://osf.io/XXXX}).
+
+To test the validity of statistical methods to detect data fabrication in raw data, we investigated raw data of a Stroop experiment \citep{Stroop_1935}. In the Stroop task, participants are asked to determine the color a word is presented in (i.e., word colors), but the word also reads a color (i.e., color words). The presented word color (i.e., 'red', 'blue', or 'green') can be either presented in the congruent color (e.g., 'red' presented in red) or an incongruent color (i.e., 'red' presented in green). The dependent variable in the Stroop task is the response latency (in this study milliseconds are used). Participants in actual studies are typically presented with a set of these, where the mean and standard deviation per condition serves as the raw data. The Stroop effect typically is computed as the difference in mean response latencies between the congruent and incongruent conditions.
+
+\section*{Methods}
+
+
+Twenty-one genuine datasets on the Stroop task were collected from the Many Labs 3 project \citep[\url{https://osf.io/n8xa7/};][]{Ebersole201668}. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample \citep[the original preregistration mentioned 20 datasets, accidentally overlooking the online sample;][]{10.3897/rio.2.e8860}. Using the original raw data and analysis script from ML3 (\url{https://osf.io/qs8tp/}), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure \ref{spreadsheet2}). The Stroop effect was calculated as a $t$-test of the difference ($H_0:\mu=0$).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/spreadsheet2.png}
+\caption{Example of a filled in template spreadsheet used in the fabrication process for Study 2. Respondents fabricated data in the yellow cells and green cells, which were used to compute the results of the hypothesis test of the condition effect. If the fabricated data confirm the hypotheses, a checkmark appeared. This template is available at \url{https://osf.io/2qrbs/}.}
+\label{spreadsheet2}
+\end{center}
+\end{figure}
+
+We collected twenty-eight faked datasets on the Stroop task experimentally in a two-stage sampling procedure. First, we invited 80 Dutch and Flemish psychology researchers who published a peer-reviewed paper on the Stroop task between 2005-2015 as available in the Thomson Reuters’ Web of Science database. We selected Dutch and Flemish researchers to allow for a face-to-face interview on how the data were fabricated. We chose the period 2005-2015 to prevent a drastic decrease in the probability that the corresponding author would still be addressable via the given email. The database was searched on October 10, 2016 and 80 unique e-mails were retrieved from 90 publications. Only two of these 80 participated in the study; we subsequently implemented a second sampling stage where we collected e-mails from all PhD-candidates, teachers, and professors of psychology related departments at Dutch universities. This resulted in 1659 additional unique e-mails that we subsequently invited to participate in this study. Due to a malfunction in Qualtrics' quotum sampling, we oversampled, resulting in 28 participants instead of the originally intended 20 participants.
+
+Each participant received instructions on the data fabrication task via Qualtrics but was allowed to fabricate data until the face-to-face interview took place. In other words, each participant could take the time they wanted/needed to fabricate the data as extensively as they liked. Each participant received downloadable instructions (\url{https://osf.io/7qhy8/}) and the template spreadsheet via Qualtrics (see Figure \ref{spreadsheet2}). The interview was scheduled via Qualtrics with JGV, who blinded the rest of the research team from the identifying information of each participant and the date of the interview. All interviews took place between January 31 and March 3, 2017. To incentivize researchers to participate, they received \euro 100 for participation; to incentivize them to fabricate (supposedly) hard to detect data they could win an additional \euro 100 if they belonged to one out of three top fabricators. The contents of the interview will be transcribed for further research on qualitatively assessing how researchers might fabricate experimental data.
+
+The procedure to evaluate the genuine- and fabricated data included digit analyses, variance analyses, comparison of true- and fabricated multivariate associations, and combining results of several of the aforementioned methods with the Fisher method. Figure \ref{study2proc} shows how the various methods are combined. In short, the digit analyses include Benford's law \citep{Benford1938-fl} and terminal digit analysis \citep{Mosimann1995-av,Mosimann2002-oj}; analyzing the variance of the standardized SDs \citep[similar to Study 1;][]{simonsohn2013}; the multivariate associations compare the observed correlations between the variables in the fabricated data with the observed correlations between the same variables in the genuine data (the multivariate comparison is only done for fabricated data). The Fisher method (Equation \ref{fishertest}) is used to combine the results of the terminal digit analyses, the analyses of the standardized SD variance, and the multivariate associations to determine the hardest to detect fabricated datasets. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/study2proc.pdf}
+\caption{The applied statistical methods to test for data fabrication in Study 2, depicting those that are combined into an overall test for data fabrication with the Fisher method. Benford’s law is excluded from the overall tests because of an expected lack of utility. Original from \citet{10.3897/rio.2.e8860} under CC-BY.}
+\label{study2proc}
+\end{center}
+\end{figure}
+
+The digit analyses are based on a simple enough premise: test whether the first (i.e., leading) or final (i.e., terminal) digits follow an a priori specified distribution. Benford's law \citep{Benford1938-fl} stipulates that the leading digit follows the distribution of 
+\begin{equation}
+P(d)=log_{10}(\frac{d+1}{d})
+\label{benford}
+\end{equation}
+where $d$ is the leading digit and $P(d)$ denotes the probability of $d$ (e.g., $P(1)=0.301$). This expected distribution can be tested with a $\chi^2$-test ($df=8$) of the tabular count of leading digits. Similarly, terminal digit analysis \citep{Mosimann1995-av,Mosimann2002-oj} expects that the final digit contains the most measurement error, hence, is uniformly distributed if sufficient digits are available. As a rule of thumb, three digits is sufficient to apply terminal digit analysis \citep{Mosimann1995-av,Mosimann2002-oj}. The observed terminal digit count can be tested against the expected uniform distribution with a $\chi^2$-test as well, although with $df=9$ instead of $df=8$ because a leading digit can never be zero.
+
+We analyzed the variance of the standardized SDs for each condition in each dataset (i.e., two tests per dataset). Whereas in Study 1 the test was conducted on means and standard deviations across cells per study, in Study 2 we conducted the test on means and standard deviations across respondents per condition. The technical aspects of this test remain equivalent to the application in Study 1 (see equations \ref{s2_j} and \ref{simvar}). As such, the only difference is that $N_j$ is no longer the sample size, but the number of Stroop trials presented to the participant.
+
+We analyzed the multivariate associations between the means and standard deviations of the participant-level data in four ways. We computed the observed multivariate associations between the means across conditions (i.e., $r$($M_{congruent}$,$M_{incongruent}$)), the standard deviations across conditions (i.e., $r$($SD_{congruent}$,$SD_{incongruent}$)), and across means and standard deviations within conditions (i.e., $r$($M_{congruent}$,$SD_{congruent}$) and $r$($M_{incongruent}$,$SD_{incongruent}$)). We subsequently compared the observed multivariate correlations from a fabricated dataset with their respective observed multivariate correlations from the genuine data. We computed the probability that the genuine data yielded similar, or more extreme, multivariate correlations (i.e., a $p$-value). Given 21 genuine datasets are available, only 21 $p$-values are possible (i.e., lowest $p$-values possible are 0, 0.048, and 0.095).
+
+We combined the results from the four terminal digit analyses, the two variance analyses, and the four multivariate analyses with the Fisher method. This result was used to determine the top three fabricators, by rank-ordering the $p$-values for each fabricator (higher $p$-value equating to less evidence for fabrication). This omnibus method aggregates evidence from the various methods, making it potentially more sensitive for various fabrication behaviors. We evaluated each of the methods to detect data fabrication using AUROC-curves, using the same procedures as in Study 1.
+
+\section*{Results}
+
+
+
+\section*{Discussion}
+
+% Be sure to discuss why Benford's law wasn't included in the combination
+% Reflect on whether it worked to detect fabrication
+
+\section*{General discussion}
 
 % Talk about deterrence theory and how marginal utility might make it more attractive to go towards more extreme forms of misconduct if zero-tolerance policy is applied.
 % Plagiarism scanners can be gamed (i.e., rogeting), so can statistics?
@@ -65,8 +222,19 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+ [1] stringr_1.1.0     plyr_1.8.4        reshape2_1.4.2    dplyr_0.5.0      
+ [5] data.table_1.10.0 lsr_0.5           effects_3.1-2     car_2.0-19       
+ [9] httr_1.2.1        xtable_1.7-1      gridExtra_2.2.1   ggplot2_2.2.1    
+[13] latex2exp_0.4.0   foreign_0.8-67    pROC_1.8         
+
 loaded via a namespace (and not attached):
-[1] tools_3.3.2
+ [1] Rcpp_0.12.9      magrittr_1.5     splines_3.3.2    MASS_7.3-45     
+ [5] munsell_0.4.3    colorspace_1.3-2 lattice_0.20-34  R6_2.2.0        
+ [9] minqa_1.2.4      tools_3.3.2      nnet_7.3-12      grid_3.3.2      
+[13] nlme_3.1-128     gtable_0.2.0     DBI_0.5-1        lme4_1.1-12     
+[17] lazyeval_0.2.0   assertthat_0.1   tibble_1.2       Matrix_1.2-7.1  
+[21] nloptr_1.0.4     stringi_1.1.2    scales_0.4.1    
 \end{Soutput}
 \begin{Sinput}
 > 
