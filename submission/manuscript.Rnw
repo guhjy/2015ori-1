@@ -66,6 +66,9 @@ suppressPackageStartupMessages(library(reshape2))
 # Add ../ before running rmarkdown, or vice versa when not running there
 x12 <- '../'
 # x12 <- ''
+
+source(sprintf('%sfunctions/digit_analysis.R', x12))
+source(sprintf('%sfunctions/std_var.R', x12))
 @
 
 \section*{Study 1}
