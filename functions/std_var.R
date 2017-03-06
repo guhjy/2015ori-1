@@ -1,6 +1,6 @@
 std_var <- function(n, sds, iter = 1000, ...)
 {
-  msw_obs <- msw(n, sds)
+  msw_obs <- msw(n = n, sds = sds)
   z2_sd_obs <- z2_sd(sds = sds, msw = msw_obs)
   
   obs_sd_z2 <- sd(z2_sd_obs)
@@ -13,10 +13,10 @@ std_var <- function(n, sds, iter = 1000, ...)
   })
   
   # Compute msw for simulated variances (per row)
-  msw_sim <- apply(tmp, 1, function(x) msw(n, x))
+  msw_sim <- apply(sqrt(tmp), 1, function(x) msw(n = n, sds = x))
   
   # Normalize simulated variances
-  sim_z2 <- z2_sd(sds = tmp, msw = msw_sim)
+  sim_z2 <- z2_sd(sds = sqrt(tmp), msw = msw_sim)
   # Calculate SD for each iteration
   sim_sd_z2 <- apply(sim_z2, 1, sd)
   
