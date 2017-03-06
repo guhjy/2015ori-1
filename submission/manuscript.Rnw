@@ -283,8 +283,92 @@ We combined the results from the four terminal digit analyses, the two variance 
 \section*{Results}
 
 <<echo = FALSE>>=
-tmp <- ml3_dat[ml3_dat$study_name == unique(ml3_dat$study_name)[1], ]
 
+df_ml3 <- NULL
+# Compute the results for the ML3 data
+for(i in 1:length(unique(ml3_dat$study_name)))
+{
+  tmp <- ml3_dat[ml3_dat$study_name == unique(ml3_dat$study_name)[i], ]
+  
+  binder <- data.frame(id = unique(ml3_dat$study_name)[i],
+                       benford_congr_m_p = digit_analysis(tmp$MC, type = 'benford')$pval,
+                       benford_congr_sd_p = digit_analysis(tmp$SDC, type = 'benford')$pval,
+                       benford_incongr_m_p = digit_analysis(tmp$MI, type = 'benford')$pval,
+                       benford_incongr_sd_p = digit_analysis(tmp$SDI, type = 'benford')$pval,
+                       terminal_congr_m_p = digit_analysis(tmp$MC, type = 'terminal')$pval,
+                       terminal_congr_sd_p = digit_analysis(tmp$SDC, type = 'terminal')$pval,
+                       terminal_incongr_m_p = digit_analysis(tmp$MI, type = 'terminal')$pval,
+                       terminal_incongr_sd_p = digit_analysis(tmp$SDI, type = 'terminal')$pval,
+                       std_congr_p = std_var(tmp$SDC, tmp$NC, iter = 100000),
+                       std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = 100000),
+                       mult_m_sd_congr = cor(tmp$MC, tmp$SDC),
+                       mult_m_sd_incongr = cor(tmp$MI, tmp$SDI),
+                       mult_m_m_across = cor(tmp$MC, tmp$MI),
+                       mult_sd_sd_across = cor(tmp$SDC, tmp$SDI))
+  
+  df_ml3 <- rbind(df_ml3, binder)
+}
+
+# The responses from the study
+responses <- list.files(sprintf('%sdata/study_02/responses', x12))
+df_fab <- NULL
+
+for (response in responses)
+{
+  fab_dat <- read.table(sprintf('%sdata/study_02/responses/%s', x12, response),
+                        sep = '\t', header = TRUE)
+  # For clarity sake
+  names(fab_dat) <- c('id',
+                      'mean_congruent',
+                      'sd_congruent',
+                      'congruent_trials',
+                      'mean_incongruent',
+                      'sd_incongruent',
+                      'incongruent_trials')
+  
+  mult_m_sd_congr <- cor(fab_dat$mean_congruent, fab_dat$sd_congruent)
+  mult_m_sd_incongr <- cor(fab_dat$mean_incongruent, fab_dat$sd_incongruent)
+  mult_m_m_across <- cor(fab_dat$mean_congruent, fab_dat$mean_incongruent)
+  mult_sd_sd_across <- cor(fab_dat$sd_congruent, fab_dat$sd_incongruent)
+  
+  p_mult_m_sd_congr <- ifelse(mean(df_ml3$mult_m_sd_congr) > mult_m_sd_congr,
+                              sum(df_ml3$mult_m_sd_congr < mult_m_sd_congr) / length(df_ml3$mult_m_sd_congr),
+                              sum(df_ml3$mult_m_sd_congr > mult_m_sd_congr) / length(df_ml3$mult_m_sd_congr))
+  p_mult_m_sd_incongr <- ifelse(mean(df_ml3$mult_m_sd_incongr) > mult_m_sd_incongr,
+                                sum(df_ml3$mult_m_sd_incongr < mult_m_sd_incongr) / length(df_ml3$mult_m_sd_incongr),
+                                sum(df_ml3$mult_m_sd_incongr > mult_m_sd_incongr) / length(df_ml3$mult_m_sd_incongr))
+  p_mult_m_m_across <- ifelse(mean(df_ml3$mult_m_m_across) > mult_m_m_across,
+                              sum(df_ml3$mult_m_m_across < mult_m_m_across) / length(df_ml3$mult_m_m_across),
+                              sum(df_ml3$mult_m_m_across > mult_m_m_across) / length(df_ml3$mult_m_m_across))
+  p_mult_sd_sd_across <- ifelse(mean(df_ml3$mult_sd_sd_across) > mult_sd_sd_across,
+                                sum(df_ml3$mult_sd_sd_across < mult_sd_sd_across) / length(df_ml3$mult_sd_sd_across),
+                                sum(df_ml3$mult_sd_sd_across > mult_sd_sd_across) / length(df_ml3$mult_sd_sd_across))
+  
+  binder <- data.frame(id = response,
+                       benford_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'benford')$pval,
+                       benford_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'benford')$pval,
+                       benford_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'benford')$pval,
+                       benford_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'benford')$pval,
+                       terminal_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'terminal')$pval,
+                       terminal_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'terminal')$pval,
+                       terminal_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'terminal')$pval,
+                       terminal_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'terminal')$pval,
+                       std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = 10000),
+                       std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = 10000),
+                       p_mult_m_sd_congr,
+                       p_mult_m_sd_incongr,
+                       p_mult_m_m_across,
+                       p_mult_sd_sd_across)
+  
+  p_for_fish <- unlist(ifelse(binder[,6:15] == 0, .0000001, binder[,6:15]))
+  
+  fish <- -2*sum(log(p_for_fish))
+  df_fish <- length(p_for_fish) * 2
+  p_fish <- pchisq(q = fish, df = df_fish, lower.tail = FALSE)
+  binder <- cbind(binder, p_fish)
+  
+  df_fab <- rbind(df_fab, binder)
+}
 
 @
 
