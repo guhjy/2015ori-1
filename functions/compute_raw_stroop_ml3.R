@@ -32,12 +32,13 @@ JustTest[JustTest$trial_word=="blue",]$trial_word=2
 JustTest[JustTest$trial_word=="green",]$trial_word=3
 # list(JustTest$trial_word)
 
-JustTest[JustTest$block_pairing_definition=="red",]$block_pairing_definition=1
+# JustTest[JustTest$block_pairing_definition=="red",]$block_pairing_definition=1
 # list(JustTest$block_pairing_definition)
-JustTest[JustTest$block_pairing_definition=="blue",]$block_pairing_definition=2
-JustTest[JustTest$block_pairing_definition=="green",]$block_pairing_definition=3
+# JustTest[JustTest$block_pairing_definition=="blue",]$block_pairing_definition=2
+# JustTest[JustTest$block_pairing_definition=="green",]$block_pairing_definition=3
 # list(JustTest$block_pairing_definition)
 ###Now the color and meaning of each word are coded as numbers
+# CHJH: were already coded as numbers in the clean set.
 
 ###making variable for congruent vs. incongruent trials
 JustTest$congruent<-JustTest$block_pairing_definition==JustTest$trial_word
