@@ -302,8 +302,8 @@ for(i in 1:length(unique(ml3_dat$study_name)))
                        terminal_congr_sd_p = digit_analysis(tmp$SDC, type = 'terminal')$pval,
                        terminal_incongr_m_p = digit_analysis(tmp$MI, type = 'terminal')$pval,
                        terminal_incongr_sd_p = digit_analysis(tmp$SDI, type = 'terminal')$pval,
-                       std_congr_p = std_var(tmp$SDC, tmp$NC, iter = 100000),
-                       std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = 100000),
+                       std_congr_p = std_var(tmp$SDC, tmp$NC, iter = iter),
+                       std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = iter),
                        mult_m_sd_congr = cor(tmp$MC, tmp$SDC),
                        mult_m_sd_incongr = cor(tmp$MI, tmp$SDI),
                        mult_m_m_across = cor(tmp$MC, tmp$MI),
@@ -335,17 +335,17 @@ for (response in responses)
   mult_sd_sd_across <- cor(fab_dat$sd_congruent, fab_dat$sd_incongruent)
   
   p_mult_m_sd_congr <- ifelse(mean(df_ml3$mult_m_sd_congr) > mult_m_sd_congr,
-                              sum(df_ml3$mult_m_sd_congr < mult_m_sd_congr) / length(df_ml3$mult_m_sd_congr),
-                              sum(df_ml3$mult_m_sd_congr > mult_m_sd_congr) / length(df_ml3$mult_m_sd_congr))
+                              sum(df_ml3$mult_m_sd_congr < mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr),
+                              sum(df_ml3$mult_m_sd_congr > mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr))
   p_mult_m_sd_incongr <- ifelse(mean(df_ml3$mult_m_sd_incongr) > mult_m_sd_incongr,
-                                sum(df_ml3$mult_m_sd_incongr < mult_m_sd_incongr) / length(df_ml3$mult_m_sd_incongr),
-                                sum(df_ml3$mult_m_sd_incongr > mult_m_sd_incongr) / length(df_ml3$mult_m_sd_incongr))
+                                sum(df_ml3$mult_m_sd_incongr < mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr),
+                                sum(df_ml3$mult_m_sd_incongr > mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr))
   p_mult_m_m_across <- ifelse(mean(df_ml3$mult_m_m_across) > mult_m_m_across,
-                              sum(df_ml3$mult_m_m_across < mult_m_m_across) / length(df_ml3$mult_m_m_across),
-                              sum(df_ml3$mult_m_m_across > mult_m_m_across) / length(df_ml3$mult_m_m_across))
+                              sum(df_ml3$mult_m_m_across < mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across),
+                              sum(df_ml3$mult_m_m_across > mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across))
   p_mult_sd_sd_across <- ifelse(mean(df_ml3$mult_sd_sd_across) > mult_sd_sd_across,
-                                sum(df_ml3$mult_sd_sd_across < mult_sd_sd_across) / length(df_ml3$mult_sd_sd_across),
-                                sum(df_ml3$mult_sd_sd_across > mult_sd_sd_across) / length(df_ml3$mult_sd_sd_across))
+                                sum(df_ml3$mult_sd_sd_across < mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across),
+                                sum(df_ml3$mult_sd_sd_across > mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across))
   
   binder <- data.frame(id = response,
                        benford_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'benford')$pval,
@@ -356,16 +356,18 @@ for (response in responses)
                        terminal_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'terminal')$pval,
                        terminal_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'terminal')$pval,
                        terminal_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'terminal')$pval,
-                       std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = 10000),
-                       std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = 10000),
+                       std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = iter),
+                       std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = iter),
                        p_mult_m_sd_congr,
                        p_mult_m_sd_incongr,
                        p_mult_m_m_across,
                        p_mult_sd_sd_across)
   
+  # Add 1 ten millionth to any zero
+  # so the log doesn't go to infinite and messes with the Fisher method
   p_for_fish <- unlist(ifelse(binder[,6:15] == 0, .0000001, binder[,6:15]))
   
-  fish <- -2*sum(log(p_for_fish))
+  fish <- -2 * sum(log(p_for_fish))
   df_fish <- length(p_for_fish) * 2
   p_fish <- pchisq(q = fish, df = df_fish, lower.tail = FALSE)
   binder <- cbind(binder, p_fish)
