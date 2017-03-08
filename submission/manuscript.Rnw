@@ -82,8 +82,7 @@ file <- sprintf('%sdata/study_01/raw_summary_results_fabrication_qualtrics.csv',
 res_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
 ml_dat_file <- sprintf('%sdata/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav', x12)
 summary_stat_file <- sprintf('%sdata/study_01/ml_summary_stats.csv', x12)
-ml3_dat_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/ML3 Stroop Data/ML3StroopRaw.csv', x12)
-ml3_clean_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/ML3 Stroop Data/StroopCleanSet.csv', x12)
+ml3_dat_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/StroopCleanSet.csv', x12)
 pdf_file <- sprintf('%sarchive/gender_interaction.pdf', x12)
 
 # Set the number of iterations to use in calculations
