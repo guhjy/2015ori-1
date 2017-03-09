@@ -374,6 +374,8 @@ for (response in responses)
   df_fab <- rbind(df_fab, binder)
 }
 
+write.csv(sprintf('%sdata/df_fab.csv', x12), row.names = FALSE)
+
 @
 
 
