@@ -18,43 +18,52 @@ Preregistration conducted by first author}
 \input{manuscript-concordance}
 \maketitle
 
-Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). Psychology was faced with Stapel; medical sciences were faced with Poldermans and Macchiarini; life sciences were faced with Voignet. These are just a few examples of cases in the last decade. Overall, an estimated 2\% of all scholars have admitted to falsifying or fabricating research results at least once \citep{fanelli2009} and this is likely to be an underestimate due to socially desirable responses. The detection rate is likely to be even lower; for example, only around a dozen cases are discovered in the United States and the Netherlands, despite covering several hundreds of thousands of researchers. At best, this amounts to a detection rate far below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
+Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). 
+% Psychology was faced with Stapel; medical sciences were faced with Poldermans and Macchiarini; life sciences were faced with Voignet. These are just a few examples of cases in the last decade. Overall, an estimated 2\% of all scholars have admitted to falsifying or fabricating research results at least once \citep{fanelli2009} and this is likely to be an underestimate due to socially desirable responses. The detection rate is likely to be even lower; for example, only around a dozen cases are discovered in the United States and the Netherlands, despite covering several hundreds of thousands of researchers. At best, this amounts to a detection rate far below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
 
-In order to stifle attempts at data fabrication, improved detection of fabricated data is considered to deter such harmful attempts. Although deterrence theory dates back to the middle of the 17th century \citep{leviathan}, its implementation has not occurred across the different forms of scientific misconduct equilaterally. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago  \citep[e.g.,][]{Parker89computeralgorithms}. However, increased deterrence of fabrication and falsification by improved detection mechanisms has not been as widely implemented. 
+In order to stifle attempts at data fabrication, improved detection of fabricated data is considered to deter such harmful attempts. 
+% Although deterrence theory dates back to the middle of the 17th century \citep{leviathan}, its implementation has not occurred across the different forms of scientific misconduct equilaterally. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago  \citep[e.g.,][]{Parker89computeralgorithms}. However, increased deterrence of fabrication and falsification by improved detection mechanisms has not been as widely implemented. 
 
-In the last decade, detecting image manipulation has become one of the few forms of detecting scientific misconduct other than plagiarism. The Journal of Cell Biology scans each submitted image for potential manipulation \citep{The_Journal_of_Cell_Biology2015-vh}, which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations \citep{Koppers2016}. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation \citep[4\% of all papers are estimated to contain manipulated images;][]{Bik06072016}. 
+In the last decade, detecting image manipulation has become one of the few forms of detecting scientific misconduct other than plagiarism.
+% The Journal of Cell Biology scans each submitted image for potential manipulation \citep{The_Journal_of_Cell_Biology2015-vh}, which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations \citep{Koppers2016}. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation \citep[4\% of all papers are estimated to contain manipulated images;][]{Bik06072016}. 
 
-Statistical methods can provide one way to improve detection of data fabrication in empirical research. Humans are notoriously bad at understanding and estimating probabilities \citep[e.g.,][]{tversky1974, Tversky1971}, which could manifest itself in the fundamentally probabilistic data they try to fabricate. That researchers do not understand probabilistic processes also presents itself in the interpretation of genuine research data \citep{Hoekstra2006, Sijtsma2015-ts, Goodman_1999}. When data are fabricated, probabilistic principles are easily violated if these principles are forgotten at the univariate level, bivariate level, trivatiate level, or beyond \citep{Haldane1948-nm}. Based on such a theoretical framework, statistical methods that investigate whether the reported data are actually plausible under theoretically probabilistic processes can be used to detect potential data fabrication. 
+Statistical methods can provide one way to improve detection of data fabrication in empirical research. Humans are notoriously bad at understanding and estimating probabilities \citep[e.g.,][]{tversky1974, Tversky1971}, which could manifest itself in the fundamentally probabilistic data they try to fabricate. 
+% That researchers do not understand probabilistic processes also presents itself in the interpretation of genuine research data \citep{Hoekstra2006, Sijtsma2015-ts, Goodman_1999}. When data are fabricated, probabilistic principles are easily violated if these principles are forgotten at the univariate level, bivariate level, trivatiate level, or beyond \citep{Haldane1948-nm}. Based on such a theoretical framework, statistical methods that investigate whether the reported data are actually plausible under theoretically probabilistic processes can be used to detect potential data fabrication. 
 
-The application of such statistical methods to detect data fabrication has occurred in several cases in recent years and has potential for future application beyond a case-basis. For example, problems with papers by Fuji were highlighted with statistical methods \citep{Carlisle2012-yg,Carlisle2015-wm}, resulting in 183 retractions \citep{oransky2015}. In this case, baseline measures across randomized groups were examined for too little variation. Random assignment should introduce a certain degree of random error that is might be missed by a human fabricator, misestimating the probabilistic process that generates such error. Another two cases are those of Sanna and Smeesters, where fabricated data were also detected with statistics \citep{simonsohn2013}. These cases inspected the variance of variances (i.e., the second level, or meta, variance). Once again, too little variation was what revealed problems in these data. These methods, although developed in a case-setting, need not be limited to cases. The application of such methods can be (semi-)automated if data are available in a machine-readable format that one of the statistical methods can be applied to. An example of such a potential case for mass application of using statistics to detect (potential) data fabrication is in the ClinicalTrials.gov database, where baseline measures across randomized groups are readily available for download and subsequent analysis \citep{Hartgerink2015-bm}.
+The application of such statistical methods to detect data fabrication has occurred in several cases in recent years and has potential for future application beyond a case-basis. 
+% For example, problems with papers by Fuji were highlighted with statistical methods \citep{Carlisle2012-yg,Carlisle2015-wm}, resulting in 183 retractions \citep{oransky2015}. In this case, baseline measures across randomized groups were examined for too little variation. Random assignment should introduce a certain degree of random error that is might be missed by a human fabricator, misestimating the probabilistic process that generates such error. Another two cases are those of Sanna and Smeesters, where fabricated data were also detected with statistics \citep{simonsohn2013}. These cases inspected the variance of variances (i.e., the second level, or meta, variance). Once again, too little variation was what revealed problems in these data. These methods, although developed in a case-setting, need not be limited to cases. The application of such methods can be (semi-)automated if data are available in a machine-readable format that one of the statistical methods can be applied to. An example of such a potential case for mass application of using statistics to detect (potential) data fabrication is in the ClinicalTrials.gov database, where baseline measures across randomized groups are readily available for download and subsequent analysis \citep{Hartgerink2015-bm}.
 
-Nonetheless, considering the potential harm of applying statistical methods to flag potentially problematic results, it needs to be sorted out whether such methods have diagnosticity that actually makes it responsible to apply them. We hardly know how researchers might go about fabricating data. Cases such as Fuji, Smeesters, and Sanna provide some insights, but are highly pre-selected (i.e., those who got caught/confessed) and as such, systematically biased. Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place \citep[e.g., late at night when no one is around;][]{stapel_book}. Additionally, the performance of methods to detect data fabrication is highly dependent on the unknown  prevalence of data fabrication and the power to actually to detect data fabrication. Given that we do not know how researchers might fabricate data, the diagnosticity of these methods cannot realistically be simulated.
+Nonetheless, considering the potential harm of applying statistical methods to flag potentially problematic results, it needs to be sorted out whether such methods have diagnosticity that actually makes it responsible to apply them. 
+% We hardly know how researchers might go about fabricating data. Cases such as Fuji, Smeesters, and Sanna provide some insights, but are highly pre-selected (i.e., those who got caught/confessed) and as such, systematically biased. Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place \citep[e.g., late at night when no one is around;][]{stapel_book}. Additionally, the performance of methods to detect data fabrication is highly dependent on the unknown  prevalence of data fabrication and the power to actually to detect data fabrication. Given that we do not know how researchers might fabricate data, the diagnosticity of these methods cannot realistically be simulated.
 
-The effectiveness of detection mechanisms and their consequences, hence their expected deterrence, is exacerbated by the increased usage of public online discussion platforms such as PubPeer (\url{https://pubpeer.com}). PubPeer serves as an "online journal club" where anyone can discuss articles. Authors are notified when someone leaves a response, providing them with the possibility to respond. Such a platform allows for public discussion of the paper, including discussion of reanalyses, methodology, availability of materials, etc. When detection mechanisms are freely available to use, they can lead to (a surge of) comments when applied by users. Recently, in 2016, one user (the main author of this paper) used `statcheck` software to report potential statistical reporting inconsistencies for 50,000 psychology articles, which led to a large discussion about (automated) online comments \citep{Baker_2016}. The impact of such new possibilities is not to be underestimated, although its potential to contribute to the scientific discussion should also not be. Nonetheless, the `statcheck` software was well validated prior to this application \citep{Nuijten_2015} and the same principle applies to the application of statistical methods to detect (potential) data fabrication.
+The effectiveness of detection mechanisms and their consequences, hence their expected deterrence, is exacerbated by the increased usage of public online discussion platforms such as PubPeer (\url{https://pubpeer.com}). 
+% PubPeer serves as an "online journal club" where anyone can discuss articles. Authors are notified when someone leaves a response, providing them with the possibility to respond. Such a platform allows for public discussion of the paper, including discussion of reanalyses, methodology, availability of materials, etc. When detection mechanisms are freely available to use, they can lead to (a surge of) comments when applied by users. Recently, in 2016, one user (the main author of this paper) used `statcheck` software to report potential statistical reporting inconsistencies for 50,000 psychology articles, which led to a large discussion about (automated) online comments \citep{Baker_2016}. The impact of such new possibilities is not to be underestimated, although its potential to contribute to the scientific discussion should also not be. Nonetheless, the `statcheck` software was well validated prior to this application \citep{Nuijten_2015} and the same principle applies to the application of statistical methods to detect (potential) data fabrication.
 
-Throughout this paper, we inspect statistical methods to detect data fabrication that can be applied to (1) summary results or (2) raw data. Even though the data available look different depending on the structure of the study, there are certain common characteristics of results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale \citep{Stevens_1946}.
+Throughout this paper, we inspect statistical methods to detect data fabrication that can be applied to (1) summary results or (2) raw data. 
+% Even though the data available can look different depending on the structure of a study, there are certain common characteristics of results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale \citep{Stevens_1946}.
 
-We present a set of studies that directly test the validity of statistical methods to detect data fabrication. To this end, Study 1 inspected the performance of statistical methods to detect data fabrication when using only summary results (e.g., means and standard deviations) as typically reported in empirical research articles. Study 2 inspected the performance of statistical methods aimed at detecting data fabrication in raw data (i.e., the data underlying summary results). These two studies provide a first indication of how applicable and effective statistical methods are to detect data fabrication in practice, with actual researchers fabricating actual data.
+We present a set of studies that directly test the validity of statistical methods to detect data fabrication. 
+% To this end, Study 1 inspected the performance of statistical methods to detect data fabrication when using only summary results (e.g., means and standard deviations) as typically reported in empirical research articles. Study 2 inspected the performance of statistical methods aimed at detecting data fabrication in raw data (i.e., the data underlying summary results). These two studies provide a first indication of how applicable and effective statistical methods are to detect data fabrication in practice, with actual researchers fabricating actual data.
 
 
 \section*{Study 1}
 
 
-We tested the performance of statistical methods to detect data fabrication based on summary results with genuine and fabricated summary results of four anchoring studies \citep{tversky1974,jacowitz1995}. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively \citep{tversky1974}, despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study.
+We tested the performance of statistical methods to detect data fabrication in summary results with genuine- and fabricated summary results from four anchoring studies \citep{tversky1974,jacowitz1995}. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively \citep{tversky1974}, despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study. All described methods were approved by the Tilburg Ethical Review Board (EC-2015.50).
 
 \subsection*{Methods}
 
-The four anchoring studies for which results were collected were (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States. Each of the four studies provided summary results for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF (\url{https://osf.io/b24pq}) and a preregistration is available at \url{https://osf.io/ejf5x} (deviations are explicated in this report).
+We collected summary results for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States \citep{jacowitz1995}. Each of the four studies provided us with summary results for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF (\url{https://osf.io/b24pq}) and a preregistration is available at \url{https://osf.io/ejf5x} (deviations are explicated in this report).
 
 \subsubsection*{Data collection}
 
-We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project \citep[\url{https://osf.io/pqf9r};][]{klein2014}. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fraud, we assumed these data to be genuine. For each of the thirty-six locations, sample sizes, means, and standard deviations (four each) were computed for each of the four conditions in the four anchoring studies across the thirty-six locations (i.e., $3\times4\times4\times36$). We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
+We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project \citep[\url{https://osf.io/pqf9r};][]{klein2014}. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fabricating data, we assumed these data to be genuine. For each of the thirty-six locations we computed sample sizes, means, and standard deviations for each of the four conditions in the four anchoring studies (i.e., $3\times4\times4$) for each of the thirty-six locations. We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
 
-Using quotum sampling, we collected thirty-six fabricated datasets of summary results for all four anchoring studies. Quotum sampling was applied to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward). The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in the Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect \citep{jacowitz1995,tversky1974}, for which summary results were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because this filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
+Using quotum sampling, we collected thirty-six fabricated datasets of summary results for the same four anchoring studies. Quotum sampling was used to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward). The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect \citep{jacowitz1995,tversky1974}, for which summary results were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because the WoS filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
 
-A random sample of 1,000 researchers were approached via e-mail to participate in this study on April 25, 2016 (invitation: \url{https://osf.io/s4w8r}). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a \$30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional \$50 Amazon gift card if they were one of three top fabricators. The provided email addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at \url{https://osf.io/w984b}.
+We invited a random sample of 1,000 researchers via e-mail to participate in this study on April 25, 2016 (invitation: \url{https://osf.io/s4w8r}). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the  respondents that they could stop at any time without providing a reason. If they wanted, respondents received a \$30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional \$50 Amazon gift card if they were one of three top fabricators. The provided e-mail addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at \url{https://osf.io/w984b}.
 
-Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the hypotheses (i) main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. Respondents did not need to fabricate sample sizes, which were set to 25 per cell a priori. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of tools to detect data fabrication.
+Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the following hypotheses: there is (i) a main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. We fixed the sample sizes to 25 per cell; respondents did not need to fabricate sample sizes. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of statistical tools to detect data fabrication.
 
 We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure \ref{fig1} depicts an example of this spreadsheet (original:  \url{https://osf.io/w6v4u}). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure \ref{fig1}. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
 
@@ -113,6 +122,103 @@ For each of these four tests to detect data fabrication ($SD_z$, Fisher test for
 
 \subsection*{Results}
 
+
+The collected data included 36 genuine data from Many Labs 1 \citep[\url{https://osf.io/pqf9r};][]{klein2014} and 39 fabricated datasets(\url{https://osf.io/e6zys}; 3 participants did not participate for a bonus). 
+
+Figure \ref{densities} shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). Such group-level comparisons provide an overview of the differences between the genuine- and fabricated data \citep[see also][]{Akhtar-Danesh2003}. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses) whereas there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). From our own experience, and anecdotal evidence elsewhere \citep{BAILEY1991741}, large effects have previously raised initial suspicions. These data corroborate the idea that extremely large effect sizes (e.g., $r>.95$) might prove to be an easy-to-implement flag for potentially anomalous data (it is wise to seek for alternative explanations after flagging, however). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
+
+% add plot of left and right skew
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figures/ddfab_density.pdf}
+\caption{Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant data for the gender and interaction effects, and a significant effect for the condition effect.}
+\label{densities}
+\end{center}
+\end{figure}
+
+
+\subsubsection*{Performance of using SDs to detect data fabrication}
+
+We applied two different operationalizations to inspect for data fabrication in the genuine- and fabricated datasets based on variance in the SDs. The $SD_z$ method \citep{simonsohn2013} inspects whether the variance of the SDs themselves varies sufficiently, and we tested another method that inspects the range of the SDs varies sufficiently. These two methods operate similarly, except for the final computation. Other operationalizations are possible and we invite others to reuse the data from this study (\url{https://osf.io/b24pq}).
+
+Table \ref{auroc_variances} indicates that both methods show similar performance when inspected with the Area Under the Receiver Operating Curve (AUROC), but with a preference for $SD_z$. This preference is due to the variance of variances outperforming the range of variances when all studies are combined in one test and its past application \citep{simonsohn2013}. Throughout the rest of this section, we will only discuss the results of $SD_z$ further.
+
+% latex table generated in R 3.3.3 by xtable 1.7-1 package
+% Tue Apr 18 19:23:42 2017
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrr}
+  \hline
+Method & AUROC $SD_z$ & AUROC $maxmin_z$ \\ 
+  \hline
+Homogeneous, all studies combined & 0.423 & 0.303 \\ 
+  Homogeneous, study 1 & 0.368 & 0.374 \\ 
+  Homogeneous, study 2 & 0.421 & 0.446 \\ 
+  Homogeneous, study 3 & 0.510 & 0.521 \\ 
+  Homogeneous, study 4 & 0.540 & 0.542 \\ 
+  Heterogeneous, all studies combined & 0.770 & 0.756 \\ 
+  Heterogeneous study 1, low anchor condition & 0.643 & 0.643 \\ 
+  Heterogeneous study 1, high anchor condition & 0.438 & 0.438 \\ 
+  Heterogeneous study 2, low anchor condition & 0.751 & 0.751 \\ 
+  Heterogeneous study 2, high anchor condition & 0.612 & 0.612 \\ 
+  Heterogeneous study 3, low anchor condition & 0.668 & 0.668 \\ 
+  Heterogeneous study 3, high anchor condition & 0.651 & 0.651 \\ 
+  Heterogeneous study 4, low anchor condition & 0.796 & 0.796 \\ 
+  Heterogeneous study 4, high anchor condition & 0.555 & 0.555 \\ 
+   \hline
+\end{tabular}
+\caption{Area Under the Receiver Operating Curve (AUROC) for the two statistical methods used to detect data fabrication based on variances. Homogeneous: assumes one population variance underlying all groups. Heterogeneous: assumes separate population variance per anchoring condition.} 
+\label{auroc_variances}
+\end{table}
+The AUROC indicates the probability that a randomly drawn fabricated dataset is classified as fabricated before a randomly drawn genuine dataset is classified as fabricated \citep{doi:10.1148/radiology.143.1.7063747}. In other words, if AUROC $=.5$ this indicates that correctly classifying a randomly drawn dataset in this sample is equal to a coin flip. For this setting, we will regard any AUROC $<.6$ as plainly insufficient for detecting data fabrication, $.6\leq$ AUROC $<.7$ as failed, $.7\leq$ AUROC $<.8$ as sufficient, $.8\leq$ AUROC $<.9$ as good, and $.9\leq$ AUROC $\leq 1$ as excellent.
+
+The AUROC for the variance of variance analyses is insufficient or sufficient depending on the assumption regarding population variances. Table \ref{auroc_variances} indicates that AUROC $=.423$ when homogeneous population variances are assumed, whereas AUROC $=.770$ when heterogeneous population variances are assumed. For the anchoring studies, homogeneous population variances across conditions seem unreasonable and greatly affect the performance of the statistical method. The method that incorporates heterogeneous population variances (i.e., one per anchoring condition) greatly improves the performance of the variance of variances analysis.
+
+Further inspecting the heterogeneous variance of variances analysis indicates that no false positives occur until $\alpha=0.13$. 
+
+\subsubsection*{Performance of using $p$-values to detect data fabrication}
+
+We asked researchers to fabricate data for nonsignificant effect sizes after inspecting whether the genuine data resembled a uniform distribution. Consequently,  However, as Table \ref{auroc_fisher} indicates, the auroc for these methods are hardly better than chance. In other words, for effects that are specifically fabricated to be nonsignificant, researchers might not fabricate such large $p$-values to be suspicious.
+
+% latex table generated in R 3.3.3 by xtable 1.7-1 package
+% Tue Apr 18 19:23:42 2017
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+Method & AUROC \\ 
+  \hline
+Fisher test gender hypothesis & 0.521 \\ 
+  Fisher test interaction hypothesis & 0.535 \\ 
+   \hline
+\end{tabular}
+\caption{Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER} 
+\label{auroc_fisher}
+\end{table}
+\subsubsection*{Performance of combining SDs and $p$-value methods to detect data fabrication}
+
+% latex table generated in R 3.3.3 by xtable 1.7-1 package
+% Tue Apr 18 19:23:42 2017
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+  \hline
+Method & AUROC \\ 
+  \hline
+Combined Fisher test (3 results, $SD_z$ homogeneous) & 0.602 \\ 
+  Combined Fisher test (3 results, $SD_z$ heterogeneous) & 0.736 \\ 
+  Combined Fisher test (6 results, $SD_z$ homogeneous) & 0.643 \\ 
+  Combined Fisher test (6 results, $SD_z$ heterogeneous) & 0.643 \\ 
+   \hline
+\end{tabular}
+\caption{Area Under the Receiver Operating Curve (AUROC) for PLACEHOLDER} 
+\label{auroc_combined}
+\end{table}
+
+\subsubsection*{Performance of large effect sizes to detect data fabrication}
+
+
+%The 23 largest significant effects were fabricated, with 13 (0.333\%) larger than $r=.9$. Based on descriptive data throughout psychology \citep{Hartgerink2016-lg}, effect sizes $\geq.9$ belong to the 96th percentile of effects throughout the psychology literature and effect sizes $\geq.95$ 98th percentile.
 
 
 \subsection*{Discussion}
@@ -182,63 +288,3 @@ We combined the results from the four terminal digit analyses, the two variance 
 
 \section*{Results}
 
-
-
-\section*{Discussion}
-
-% Be sure to discuss why Benford's law wasn't included in the combination
-% Reflect on whether it worked to detect fabrication
-
-\section*{General discussion}
-
-% Talk about deterrence theory and how marginal utility might make it more attractive to go towards more extreme forms of misconduct if zero-tolerance policy is applied.
-% Plagiarism scanners can be gamed (i.e., rogeting), so can statistics?
-
-\bibliography{../bibliography/library}
-\newpage
-%------------------------------------
-%handy to include this at the end
-%------------------------------------
-\section*{SessionInfo}
-%-------------------------------------
-
-\begin{Schunk}
-\begin{Sinput}
-> sessionInfo()
-\end{Sinput}
-\begin{Soutput}
-R version 3.3.2 (2016-10-31)
-Platform: x86_64-redhat-linux-gnu (64-bit)
-Running under: Fedora 25 (Workstation Edition)
-
-locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
- [1] stringr_1.1.0     plyr_1.8.4        reshape2_1.4.2    dplyr_0.5.0      
- [5] data.table_1.10.0 lsr_0.5           effects_3.1-2     car_2.0-19       
- [9] httr_1.2.1        xtable_1.7-1      gridExtra_2.2.1   ggplot2_2.2.1    
-[13] latex2exp_0.4.0   foreign_0.8-67    pROC_1.8         
-
-loaded via a namespace (and not attached):
- [1] Rcpp_0.12.9      magrittr_1.5     splines_3.3.2    MASS_7.3-45     
- [5] munsell_0.4.3    colorspace_1.3-2 lattice_0.20-34  R6_2.2.0        
- [9] minqa_1.2.4      tools_3.3.2      nnet_7.3-12      grid_3.3.2      
-[13] nlme_3.1-128     gtable_0.2.0     DBI_0.5-1        lme4_1.1-12     
-[17] lazyeval_0.2.0   assertthat_0.1   tibble_1.2       Matrix_1.2-7.1  
-[21] nloptr_1.0.4     stringi_1.1.2    scales_0.4.1    
-\end{Soutput}
-\begin{Sinput}
-> 
-\end{Sinput}
-\end{Schunk}
-
-\end{document}
