@@ -444,14 +444,18 @@ dat_summary$fish_combine_6_homo <- -2 * (log(dat_summary$variance_sd_p_study1) +
                                            log(dat_summary$interaction_fish_p))
 dat_summary$fish_combine_6_homo_p <- pchisq(q = dat_summary$fish_combine_6_homo,
                                             df = 2 * 6, lower.tail = FALSE)
-dat_summary$fish_combine_6_hetero <- -2 * (log(dat_summary$variance_sd_p_study1) +
-                                             log(dat_summary$variance_sd_p_study2) + 
-                                             log(dat_summary$variance_sd_p_study3) + 
-                                             log(dat_summary$variance_sd_p_study4) +
+dat_summary$fish_combine_10_hetero <- -2 * (log(dat_summary$variance_sd_p_study1_low) +
+                                           log(dat_summary$variance_sd_p_study2_low) + 
+                                           log(dat_summary$variance_sd_p_study3_low) + 
+                                           log(dat_summary$variance_sd_p_study4_low) +
+                                           log(dat_summary$variance_sd_p_study1_high) +
+                                           log(dat_summary$variance_sd_p_study2_high) + 
+                                           log(dat_summary$variance_sd_p_study3_high) + 
+                                           log(dat_summary$variance_sd_p_study4_high) +
                                              log(dat_summary$gender_fish_p) + 
                                              log(dat_summary$interaction_fish_p))
-dat_summary$fish_combine_6_hetero_p <- pchisq(q = dat_summary$fish_combine_6_hetero,
-                                              df = 2 * 6, lower.tail = FALSE)
+dat_summary$fish_combine_10_hetero_p <- pchisq(q = dat_summary$fish_combine_10_hetero,
+                                              df = 2 * 10, lower.tail = FALSE)
 
 write.csv(dat_summary,
           dat_summary_file, row.names = FALSE)
