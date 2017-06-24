@@ -3,9 +3,11 @@ title: "Ecological performance of detecting data fabrication"
 author: "Chris HJ Hartgerink, Jan G Voelkel, Jelte M Wicherts, Marcel ALM van Assen"
 date: '`r format(Sys.time(), "%d %B, %Y")`'
 output:
-  word_document: default
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
+  word_document: default
 csl: ../bibliography/apa.csl
 bibliography: ../bibliography/library2.bib
 ---
@@ -76,7 +78,7 @@ That researchers do not understand probabilistic processes also presents itself 
 The application of such statistical methods to detect data fabrication has occurred in several cases in recent years and has potential for future application beyond a case-basis. 
 For example, problems in papers by Fuji were highlighted with statistical methods [@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126], resulting in 183 retractions [@oransky2015]. In this case, baseline measures across randomized groups were examined for too little variation. Random assignment should introduce a certain degree of random error that might be missed by a human fabricator, misestimating the probabilistic process that generates such error. Another two cases are those of Sanna and Smeesters, where fabricated data were also detected with statistics [@10.1177/0956797613480366]. These cases inspected the variance of variances (i.e., the second, or meta level variance). Once again, too little variation was what revealed problems in these data [other examples include @lacour-complaint;@foerster-complaint]. These methods, although developed in a case-setting, need not be limited to cases. The application of such methods can be (semi-)automated if data are available in a machine-readable format that one of the statistical methods can be applied to. An example of such a potential case for mass application of using statistics to detect (potential) data fabrication is in the ClinicalTrials.gov database, where baseline measures across randomized groups are readily available for download and subsequent analysis [@10.3897/rio.1.e7462].
 
-Nonetheless, considering the potential harm of applying statistical methods to flag potentially problematic results, it needs to be sorted out whether such methods have diagnosticity that actually makes it responsible to apply them. 
+Nonetheless, considering the potential harm of applying statistical methods to flag potentially problematic results, it needs to be sorted out whether such methods function well enough to make it responsible to apply them. 
 We hardly know how researchers might go about fabricating data. Cases such as Fuji, Smeesters, and Sanna provide some insights, but are highly pre-selected (i.e., those who got caught/confessed) and as such, systematically biased. Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place [e.g., late at night when no one is around; @stapel_book]. However, trustworthiness of these accounts can be called into question. Additionally, the performance of methods to detect data fabrication is highly dependent on the unknown prevalence of data fabrication and the power to actually to detect data fabrication. Given that we do not know how researchers might fabricate data, the diagnosticity of these methods cannot realistically be simulated.
 
 The effectiveness of detection mechanisms and their consequences, hence their expected deterrence, is exacerbated in the digital age by the increased usage of public online discussion platforms such as [PubPeer (https://pubpeer.com)](https://pubpeer.com). 
@@ -84,8 +86,8 @@ PubPeer serves as an "online journal club" where anyone can discuss articles. Au
 
 # Theoretical framework
 
-Throughout this paper, we inspect statistical methods to detect data fabrication that can be applied to (1) summary results or (2) raw data. 
-Even though structure and contents of data can look different depending on the structure of a study and the measures, there are certain common characteristics of empirical results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale [@10.1126/science.103.2684.677]. Such common characteristics allow for the development of generic statistical methods that can be applied across a varied set of results. We review the theoretical framework of the specific methods we apply throughout this paper, but these are not exhaustive of all methods available to test for potential problems in empirical data [see also @buyse1999;@10.7287/peerj.preprints.2400v1;@10.7287/peerj.preprints.2064v1;@sprite-heathers].
+Throughout this paper, we inspect statistical methods to detect potential data fabrication that can be applied to (1) summary results or (2) raw data. 
+Even though structure and contents of data can look different depending on the structure of a study and the measures, there are certain common characteristics of empirical results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale [@10.1126/science.103.2684.677]. Such common characteristics allow for the development of generic statistical methods that can be applied across a varied set of results to screen for problematic data. We review the theoretical framework of the specific methods we apply throughout this paper, but these are not exhaustive of all methods available to test for potential problems in empirical data [see also @buyse1999;@10.7287/peerj.preprints.2400v1;@10.7287/peerj.preprints.2064v1;@sprite-heathers].
 
 ## Detecting data fabrication in summary results
 
@@ -93,7 +95,7 @@ Even though structure and contents of data can look different depending on the s
 
 The distribution of one $p$-value depends on various parameters, but there are specific theoretical boundary conditions to this distribution [@fisher1925]. Based on the population effect size, the precision of the estimate, and the observed effect size, the $p$-value distribution can be uniform (when then null hypothesis is true) or right-skewed (when the alternative hypothesis is true). By extension, any other distribution, after taking into account sampling error, is theoretically suspect. For example, a distribution might show a bump when authors $p$-hack [e.g., Figure 1 in @10.7717/peerj.1935], but fabricators might create other non-uniform or non-right-skewed distributions, failing to take into account the theoretical boundary conditions.
 
-In order to test whether observed $p$-values transgress the boundary condition, we proposed an adaptation of Fisher's method [@10.1186/s41073-016-0012-9]. This adaptation is a simple reversal of the Fisher method [@fisher1925], which was originally introduced as a simple meta-analytic test to indicate presence of an effect; this test is computed as 
+In order to test whether observed $p$-values transgress the boundary condition, we previously proposed an adaptation of Fisher's method [@10.1186/s41073-016-0012-9]. This adaptation is a simple reversal of the Fisher method [@fisher1925], which was originally introduced as a simple meta-analytic test to indicate presence of an effect; this test is computed as 
 $$
 \chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(p_i)
 $$
@@ -101,13 +103,13 @@ where it tests for right-skew (i.e., more smaller $p$-values than larger $p$-val
 $$
 \chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
 $$
-where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. This threshold is added and can be set to anything. Given the frequent misinterpretation of $p$-values [e.g., as the probability of an effect, @10.1053/j.seminhematol.2008.04.003;@10.1136/bmj.311.7003.485], researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution and generate only large $p$-values when fabricating nonsignificant results. In that case, it makes  sense to set $t=.05$ or $t=.10$, in order to include only nonsignificant test results.
+where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. This threshold is added and can be set to anything. Given the frequent misinterpretation of $p$-values [e.g., as the probability of an effect, @10.1053/j.seminhematol.2008.04.003;@10.1136/bmj.311.7003.485], researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution and generate only large $p$-values when fabricating nonsignificant results. In that case, it makes  sense to set $t=.05$ or $t=.10$, in order to include only nonsignificant test results. Upon writing this paper, it became clear to us that this is similar to the operating principle of Carlisle's method testing for excessive homogeneity across baseline measurements in Randomized Clinical Trials [RCTs; @10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126].
 
 Despite this test being useful for detecting data anomalies in nonsignificant $p$-values, two clear exceptions should be taken into account: (1) model-fit tests and (2) wrongly specified one-tailed tests. When model-fit tests are used, these can quickly result in high $p$-values because of model saturation (i.e., where the null hypothesis is good fit and the alternative is bad fit). For properly specified one-tailed tests, the $p$-value distribution is right-skewed. When wrongly specified, this distribution is reversed and becomes left-skew. These two exceptional cases should not be forgotten during the application of this test, but are irrelevant for the rest of this paper due to our study design (see methods of both studies).
 
 ### Variance analysis
 
-Variance- or standard deviation estimates are typically reported to indicate spread, but just like the mean there should be sampling error in this estimate (i.e., the variance of the variances) proportionate to the sample size. A variance estimate follows a $\chi^2$-distribution, which is dependent on the sample size [p. 445; @hogg-tanis]; that is
+Variance- or standard deviation estimates are typically reported to indicate spread, but just like the mean there should be sampling error in this estimate proportionate to the sample size (i.e., the variance of the variances). A variance estimate follows a $\chi^2$-distribution, which is dependent on the sample size [p. 445; @hogg-tanis]; that is
 $$
 z^2_j\sim\left(\frac{\chi^2_{N_j-1}}{N_j-1}\right)/MS_w
 $$
@@ -123,9 +125,9 @@ Subsequently, the observed sampling variance (or range) can be compared to the e
 
 ### Effect size analysis
 
-A fabricator might present unrealistically large effects, forgetting the exponential relation between the effect size measure and the implied correlation. From our own experience, and anecdotal evidence elsewhere [@10.1016/0197-24569190037-M], large effects have previously raised initial suspicions. The size of a large effect can quickly become unrealistic; $d=1.2$ already implies a correlation of `r round(sqrt((1.2^2/(1.2^2+4))), 2)` between the dependent- and independent measures. More generally, the relation between the implied correlation and the effect size tends to be exponential, as Figure `r fignr` depicts. 
+A fabricator might present unrealistically large effects, forgetting the exponential relation between the effect size measure and the implied correlation. From our own experience, and anecdotal evidence elsewhere [@10.1016/0197-24569190037-M], large effects have previously raised initial suspicions. The size of a large effect can quickly become unrealistic; $d=1.2$ already implies a correlation of `r round(sqrt((1.2^2/(1.2^2+4))), 2)` between the dependent- and independent measures. More generally, the relation between the implied correlation and the effect size tends to be exponential (see Figure `r fignr`) depicts. 
 
-```{r d2, fig.cap="_Figure XX._ The relation between Cohen's d effect size and its direct transformation, the correlation r (or vice versa). If effects d>2 are fabricated, the implied correlation between the dependent- and independent measure(s) is approximately .6.", out.width='100%', echo=FALSE}
+```{r d2, fig.cap="The relation between Cohen's d effect size and its direct transformation, the correlation r (or vice versa). If effects d>2 are fabricated, the implied correlation between the dependent- and independent measure(s) is approximately .6.", out.width='100%', echo=FALSE}
 d2 <- seq(0, 10, .01)
 
 plot(sqrt(d2^2/(d2^2+4)), x = d2,
@@ -140,9 +142,40 @@ Taking the observed effect size and transforming it into a correlation, allows f
 
 ### Digit analysis
 
-### Variance analysis
+Raw data can contain ratio- or interval scale measures that, under specific conditions, are subject to mathematical properties. These properties pertain either to the leading (first) digit (e.g., the 1 in 123.45) or the terminal (last) digit (e.g., the 5 in 123.45). By analyzing these leading- and terminal digits for deviations from such mathematical properties, it might be possible to screen for problematic data. These properties can be extended to sequences of digits, but in this article we focus on leading digit analysis (i.e., Benford's law) and terminal digit analysis to detect potentially problematic data.
+
+#### Newcomb-Benford law
+
+The Newcomb-Benford law [NBL; @10.2307/2369148;@10.2307/984802] states that leading digits do not have an equal probability of occuring in various cases. A leading digit is the left-most digit of a numeric value, where a digit is any of the nine natural numbers ($1,2,3,...,9$). The distribution of the leading digit, according to the NBL is
+$$
+P(d)=log_{10}\frac{1+d}{d}
+$$
+where $d$ is the natural number of the leading digit and $P(d)$ is the probability of $d$ occurring. This law has been empirically observed in a variety of cases, ranging from population data to the number of rivers in an area [@10.2307/984802]. Models that delineate what kinds of measures do- and do not adhere to NBL are non-trivial to compose.
+
+For ratio scale measures that are scale and base invariant, the NBL often applies empirically but for measures other than those it is non-evident whether they follow the NBL [@10.2307/2246134;@
+10.1214/11-PS175]. Scale- and base invariance indicate that the results of the measure do not change if the measure is multiplied by constant $c$ or transformed into a log scale of variable base. However, by extension, deviations from a ratio scale that is base- and scale invariant are likely to cause the  NBL to not be applicable. For example, if a ratio scale is truncated (either with a minimum or maximum) it is already sufficient to cause a violation of the NBL [@10.1515/9781400866595-011]. Moreover, a base- and scale invariant ratio measure implies adherence to the NBL [@10.1090/S0002-9939-1995-1233974-8], but does not necessitate that the leading digits follow the NBL. As such, empirical support that the numbers under investigation, in fact, follow the NBL is of importance before using the NBL to detect potential problems.
+
+Despite the limitations of the NBL, this property has been applied to detect financial fraud [e.g., @10.2307/27643897] or voting fraud [e.g., @durtschi2004effective] and also to detect problems in scientific data. Previously, the NBL has been tested on 20 falsified anesthesia papers, detecting 18 as problematic [@10.1007/s00101-012-2029-x], or to test coefficients reported in economics journals [@10.1111/j.1468-0475.2009.00475.x]. The NBL is typically used to compute the expected values, which are then compared to the observed values using a $\chi^2$-test. However, the outcomes have not been validated to test the performance of the method.
+
+The performance of the NBL to detect problematic data is not evidential. Based on the NBL, Obama's 2008 election was rigged [@Deckert]. Financial data is likely to be ridden with digit preferences, for example due to price setting, causing false flags. Additionally, scientific data do not necessarily follow the NBL, especially in the social sciences, because data are relatively sparse and often the result of human thought, which has previously been addressed as a reason why digits do not follow the NBL [@durtschi2004effective]. Moreover, people might even be sensitive to fabricating data that are in line with the NBL [@10.1080/02664760601004940], potentially depending on whether fabricators generate or select values [@Burns2009].
+
+#### Terminal digit analysis
+
+Terminal digit analysis is based on the principle that the rightmost digit contains most of the measurement error in the number [@10.1080/08989629508573866;@10.1080/03610919608813325]. For example, when someone's height is measured in micrometers, measurement one might be 1.848 metres, and a second measurement 1.841, etc. If the true height is 1.845 metres, it is a logical consequent that the terminal digit is more likely to be adjusted by measurement error (i.e., someone is unlikely to be two or zero metres tall due to measurement error). This is in essence a consequent of classical test theory, where each measurement is thought of as measuring a true score and random error [@10.1016/0022-2496(66)90002-2].
+
+As such, the rightmost digit can be expected to be uniformly distributed if sufficient precision is provided [@10.1080/08989629508573866]. For our purposes, sufficient precision is determined as the terminal digit being at least the third leading digit. As such, if height measurements are reported in 1.8 metres, there are only three leading digits and there is insufficient precision. However, "1.84" contains three leading digits and is regarded as sufficient. Note also that this implies that Likert scales are wholly inappropriate for terminal digit analysis.
+
+Terminal digit analysis is conducted with a $\chi^2$-test on the digit occurrence counts. As such, it compares the observed frequencies with the expected uniform frequencies. Before applying this method is important to consider the applicability of the principle that the last digit contains the most measurement error [@10.14293/S2199-1006.1.SOR-STAT.AFHTWC.v1] because it is central to the analysis. For example, if it is reasonable to expect there are digit preferences in genuine data, this method is unlikely to differentiate between potentially problematic and genuine data.
 
 ### Multivariate associations
+
+True data occur within a web of relations, which can be observed in genuine data and easily forgotten in fabricated data. The multivariate relations between different variables arise from stochastic processes and are not readily known and therefore difficult to take into account when someone wants to fabricate data. As such, using these multivariate associations to detect anomalies from genuine data might prove valuable.
+
+The multivariate associations between various variables can be estimated from control data that are (assumably) genuine. For example, the multivariate relation between the means (Ms) and standard deviations (SDs) can be collected from comparable studies and measures in the literature. It is important to collect information from homogeneous studies and measures, to limit the influence of confounders that either suppress or exacerbate the relation. If the study under investigation for example uses a Hot Sauce measure for aggression [@10.1002/SICI1098-2337199925:5<331::AID-AB2>3.0.CO;2-1], it is important to collect data on that Hot Sauce measure's properties in other studies that use it, not in studies that use various measures for aggression.
+
+Subsequently, the (non-)parametric estimates of the multivariate relations can be used to determine how extreme the observed multivariate relations are. Consider the following example, with parametric estimates of the multivariate association between Ms and SDs. For example, imagine a set of studies that use the Hot Sauce aggression measure. When meta-analyzed, the Fisher transformed correlation [@10.2307/2331838] between the Ms and SDs across studies is estimated to be $0.123$, with a standard deviation of $0.1$. When an investigated paper presents results from a Hot Sauce aggression measure that correlate highly (Fisher transformed: $.5$), this indicates there might be an anomaly, considering only $`r pnorm(.5, .123, .1, lower.tail = FALSE)`$ of studies are expected to show such a strong relation (or more extreme) between Ms and SDs if the control data are representative of the population effect. 
+
+Contrary to the aforementioned methods, this method is less generic because it requires the investigator to collect control data. However, because of this, it also has the potential to be more sensitive then the generic methods. Additionally, multivariate associations are always present in data and therefore the applicability of this method would be greater than the generic analyses that have a specific set of conditions that need to be fulfilled before the methods are applicable.
 
 # Study 1
 
@@ -178,7 +211,7 @@ Each respondent was instructed to fabricate 32 summary statistics (4 studies $\t
 
 We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure `r fignr` depicts an example of this spreadsheet (original:  [https://osf.io/w6v4u](https://osf.io/w6v4u)). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure `r fignr`. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
 
-```{r spreadsheet-study1, fig.cap="_Figure XX._ Example of a filled in template spreadsheet used in the fabrication process of Study 1. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell (one of four template spreadsheets available at [https://osf.io/w6v4u/](https://osf.io/w6v4u/)).", out.width='100%', echo=FALSE}
+```{r spreadsheet-study1, fig.cap="Example of a filled in template spreadsheet used in the fabrication process of Study 1. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell (one of four template spreadsheets available at [https://osf.io/w6v4u/](https://osf.io/w6v4u/)).", out.width='100%', echo=FALSE}
 knitr::include_graphics('../figures/spreadsheet.png')
 
 fignr <- fignr + 1
@@ -338,7 +371,7 @@ The collected data included `r table(dat_summary$type)[1]` genuine data from Man
 
 Figure `r fignr` shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). These group-level comparisons provide an overview of the differences between the genuine- and fabricated data [see also @10.1186/1471-2288-3-18]. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses). However, there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
 
-```{r ddfab_density, fig.cap="_Figure XX._ Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant data for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
+```{r ddfab_density, fig.cap="Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant data for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
 plot_p_gender <- ggplot(dat_summary, aes(x = p_gender, fill = type)) + 
     geom_density(alpha = .3) + 
     xlab(TeX("$P$-value")) + 
@@ -484,7 +517,7 @@ tabnr <- tabnr + 1
 <!-- This could be done automatically at a large scale easily [data for this are available in @10.3758/s13428-015-0664-2;@10.3390/data1030014] or by a reader while going through a manuscript (e.g., during peer-review). wrt effect sizes -->
 
 
-<!-- # Study 2
+# Study 2
 
 ```{r prep study 2, echo=FALSE}
 ml3_dat_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/StroopCleanSet.csv', x12)
@@ -508,9 +541,9 @@ To test the validity of statistical methods to detect data fabrication in raw da
 
 ### Data collection
 
-Twenty-one genuine datasets on the Stroop task were collected from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012}. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 datasets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure X). The Stroop effect was calculated as a $t$-test of the difference ($H_0:\mu=0$).
+Twenty-one genuine datasets on the Stroop task were collected from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 datasets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure X). The Stroop effect was calculated as a $t$-test of the difference ($H_0:\mu=0$).
 
-```{r spreadsheet-study2, fig.cap="_Figure X._ Example of a filled in template spreadsheet used in the fabrication process for Study 2. Respondents fabricated data in the yellow cells and green cells, which were used to compute the results of the hypothesis test of the condition effect. If the fabricated data confirm the hypotheses, a checkmark appeared. This template is available at [https://osf.io/2qrbs/](https://osf.io/2qrbs/).", out.width='100%', echo=FALSE}
+```{r spreadsheet-study2, fig.cap="Example of a filled in template spreadsheet used in the fabrication process for Study 2. Respondents fabricated data in the yellow cells and green cells, which were used to compute the results of the hypothesis test of the condition effect. If the fabricated data confirm the hypotheses, a checkmark appeared. This template is available at [https://osf.io/2qrbs/](https://osf.io/2qrbs/).", out.width='100%', echo=FALSE}
 knitr::include_graphics('../figures/spreadsheet2.png')
 ```
 
@@ -526,7 +559,19 @@ Each participant received instructions on the data fabrication task via Qualtric
 
 ## Discussion
 
-# General discussion -->
+# General discussion
+
+## `ddfab` package
+
+All the methods used in this paper are also implemented in the open source R package `ddfab`.
+
+However, these results indicate that application of these methods should be informed and as a screening method.
+
+## Study fallout
+
+While conducting Study 2 reported in this paper, there was considerable criticism from several parties.
+
+We 
 
 # Session info
 
