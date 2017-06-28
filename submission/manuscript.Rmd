@@ -64,13 +64,10 @@ tabnr <- 1
 fignr <- 1
 ```
 
-Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). Psychology was faced with Stapel; medical sciences were faced with Poldermans and Macchiarini; life sciences were faced with Voignet. These are just a few examples of misconduct cases in the last decade. Overall, an estimated 2\% of all scholars have admitted to falsifying or fabricating research results at least once [@10.1371/journal.pone.0005738] and this is likely to be an underestimate due to socially desirable responses. The detection rate is likely to be even lower; for example, only around a dozen cases are discovered in the United States and the Netherlands, despite covering several hundreds of thousands of researchers. At best, this amounts to a detection rate far below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
+Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). Psychology was faced with Stapel; medical sciences were faced with Poldermans and Macchiarini; life sciences were faced with Voignet. These are just a few examples of misconduct cases in the last decade. Overall, an estimated 2\% of all scholars have admitted to falsifying or fabricating research results at least once [@10.1371/journal.pone.0005738] and this is likely to be an underestimate due to socially desirable responses. The detection rate of data fabrication is likely to be even lower; for example, only around a dozen cases are discovered in the United States and the Netherlands, despite covering several hundreds of thousands of researchers. At best, this amounts to a detection rate far below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
 
 In order to stifle attempts at data fabrication, improved detection of fabricated data is considered to deter such harmful attempts. 
-Although deterrence theory dates back to the middle of the 17th century [@leviathan], its implementation has not occurred across the different forms of scientific misconduct equilaterally. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago [e.g., @10.1109/13.28038]. However, increased deterrence of fabrication and falsification by improved detection mechanisms has not been as widely implemented. 
-
-In the last decade, detecting image manipulation has become one of the few forms of detecting scientific misconduct (alongside plagiarism).
-The Journal of Cell Biology scans each submitted image for potential manipulation [@The_Journal_of_Cell_Biology2015-vh], which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations [@10.1007/s11948-016-9841-7]. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation [4\% of all papers are estimated to contain manipulated images, @10.1128/mBio.00809-16]. 
+Although deterrence theory dates back to the middle of the 17th century [@leviathan], its implementation has not occurred equally across fabrication, falsification, and plagiarism. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago [e.g., @10.1109/13.28038]. In the last decade, detecting image manipulation has become one of the few forms of detecting data fabrication. The Journal of Cell Biology scans each submitted image for potential manipulation [@The_Journal_of_Cell_Biology2015-vh], which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations [@10.1007/s11948-016-9841-7]. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation [4\% of all papers are estimated to contain manipulated images, @10.1128/mBio.00809-16]. 
 
 Statistical methods can provide one way to improve detection of data fabrication in empirical research. Humans are notoriously bad at understanding and estimating probabilities [e.g., @10.1126/science.185.4157.1124;@10.1037/h0031322], which could manifest itself in the fundamentally probabilistic data they try to fabricate. 
 That researchers do not understand probabilistic processes also presents itself in false interpretation of genuine research data [@10.3758/BF03213921;@10.1007/s11336-015-9446-0;@10.7326/0003-4819-130-12-199906150-00008]. When data are fabricated, probabilistic principles are easily violated if forgotten at the univariate level, bivariate level, trivatiate level, or beyond [@Haldane1948-nm]. Based on this idea, statistical methods that investigate whether the reported data are feasible under the theoretically probabilistic processes can be used to detect potential data fabrication.
@@ -553,7 +550,100 @@ Each participant received instructions on the data fabrication task via Qualtric
 
 ### Data analysis
 
+```{r ml3}
+ml3_dat <- read.csv(sprintf('%sdata/study_02/ml3_stroop.csv', x12))
 
+df_ml3 <- NULL
+# Compute the results for the ML3 data
+for(i in 1:length(unique(ml3_dat$study_name)))
+{
+  tmp <- ml3_dat[ml3_dat$study_name == unique(ml3_dat$study_name)[i], ]
+  # This is an object to simplify concatenation
+  binder <- data.frame(id = unique(ml3_dat$study_name)[i],
+                       benford_congr_m_p = digit_analysis(tmp$MC, type = 'benford')$pval,
+                       benford_congr_sd_p = digit_analysis(tmp$SDC, type = 'benford')$pval,
+                       benford_incongr_m_p = digit_analysis(tmp$MI, type = 'benford')$pval,
+                       benford_incongr_sd_p = digit_analysis(tmp$SDI, type = 'benford')$pval,
+                       terminal_congr_m_p = digit_analysis(tmp$MC, type = 'terminal')$pval,
+                       terminal_congr_sd_p = digit_analysis(tmp$SDC, type = 'terminal')$pval,
+                       terminal_incongr_m_p = digit_analysis(tmp$MI, type = 'terminal')$pval,
+                       terminal_incongr_sd_p = digit_analysis(tmp$SDI, type = 'terminal')$pval,
+                       std_congr_p = std_var(tmp$SDC, tmp$NC, iter = iter),
+                       std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = iter),
+                       mult_m_sd_congr = cor(tmp$MC, tmp$SDC),
+                       mult_m_sd_incongr = cor(tmp$MI, tmp$SDI),
+                       mult_m_m_across = cor(tmp$MC, tmp$MI),
+                       mult_sd_sd_across = cor(tmp$SDC, tmp$SDI))
+  
+  df_ml3 <- rbind(df_ml3, binder)
+}
+
+# The responses from the study
+responses <- list.files(sprintf('%sdata/study_02/responses', x12))
+df_fab <- NULL
+
+for (response in responses)
+{
+  fab_dat <- read.table(sprintf('%sdata/study_02/responses/%s', x12, response),
+                        sep = '\t', header = TRUE)
+  # For clarity sake
+  names(fab_dat) <- c('id',
+                      'mean_congruent',
+                      'sd_congruent',
+                      'congruent_trials',
+                      'mean_incongruent',
+                      'sd_incongruent',
+                      'incongruent_trials')
+  
+  mult_m_sd_congr <- cor(fab_dat$mean_congruent, fab_dat$sd_congruent)
+  mult_m_sd_incongr <- cor(fab_dat$mean_incongruent, fab_dat$sd_incongruent)
+  mult_m_m_across <- cor(fab_dat$mean_congruent, fab_dat$mean_incongruent)
+  mult_sd_sd_across <- cor(fab_dat$sd_congruent, fab_dat$sd_incongruent)
+  
+  # Slotted for removal and replacement by parametric approach 20170628
+  p_mult_m_sd_congr <- ifelse(mean(df_ml3$mult_m_sd_congr) > mult_m_sd_congr,
+                              sum(df_ml3$mult_m_sd_congr < mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr),
+                              sum(df_ml3$mult_m_sd_congr > mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr))
+  p_mult_m_sd_incongr <- ifelse(mean(df_ml3$mult_m_sd_incongr) > mult_m_sd_incongr,
+                                sum(df_ml3$mult_m_sd_incongr < mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr),
+                                sum(df_ml3$mult_m_sd_incongr > mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr))
+  p_mult_m_m_across <- ifelse(mean(df_ml3$mult_m_m_across) > mult_m_m_across,
+                              sum(df_ml3$mult_m_m_across < mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across),
+                              sum(df_ml3$mult_m_m_across > mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across))
+  p_mult_sd_sd_across <- ifelse(mean(df_ml3$mult_sd_sd_across) > mult_sd_sd_across,
+                                sum(df_ml3$mult_sd_sd_across < mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across),
+                                sum(df_ml3$mult_sd_sd_across > mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across))
+  
+  binder <- data.frame(id = response,
+                       benford_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'benford')$pval,
+                       benford_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'benford')$pval,
+                       benford_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'benford')$pval,
+                       benford_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'benford')$pval,
+                       terminal_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'terminal')$pval,
+                       terminal_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'terminal')$pval,
+                       terminal_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'terminal')$pval,
+                       terminal_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'terminal')$pval,
+                       std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = iter),
+                       std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = iter),
+                       p_mult_m_sd_congr,
+                       p_mult_m_sd_incongr,
+                       p_mult_m_m_across,
+                       p_mult_sd_sd_across)
+  
+  # Add 1 ten millionth to any zero
+  # so the log doesn't go to infinite and messes with the Fisher method
+  p_for_fish <- unlist(ifelse(binder[,6:15] == 0, .0000001, binder[,6:15]))
+  
+  fish <- -2 * sum(log(p_for_fish))
+  df_fish <- length(p_for_fish) * 2
+  p_fish <- pchisq(q = fish, df = df_fish, lower.tail = FALSE)
+  binder <- cbind(binder, p_fish)
+  
+  df_fab <- rbind(df_fab, binder)
+}
+
+write.csv(df_fab, sprintf('%sdata/study_02/df_fab.csv', x12), row.names = FALSE)
+```
 
 ## Results
 
