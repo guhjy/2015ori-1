@@ -27,6 +27,8 @@ digit_analysis <- function(
   {
     df <- 10 - 1 
     
+    # x <- decimator(x)
+    
     matrix_of_digits <- apply(
       t(x),
       1,
@@ -128,3 +130,10 @@ expected_digit_counter <- function(
   
   return(counts)
 }
+
+# decimator <- function(x)
+# {
+#   
+#   
+#   return(decimated)
+# }

@@ -7,7 +7,7 @@ output:
     toc: yes
   html_document:
     toc: yes
-  word_document: default
+    toc_depth: 2
 csl: ../bibliography/apa.csl
 bibliography: ../bibliography/library2.bib
 ---
@@ -15,6 +15,8 @@ bibliography: ../bibliography/library2.bib
 ```{r preparation, echo = FALSE}
 suppressPackageStartupMessages(if(!require(pROC)){install.packages('pROC', repos = 'http://cran.us.r-project.org')})
 suppressPackageStartupMessages(library(pROC))
+suppressPackageStartupMessages(if(!require(knitr)){install.packages('knitr', repos = 'http://cran.us.r-project.org')})
+suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(if(!require(foreign)){install.packages('foreign', repos = 'http://cran.us.r-project.org')})
 suppressPackageStartupMessages(library(foreign))
 suppressPackageStartupMessages(if(!require(latex2exp)){install.packages('latex2exp', repos = 'http://cran.us.r-project.org')})
@@ -39,6 +41,8 @@ suppressPackageStartupMessages(if (!require(dplyr)){install.packages('dplyr', re
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(if (!require(reshape2)){install.packages('reshape2', repos = 'http://cran.us.r-project.org')})
 suppressPackageStartupMessages(library(reshape2))
+suppressPackageStartupMessages(if (!require(metafor)){install.packages('metafor', repos = 'http://cran.us.r-project.org')})
+suppressPackageStartupMessages(library(metafor))
 
 # Add ../ before running rmarkdown, or vice versa when not running there
 x12 <- '../'
@@ -46,6 +50,7 @@ x12 <- '../'
 
 source(sprintf('%sfunctions/digit_analysis.R', x12))
 source(sprintf('%sfunctions/std_var.R', x12))
+source(sprintf('%sfunctions/fisher_method.R', x12))
 
 ml_file <- sprintf('%sdata/study_01/ml_summary_stats.csv', x12)
 qualtrics_file <- sprintf('%sdata/study_01/qualtrics_processed.csv', x12)
@@ -67,32 +72,66 @@ fignr <- 1
 Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). Psychology was faced with Stapel; medical sciences were faced with Poldermans and Macchiarini; life sciences were faced with Voignet. These are just a few examples of misconduct cases in the last decade. Overall, an estimated 2\% of all scholars have admitted to falsifying or fabricating research results at least once [@10.1371/journal.pone.0005738] and this is likely to be an underestimate due to socially desirable responses. The detection rate of data fabrication is likely to be even lower; for example, only around a dozen cases are discovered in the United States and the Netherlands, despite covering several hundreds of thousands of researchers. At best, this amounts to a detection rate far below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
 
 In order to stifle attempts at data fabrication, improved detection of fabricated data is considered to deter such harmful attempts. 
-Although deterrence theory dates back to the middle of the 17th century [@leviathan], its implementation has not occurred equally across fabrication, falsification, and plagiarism. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago [e.g., @10.1109/13.28038]. In the last decade, detecting image manipulation has become one of the few forms of detecting data fabrication. The Journal of Cell Biology scans each submitted image for potential manipulation [@The_Journal_of_Cell_Biology2015-vh], which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations [@10.1007/s11948-016-9841-7]. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation [4\% of all papers are estimated to contain manipulated images, @10.1128/mBio.00809-16]. 
+Although deterrence theory dates back to the middle of the 17th century [@leviathan], its implementation has not occurred equally across fabrication, falsification, and plagiarism. Basically, deterrence theory stipulates that with increased risk of detection, the utility of scientific misconduct (for this context) will decrease and therefore fewer people will engage in such behaviors. This principle of deterrence has been implemented with plagiarism scanners, a development that already started a long time ago [e.g., @10.1109/13.28038]. In the last decade, detecting image manipulation has become one of the few forms of detecting data fabrication . The Journal of Cell Biology and EMBO scan each submitted image for potential manipulation [@The_Journal_of_Cell_Biology2015-vh;@10.1038/546575a], which greatly increases the risk of detecting (blatant) image manipulation. More recently, algorithms have been developed to automate the scanning of images for (subtle) manipulations [@10.1007/s11948-016-9841-7]. These developments in detecting image manipulation have increased detection risk during the pre-publication and post-publication phase by improving detection mechanisms and increasing the understanding of how images might be manipulated. Moreover, their application also helps researchers systematically evaluate research articles to estimate the extent of the problem of image manipulation [4\% of all papers are estimated to contain manipulated images, @10.1128/mBio.00809-16]. 
 
-Statistical methods can provide one way to improve detection of data fabrication in empirical research. Humans are notoriously bad at understanding and estimating probabilities [e.g., @10.1126/science.185.4157.1124;@10.1037/h0031322], which could manifest itself in the fundamentally probabilistic data they try to fabricate. 
-That researchers do not understand probabilistic processes also presents itself in false interpretation of genuine research data [@10.3758/BF03213921;@10.1007/s11336-015-9446-0;@10.7326/0003-4819-130-12-199906150-00008]. When data are fabricated, probabilistic principles are easily violated if forgotten at the univariate level, bivariate level, trivatiate level, or beyond [@Haldane1948-nm]. Based on this idea, statistical methods that investigate whether the reported data are feasible under the theoretically probabilistic processes can be used to detect potential data fabrication.
+Statistical methods provide one way to improve detection of data fabrication in empirical research. Humans are notoriously bad at understanding and estimating probabilities [e.g., @10.1126/science.185.4157.1124;@10.1037/h0031322], which could manifest itself in the fundamentally probabilistic data they try to fabricate. 
+When data are fabricated, probabilistic principles are easily violated if forgotten at the univariate level, bivariate level, trivatiate level, or beyond [@Haldane1948-nm]. Based on this idea, statistical methods that investigate whether the reported data are feasible under the theoretically probabilistic processes can be used to detect potential data fabrication.
 
-The application of such statistical methods to detect data fabrication has occurred in several cases in recent years and has potential for future application beyond a case-basis. 
-For example, problems in papers by Fuji were highlighted with statistical methods [@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126], resulting in 183 retractions [@oransky2015]. In this case, baseline measures across randomized groups were examined for too little variation. Random assignment should introduce a certain degree of random error that might be missed by a human fabricator, misestimating the probabilistic process that generates such error. Another two cases are those of Sanna and Smeesters, where fabricated data were also detected with statistics [@10.1177/0956797613480366]. These cases inspected the variance of variances (i.e., the second, or meta level variance). Once again, too little variation was what revealed problems in these data [other examples include @lacour-complaint;@foerster-complaint]. These methods, although developed in a case-setting, need not be limited to cases. The application of such methods can be (semi-)automated if data are available in a machine-readable format that one of the statistical methods can be applied to. An example of such a potential case for mass application of using statistics to detect (potential) data fabrication is in the ClinicalTrials.gov database, where baseline measures across randomized groups are readily available for download and subsequent analysis [@10.3897/rio.1.e7462].
+```{r echo=FALSE}
+set.seed(1234)
+ex1 <- t(replicate(n = 10, expr = table(sample(x = c("M", "F"), size = 100, replace = TRUE))))
+ex1p <- pchisq(apply(ex1, 1, function(x) sum((x-50)^2/50)), df = 1, lower.tail = FALSE)
+set.seed(1234)
+ex2_1 <- 50 + sample(x = -1:1, size = 10, replace = TRUE)
+ex2_2 <- 100 - ex2_1
+ex2 <- cbind(ex2_1, ex2_2)
+ex2p <- pchisq(apply(ex2, 1, function(x) sum((x-50)^2/50)), df = 1, lower.tail = FALSE)
 
-Nonetheless, considering the potential harm of applying statistical methods to flag potentially problematic results, it needs to be sorted out whether such methods function well enough to make it responsible to apply them. 
-We hardly know how researchers might go about fabricating data. Cases such as Fuji, Smeesters, and Sanna provide some insights, but are highly pre-selected (i.e., those who got caught/confessed) and as such, systematically biased. Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place [e.g., late at night when no one is around; @stapel_book]. However, trustworthiness of these accounts can be called into question. Additionally, the performance of methods to detect data fabrication is highly dependent on the unknown prevalence of data fabrication and the power to actually to detect data fabrication. Given that we do not know how researchers might fabricate data, the diagnosticity of these methods cannot realistically be simulated.
+df <- data.frame(study = sprintf("Study %s", 1:10),
+                 ex1,
+                 ex1p,
+                 ex2,
+                 ex2p)
+names(df) <- c("Study",
+               "Experimental [S1]",
+               "Control [S1]",
+               "P-value [S1]",
+               "Experimental [S2]",
+               "Control [S2]",
+               "P-value [S2]")
+```
 
-The effectiveness of detection mechanisms and their consequences, hence their expected deterrence, is exacerbated in the digital age by the increased usage of public online discussion platforms such as [PubPeer (https://pubpeer.com)](https://pubpeer.com). 
-PubPeer serves as an "online journal club" where anyone can discuss articles. Authors are notified when someone leaves a response, providing them with the possibility to respond. Such a platform allows for public discussion of the paper, including discussion of reanalyses, methodology, availability of materials, etc. When detection mechanisms are freely available to use, they can lead to (a surge of) comments when applied by users. Recently, in 2016, one user (the main author of this paper) used `statcheck` software to report potential statistical reporting inconsistencies for 50,000 psychology articles, which led to a large discussion about (automated) online comments [@10.1038/540151a]. The impact of such new possibilities is not to be underestimated, although its potential to constructively contribute to the scientific discussion should also not be [@10.1038/540007b]. Nonetheless, the `statcheck` software was well validated prior to this application [@10.3758/s13428-015-0664-2] and the same principle applies to the application of statistical methods to detect (potential) data fabrication.
+The application of such statistical methods to detect data fabrication has occurred in several cases of scientific misconduct in recent years and has potential for future application beyond these specific cases. 
+For example, problems in papers by Fuji were highlighted with statistical methods [@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126], resulting in 183 retractions [@oransky2015]. This method works as follows: in true randomized clinical trials (RCTs), baseline measurements should be statistically equal across groups. As such, the $p$-values for group comparisons would be expected to be uniformly distributed because the null hypothesis of equal groups is true by definition of the design. In the Fuji papers, group comparisons showed excessive consistency, resulting primarily in high $p$-values (e.g., .99, .95) and a high mean $p$-value across the comparisons, where a mean $p$-value of .5 is expected. As an illustration, see Table `r tabnr`, which depicts the assignment of participants to the experimental or control condition for a true randomized design (Set 1) or for a fabricated design (Set 2). The mean $p$-value for the true randomized design Set 1 is `r round(mean(ex1p), 3)`, whereas the fabricated Set 2 has mean $p$-value `r round(mean(ex2p), 3)`. Other statistical methods to detect data fabrication are addressed in the theoretical framework.
+.
 
-# Theoretical framework
+```{r table_excess, echo = FALSE}
+knitr::kable(df, digits = 3, caption = "Examples of participant counts for genuine- and fabricated randomized clinical trials. Set 1 (S1) is randomly generated data under the null hypothesis of random assignment (assumed to be the genuine process), whereas Set 2 (S2) is generated under excessive consistency with equal groups. Each trial contains 100 participants. The $p$-values ")
+
+tabnr <- tabnr + 1
+```
+
+Such statistical methods to detect data anomalies, although developed to quantify suspicions in a specific paper, could be applied to screen multiple papers. The application of such methods can be (semi-)automated if data are available in a machine-readable format that one of the statistical methods can be applied to. An example of such a potential case for mass application of using statistics to detect (potential) data fabrication is in the ClinicalTrials.gov database, where baseline measures across randomized groups are readily available for download and subsequent analysis [@10.3897/rio.1.e7462]. 
+
+Nonetheless, prior to applying statistical methods to flag potentially problematic results, investigating whether such methods function well enough in detecting problems is required for responsible application. 
+We hardly know how researchers might go about fabricating data. Cases such as Stapel, Fuji, Smeesters, and Sanna provide some insights, but are highly pre-selected (i.e., those who got caught/confessed) and as such, systematically biased. Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place [e.g., late at night when no one is around; @stapel_book]. However, trustworthiness of these accounts can be called into question. Additionally, the performance of methods to detect data fabrication is highly dependent on the unknown prevalence of data fabrication and the power to actually to detect data fabrication. Given that we do not know how researchers might fabricate data, the diagnosticity of these methods cannot realistically be assessed.
 
 Throughout this paper, we inspect statistical methods to detect potential data fabrication that can be applied to (1) summary results or (2) raw data. 
 Even though structure and contents of data can look different depending on the structure of a study and the measures, there are certain common characteristics of empirical results and the underlying raw data that can be inspected. For example, summary results frequently include means, standard deviations, test-statistics, and $p$-values. Raw data frequently contain at least some variables measured at a interval- or ratio scale [@10.1126/science.103.2684.677]. Such common characteristics allow for the development of generic statistical methods that can be applied across a varied set of results to screen for problematic data. We review the theoretical framework of the specific methods we apply throughout this paper, but these are not exhaustive of all methods available to test for potential problems in empirical data [see also @buyse1999;@10.7287/peerj.preprints.2400v1;@10.7287/peerj.preprints.2064v1;@sprite-heathers].
+
+# Theoretical framework
+
+In the current paper, we differentiate between statistical methods to detect potential data fabrication based on reported data (i.e., summary results) or raw data. For summary results, we review $p$-value analysis, variance analysis, and effect size analysis as potential ways to detect data anomalies. $P$-value analysis can be applied whenever sufficient nonsignificant $p$-values are reported; variance analysis can be applied whenever a set of variances are reported for independent groups alongside the sample sizes per group; effect size analysis can be used whenever the effect size can be computed [e.g., an APA reported $t$- or $F$-statistic;@10.1525/collabra.71].  For raw data, we review digit analyses (i.e., the Newcomb-Benford law and terminal digit analysis), and multivariate associations as potential ways to detect data anomalies. Digit analyses can be applied when ratio scale measures are present in the raw data; multivariate associations can be applied whenever there is a multivariate relation in the raw data that can be computed and control data is available from the literature.
 
 ## Detecting data fabrication in summary results
 
 ### P-value analysis
 
-The distribution of one $p$-value depends on various parameters, but there are specific theoretical boundary conditions to this distribution [@fisher1925]. Based on the population effect size, the precision of the estimate, and the observed effect size, the $p$-value distribution can be uniform (when then null hypothesis is true) or right-skewed (when the alternative hypothesis is true). By extension, any other distribution, after taking into account sampling error, is theoretically suspect. For example, a distribution might show a bump when authors $p$-hack [e.g., Figure 1 in @10.7717/peerj.1935], but fabricators might create other non-uniform or non-right-skewed distributions, failing to take into account the theoretical boundary conditions.
+The distribution of a $p$-value is uniform if the null hypothesis is true and right-skewed if the alternative hypothesis is true [@fisher1925]. One $p$-value is the result of the population effect size, the precision of the estimate, and the observed effect size, whose properties carry over to a set of $p$-values if those $p$-values are independent. As such, the $p$-value distribution of a set of $p$-values is uniform when the null hypothesis is true, or right-skewed when the alternative hypothesis is true.
 
-In order to test whether observed $p$-values transgress the boundary condition, we previously proposed an adaptation of Fisher's method [@10.1186/s41073-016-0012-9]. This adaptation is a simple reversal of the Fisher method [@fisher1925], which was originally introduced as a simple meta-analytic test to indicate presence of an effect; this test is computed as 
+When the $p$-value distribution is not uniform nor right-skewed, it can indicate potential data anomalies. For example, a distribution might show a bump when excessive $p$-hacking occurs that seeks barely significant results [e.g., Figure 1 in @10.7717/peerj.1935]. However, data fabricators might create other non-uniform or non-right-skewed distributions, failing to take into account the theoretical boundary conditions. For example, given the frequent misinterpretation of $p$-values [@10.3758/BF03213921;@10.1007/s11336-015-9446-0;@10.7326/0003-4819-130-12-199906150-00008], it is possible that the same underlying misinterpration will manifest itself in fabricated data. More specifically, given the frequent misinterpretation of $p$-valuesas the probability of an effect [@10.1053/j.seminhematol.2008.04.003;@10.1136/bmj.311.7003.485], researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution and generate only large $p$-values when fabricating nonsignificant results. 
+
+In order to test whether observed $p$-values are anomalous, we proposed an adaptation of Fisher's method [@10.1186/s41073-016-0012-9]. This adaptation is a simple reversal of the original Fisher method [@fisher1925], which was introduced as a meta-analytic test for the presence of an effect. This test is computed as 
 $$
 \chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(p_i)
 $$
@@ -100,13 +139,13 @@ where it tests for right-skew (i.e., more smaller $p$-values than larger $p$-val
 $$
 \chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
 $$
-where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. This threshold is added and can be set to anything. Given the frequent misinterpretation of $p$-values [e.g., as the probability of an effect, @10.1053/j.seminhematol.2008.04.003;@10.1136/bmj.311.7003.485], researchers who fabricate nonsignificant data might forget to fabricate a uniform $p$-value distribution and generate only large $p$-values when fabricating nonsignificant results. In that case, it makes  sense to set $t=.05$ or $t=.10$, in order to include only nonsignificant test results. Upon writing this paper, it became clear to us that this is similar to the operating principle of Carlisle's method testing for excessive homogeneity across baseline measurements in Randomized Clinical Trials [RCTs; @10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126].
+where it now tests for left-skew (i.e., more larger $p$-values than smaller $p$-values) across the $k$ number of $p$-values that falls above the threshold $t$. This threshold is added and can be set to any value between zero and one. Upon writing this paper, it became clear to us that this is reversed Fisher method is similar to the operating principle of Carlisle's method testing for excessive homogeneity across baseline measurements in RCTs [@10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126].
 
-Despite this test being useful for detecting data anomalies in nonsignificant $p$-values, two clear exceptions should be taken into account: (1) model-fit tests and (2) wrongly specified one-tailed tests. When model-fit tests are used, these can quickly result in high $p$-values because of model saturation (i.e., where the null hypothesis is good fit and the alternative is bad fit). For properly specified one-tailed tests, the $p$-value distribution is right-skewed. When wrongly specified, this distribution is reversed and becomes left-skew. These two exceptional cases should not be forgotten during the application of this test, but are irrelevant for the rest of this paper due to our study design (see methods of both studies).
+Despite this test being useful for detecting data anomalies in nonsignificant $p$-values, one exception should be taken into account: wrongly specified one-tailed tests. For properly specified one-tailed tests, the $p$-value distribution is right-skewed. When wrongly specified, this distribution is reversed and becomes left-skew. As such, any data anomalies detected with this method would need to be inspected for misspecified one-tailed hypotheses to preclude false conclusions.
 
 ### Variance analysis
 
-Variance- or standard deviation estimates are typically reported to indicate spread, but just like the mean there should be sampling error in this estimate proportionate to the sample size (i.e., the variance of the variances). A variance estimate follows a $\chi^2$-distribution, which is dependent on the sample size [p. 445; @hogg-tanis]; that is
+Variance- or standard deviation estimates are typically reported to indicate dispersion, but just like the mean there should be sampling error in this estimate proportional to the sample size [i.e., $\sigma/\sqrt{2n}$ under the assumption of normality, p. 351;@yule1922]. A variance estimate follows a $\chi^2$-distribution, which is dependent on the sample size [p. 445; @hogg-tanis]; that is
 $$
 z^2_j\sim\left(\frac{\chi^2_{N_j-1}}{N_j-1}\right)/MS_w
 $$
@@ -114,67 +153,158 @@ where $N_j$ is the sample size of the $j$th group and $MS_w$ is the normalizing 
 $$
 MS_w=\frac{\sum\limits^k_{j=1}(N_j-1)s^2_j}{\sum\limits^k_{j=1}(N_j-1)}
 $$
-where $s^2_j$ is the variance in the $j$th group. If simulating (see next paragraph), the simulated variances are used to compute $MS_w$. 
+where $s^2_j$ is the variance in the $j$th group.
 
-Assuming that the observed variances are from the same population distribution, the expected spread of reported standardized variances can be simulated. By repeatedly drawing (standardized) variance estimates for $j$ groups and then computing their spread allows for approximation of the sampling distribution. Spread can be operationalized in various ways, such as the standard deviation of the variances (denoted in this paper as $SD_z$) or as the range of the variances (denoted as $max-min_z$). If there is reason to believe that the observed variances come from heterogeneous populations, subgrouping (i.e., one variance analysis per subgroup) is necessary to prevent false results.
-
-Subsequently, the observed sampling variance (or range) can be compared to the expected sampling distribution. Too consistent results would indicate potential anomalies in the reported data [@10.1177/0956797613480366]. For example, if four independent samples all yield the variance $2.22$, this could be considered excessively consistent when the probability that this amount of consistency (or more) is less than 1 out of 1000 in truly random samples.
+The observed dispersion of the variances can be compared to various measures of expected dispersion in the variances. Dispersion can be operationalized in various ways, such as the standard deviation of the variances [denoted in this paper as $SD_z$;@10.1177/0956797613480366] or as the range of the variances (denoted as $max-min_z$). Too consistent results would indicate potential anomalies in the reported data. For example, in the Smeesters case three independent conditions from the same study ($n_k=15$) were reported to have standard deviations 25.09, 24.58, and 25.65. The standard deviation of the standard deviations here is `r round(sd(c(25.09, 24.58, 25.65)), 2)` (i.e., $SD_z$). Such consistency (or more consistency) would only be observed in `r round(std_var(n = rep(15, 3), sds = c(25.09, 24.58, 25.65), iter = 100000)*100, 2)`% of 100,000 simulated replications [@10.1177/0956797613480366]. 
 
 ### Effect size analysis
 
-A fabricator might present unrealistically large effects, forgetting the exponential relation between the effect size measure and the implied correlation. From our own experience, and anecdotal evidence elsewhere [@10.1016/0197-24569190037-M], large effects have previously raised initial suspicions. The size of a large effect can quickly become unrealistic; $d=1.2$ already implies a correlation of `r round(sqrt((1.2^2/(1.2^2+4))), 2)` between the dependent- and independent measures. More generally, the relation between the implied correlation and the effect size tends to be exponential (see Figure `r fignr`) depicts. 
-
-```{r d2, fig.cap="The relation between Cohen's d effect size and its direct transformation, the correlation r (or vice versa). If effects d>2 are fabricated, the implied correlation between the dependent- and independent measure(s) is approximately .6.", out.width='100%', echo=FALSE}
-d2 <- seq(0, 10, .01)
-
-plot(sqrt(d2^2/(d2^2+4)), x = d2,
-     type='l', xlab = "Cohen's d", ylab = "Correlation r")
-
-fignr <- fignr + 1
-```
-
-Taking the observed effect size and transforming it into a correlation, allows for an easy way to assess how extreme the presented result is. One minus the observed correlation can be used as a measure for extreme effects (i.e., $1-r$); as a heuristic, it can be regarded as a $p$-value. That is, this measure too ranges from zero to one and the more extreme the effect size, the smaller the value. This method specifically looks at situations where fabricators would want to fabricate the existence of an effect (not the absence of one).
+From our own experience, and anecdotal evidence elsewhere [@10.1016/0197-24569190037-M], large effects have previously raised initial suspicions. Taking the observed effect size and transforming it into a correlation, allows for an easy way to assess how extreme the presented result is. One minus the observed correlation can be used as a measure for extreme effects (i.e., $1-r$); as a heuristic, it can be regarded as a $p$-value. That is, this measure too ranges from zero to one and the more extreme the effect size, the smaller the value. This method specifically looks at situations where fabricators would want to fabricate the existence of an effect (not the absence of one).
 
 ## Detecting data fabrication in raw data
 
 ### Digit analysis
 
-Raw data can contain ratio- or interval scale measures that, under specific conditions, are subject to mathematical properties. These properties pertain either to the leading (first) digit (e.g., the 1 in 123.45) or the terminal (last) digit (e.g., the 5 in 123.45). By analyzing these leading- and terminal digits for deviations from such mathematical properties, it might be possible to screen for problematic data. These properties can be extended to sequences of digits, but in this article we focus on leading digit analysis (i.e., Benford's law) and terminal digit analysis to detect potentially problematic data.
+Raw data with ratio- or interval measures can be subjected to digit analysis under specific conditions. More specifically, the properties of the leading (first) digit (e.g., the 1 in 123.45) or the terminal (last) digit (e.g., the 5 in 123.45) can be examined. By analyzing these leading- and terminal digits for deviations from specific digit distributions, it might be possible to screen for problematic data. In this article we focus on leading digit analysis (i.e., Newcomb-Benford Law) and terminal digit analysis to detect potentially problematic data.
 
 #### Newcomb-Benford law
 
-The Newcomb-Benford law [NBL; @10.2307/2369148;@10.2307/984802] states that leading digits do not have an equal probability of occuring in various cases. A leading digit is the left-most digit of a numeric value, where a digit is any of the nine natural numbers ($1,2,3,...,9$). The distribution of the leading digit, according to the NBL is
+The Newcomb-Benford law [NBL; @10.2307/2369148;@10.2307/984802] states that leading digits do not have an equal probability of occuring under certain conditions. A leading digit is the left-most digit of a numeric value, where a digit is any of the nine natural numbers ($1,2,3,...,9$). The distribution of the leading digit, according to the NBL is
 $$
 P(d)=log_{10}\frac{1+d}{d}
 $$
-where $d$ is the natural number of the leading digit and $P(d)$ is the probability of $d$ occurring. This law has been empirically observed in a variety of cases, ranging from population data to the number of rivers in an area [@10.2307/984802]. Models that delineate what kinds of measures do- and do not adhere to NBL are non-trivial to compose.
+where $d$ is the natural number of the leading digit and $P(d)$ is the probability of $d$ occurring. Table `r tabnr` indicates the expected leading digit distribution based on the NBL. This expected distribution is typically compared to the observed distribution with a $\chi^2$-test ($df=9-1$), which requires a minimum of 45 observations based on the rule of thumb outlined by @agresti2003categorical ($n=I\times J \times 5$, with $I$ rows and $J$ columns). The NBL has been applied to detect financial fraud [e.g., @10.2307/27643897], voting fraud [e.g., @durtschi2004effective], and also to detect problems in scientific data [e.g., @10.1007/s00101-017-0333-1]. 
 
-For ratio scale measures that are scale and base invariant, the NBL often applies empirically but for measures other than those it is non-evident whether they follow the NBL [@10.2307/2246134;@
-10.1214/11-PS175]. Scale- and base invariance indicate that the results of the measure do not change if the measure is multiplied by constant $c$ or transformed into a log scale of variable base. However, by extension, deviations from a ratio scale that is base- and scale invariant are likely to cause the  NBL to not be applicable. For example, if a ratio scale is truncated (either with a minimum or maximum) it is already sufficient to cause a violation of the NBL [@10.1515/9781400866595-011]. Moreover, a base- and scale invariant ratio measure implies adherence to the NBL [@10.1090/S0002-9939-1995-1233974-8], but does not necessitate that the leading digits follow the NBL. As such, empirical support that the numbers under investigation, in fact, follow the NBL is of importance before using the NBL to detect potential problems.
+<!-- In science, for example, the NBL has been tested on 20 falsified anesthesia papers, detecting 18 as problematic [@10.1007/s00101-012-2029-x], or to test coefficients reported in economics journals [@10.1111/j.1468-0475.2009.00475.x].  -->
+```{r, echo=FALSE}
+tab <- data.frame(digit = 1:9, prop = log10((1+1:9)/1:9))
+names(tab) <- c('Digit', 'Proportion')
+knitr::kable(tab, digits = 3, caption = 'The expected first digit distribution, based on the Newcomb-Benford Law.')
+tabnr <- tabnr + 1
+```
 
-Despite the limitations of the NBL, this property has been applied to detect financial fraud [e.g., @10.2307/27643897] or voting fraud [e.g., @durtschi2004effective] and also to detect problems in scientific data. Previously, the NBL has been tested on 20 falsified anesthesia papers, detecting 18 as problematic [@10.1007/s00101-012-2029-x], or to test coefficients reported in economics journals [@10.1111/j.1468-0475.2009.00475.x]. The NBL is typically used to compute the expected values, which are then compared to the observed values using a $\chi^2$-test. However, the outcomes have not been validated to test the performance of the method.
-
-The performance of the NBL to detect problematic data is not evidential. Based on the NBL, Obama's 2008 election was rigged [@Deckert]. Financial data is likely to be ridden with digit preferences, for example due to price setting, causing false flags. Additionally, scientific data do not necessarily follow the NBL, especially in the social sciences, because data are relatively sparse and often the result of human thought, which has previously been addressed as a reason why digits do not follow the NBL [@durtschi2004effective]. Moreover, people might even be sensitive to fabricating data that are in line with the NBL [@10.1080/02664760601004940], potentially depending on whether fabricators generate or select values [@Burns2009].
+However, given that the NBL only applies under specific conditions that are rarely fulfilled in the social sciences, its applicability for detecting data anomalies in science can be questioned. First, the NBL only applies for true ratio scale measures [@10.2307/2246134;@10.1214/11-PS175]. Second, sufficient range on the measure is required for the NBL to apply [i.e., range from $1-1000000$ ;@10.1198/tast.2009.0005]. Third, these measures should not be subject to digit preferences, for example due to psychological preferences for rounded numbers. Fourth, any form of truncation undermines the NBL [@10.1515/9781400866595-011]. Moreover, some research has even indicated humans might be sensitive to fabricating data that are in line with the NBL [@10.1080/02664760601004940;@Burns2009], immediately undermining the applicability of the NBL. Nonetheless, considering the four conditions for the NBL to apply, we preregistered that this method would not prove fruitful [@10.3897/rio.2.e8860].
 
 #### Terminal digit analysis
 
-Terminal digit analysis is based on the principle that the rightmost digit contains most of the measurement error in the number [@10.1080/08989629508573866;@10.1080/03610919608813325]. For example, when someone's height is measured in micrometers, measurement one might be 1.848 metres, and a second measurement 1.841, etc. If the true height is 1.845 metres, it is a logical consequent that the terminal digit is more likely to be adjusted by measurement error (i.e., someone is unlikely to be two or zero metres tall due to measurement error). This is in essence a consequent of classical test theory, where each measurement is thought of as measuring a true score and random error [@10.1016/0022-2496(66)90002-2].
+Terminal digit analysis is based on the principle that the rightmost digit is the most random digit of a number, hence, is expected to be uniformly distributed under specific conditions [@10.1080/08989629508573866;@10.1080/03610919608813325]. Terminal digit analysis is conducted with a $\chi^2$-test ($df=10-1$) on the digit occurrence counts (including zero), where the observed frequencies are compared with the expected uniform frequencies. Tthe rule of thumb outlined by @agresti2003categorical indicates at least 50 observations are required to provide a meaningful test of the terminal digit distribution ($n=I\times J \times 5$, with $I$ rows and $J$ columns). Terminal digit analysis was developed during the Imanishi-Kari case by @10.1080/03610919608813325 [for a history of this decade long case, see @kevles2000baltimore]. 
 
-As such, the rightmost digit can be expected to be uniformly distributed if sufficient precision is provided [@10.1080/08989629508573866]. For our purposes, sufficient precision is determined as the terminal digit being at least the third leading digit. As such, if height measurements are reported in 1.8 metres, there are only three leading digits and there is insufficient precision. However, "1.84" contains three leading digits and is regarded as sufficient. Note also that this implies that Likert scales are wholly inappropriate for terminal digit analysis.
+As an example, Figure `r fignr` depicts the digit counts for the first- through fifth digit of a random, normally distributed variable. The first- and second digit distributions are clearly non-uniform, whereas the third-, fourth-, and fifth digit distributions are uniformly distributed.
 
-Terminal digit analysis is conducted with a $\chi^2$-test on the digit occurrence counts. As such, it compares the observed frequencies with the expected uniform frequencies. Before applying this method is important to consider the applicability of the principle that the last digit contains the most measurement error [@10.14293/S2199-1006.1.SOR-STAT.AFHTWC.v1] because it is central to the analysis. For example, if it is reasonable to expect there are digit preferences in genuine data, this method is unlikely to differentiate between potentially problematic and genuine data.
+```{r, echo=FALSE, fig.align="center", fig.asp=.5, out.width='100%', fig.cap="Illustration of how digit distributions evolve from first- through later digits. We sampled 100,000 values from a normal distribution, N~(0, 1.5), to create these digit distributions."}
+set.seed(1234)
+tmp1 <- 0
+tmp2 <- 1.5
+y <- data.frame(value = rnorm(100000, tmp1, tmp2))
+x <- abs(y$value)
+splitted <- strsplit(as.character(x), "")
+df1 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[1])))))
+df1 <- data.frame(digit = df1[!df1$digit == 0,])
+df2 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[3])))))
+df3 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[4])))))
+df4 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[5])))))
+df5 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[6])))))
+
+overall <- ggplot(y, aes(x = value)) +
+  geom_density(alpha = .3, fill = 'red') + 
+  xlab(sprintf("Value from N~(%s,%s)", tmp1, tmp2)) +
+  ylab("Density") +
+  theme(axis.title=element_text(size=10))
+
+p1 <- ggplot(df1, aes(x = digit)) +
+  geom_bar(alpha = .3, fill = 'blue') +
+  xlab("First digit") + 
+  ylab("Frequency") + 
+  theme(axis.title=element_text(size=10)) + 
+  scale_x_discrete(breaks = 0:10, limits = 0:9)
+
+p2 <- ggplot(df2, aes(x = digit)) +
+  geom_bar(alpha = .3, fill = 'blue') +
+  xlab("Second digit") + 
+  ylab("") +
+  theme(axis.title=element_text(size=10)) + 
+  scale_x_discrete(breaks = 0:10, limits = 0:9)
+
+p3 <- ggplot(df3, aes(x = digit)) +
+  geom_bar(alpha = .3, fill = 'blue') +
+  xlab("Third digit") + 
+  ylab("") +
+  theme(axis.title=element_text(size=10)) + 
+  scale_x_discrete(breaks = 0:10, limits = 0:9)
+
+p4 <- ggplot(df4, aes(x = digit)) +
+  geom_bar(alpha = .3, fill = 'blue') +
+  xlab("Fourth digit") + 
+  ylab("") +
+  theme(axis.title=element_text(size=10)) + 
+  scale_x_discrete(breaks = 0:10, limits = 0:9)
+
+p5 <- ggplot(df5, aes(x = digit)) +
+  geom_bar(alpha = .3, fill = 'blue') +
+  xlab("Fifth digit") + 
+  ylab("") +
+  theme(axis.title=element_text(size=10)) + 
+  scale_x_discrete(breaks = 0:10, limits = 0:9)
+
+# Plot
+empty <- ggplot() + theme(panel.background = element_rect(fill = 'white'))
+grid.arrange(p1, p2, p3, p4, p5, empty, empty, overall, empty, empty,
+             ncol = 5)
+
+fignr <- fignr + 1
+```
+
+As such, the rightmost digit can be expected to be uniformly distributed if sufficient precision is provided [@10.1080/08989629508573866]. For our purposes, sufficient precision is determined as the terminal digit being at least the third leading digit [i.e., minimally 1.23 or 12.3 or 123].
 
 ### Multivariate associations
 
-True data occur within a web of relations, which can be observed in genuine data and easily forgotten in fabricated data. The multivariate relations between different variables arise from stochastic processes and are not readily known and therefore difficult to take into account when someone wants to fabricate data. As such, using these multivariate associations to detect anomalies from genuine data might prove valuable.
+True data occur within a web of relations, which can be observed in genuine data and easily forgotten while fabricating data. The multivariate relations between different variables arise from stochastic processes and are not readily known, hence difficult to take into account when someone wants to fabricate data. As such, using these multivariate associations to detect anomalies from genuine data might prove valuable.
 
-The multivariate associations between various variables can be estimated from control data that are (assumably) genuine. For example, the multivariate relation between the means (Ms) and standard deviations (SDs) can be collected from comparable studies and measures in the literature. It is important to collect information from homogeneous studies and measures, to limit the influence of confounders that either suppress or exacerbate the relation. If the study under investigation for example uses a Hot Sauce measure for aggression [@10.1002/SICI1098-2337199925:5<331::AID-AB2>3.0.CO;2-1], it is important to collect data on that Hot Sauce measure's properties in other studies that use it, not in studies that use various measures for aggression.
+The multivariate associations between different variables can be estimated from control data that are (assumably) genuine. For example, if the multivariate association between means (Ms) and standard deviations (SDs) is of interest, control data for that same measure can be collected from the literature, assuming the measure has been used in other studies. With these control data, a meta-analysis provides an overall estimate of the multivariate relation.
 
-Subsequently, the (non-)parametric estimates of the multivariate relations can be used to determine how extreme the observed multivariate relations are. Consider the following example, with parametric estimates of the multivariate association between Ms and SDs. For example, imagine a set of studies that use the Hot Sauce aggression measure. When meta-analyzed, the Fisher transformed correlation [@10.2307/2331838] between the Ms and SDs across studies is estimated to be $0.123$, with a standard deviation of $0.1$. When an investigated paper presents results from a Hot Sauce aggression measure that correlate highly (Fisher transformed: $.5$), this indicates there might be an anomaly, considering only $`r pnorm(.5, .123, .1, lower.tail = FALSE)`$ of studies are expected to show such a strong relation (or more extreme) between Ms and SDs if the control data are representative of the population effect. 
+```{r, echo=FALSE}
+cortmp <- NULL
+set.seed(1234)
+for(i in 1:100)
+{
+n     <- 100                    # length of vector
+rho   <- rnorm(1, .123, .1)                   # desired correlation = cos(angle)
+theta <- acos(rho)             # corresponding angle
+x1    <- rnorm(n, 75, 10)        # fixed given data
+x2    <- rnorm(n, 25, 4)      # new random data
+X     <- cbind(x1, x2)         # matrix
+Xctr  <- scale(X, center=TRUE, scale=FALSE)   # centered columns (mean 0)
 
-Contrary to the aforementioned methods, this method is less generic because it requires the investigator to collect control data. However, because of this, it also has the potential to be more sensitive then the generic methods. Additionally, multivariate associations are always present in data and therefore the applicability of this method would be greater than the generic analyses that have a specific set of conditions that need to be fulfilled before the methods are applicable.
+Id   <- diag(n)                               # identity matrix
+Q    <- qr.Q(qr(Xctr[ , 1, drop=FALSE]))      # QR-decomposition, just matrix Q
+P    <- tcrossprod(Q)          # = Q Q'       # projection onto space defined by x1
+x2o  <- (Id-P) %*% Xctr[ , 2]                 # x2ctr made orthogonal to x1ctr
+Xc2  <- cbind(Xctr[ , 1], x2o)                # bind to matrix
+Y    <- Xc2 %*% diag(1/sqrt(colSums(Xc2^2)))  # scale columns to length 1
 
-# Study 1
+x <- Y[ , 2] + (1 / tan(theta)) * Y[ , 1]     # final new vector
+x <- x+25
+cortmp[i] <- cor(x1, x)                                    #
+}
+cortmp <- data.frame(cortmp)
+corfabno <- data.frame(cor = .2)
+corfab <- data.frame(cor = .5)
+```
+
+The multivariate relation from the genuine data is subsequently used to estimate how extreme the observed multivariate relation is. Consider the following fictitious example, regarding the multivariate association between Ms and SDs for a response latency task. Figure `r fignr` depicts a simulated distribution of the association between Ms and SDs from the literature. The observed relation between Ms and SDs from two papers we want to (fictitiously) screen are `r corfab$cor` and `r corfabno$cor`. As such, we immediately see in Figure `r fignr` that the former is flagged as being potentially anomalous (i.e., the red dot; two-tailed $p$-value $`r pnorm(corfab$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$ of the time), whereas the latter (blue dot) is not flagged ($p$-value: $`r pnorm(corfab$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$). 
+
+```{r, echo=FALSE, out.width='100%', fig.cap="A fictitious distribution of observed association between Ms and SDs across 100 studies. The blue dot indicates the observed relation that is subject to screening for data anomalies."}
+ggplot(cortmp, aes(x = cortmp)) +
+  geom_density() +
+  xlim(-1, 1) + 
+  xlab("Association between M and SD") + 
+  ylab("Density") +
+  geom_point(data = corfabno, aes(x = cor, y = 0, col="Not flagged", size = 2)) +
+  geom_point(data = corfab, aes(x = cor, y = 0, col="Flagged", size = 2)) + 
+  scale_size(guide = 'none')
+```
+
+# Study 1 - detecting fabricated anchoring effects
 
 We tested the performance of statistical methods to detect data fabrication in summary results with genuine- and fabricated summary results from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/science.185.4157.1124], despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study. This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
 
@@ -370,63 +500,63 @@ Figure `r fignr` shows a group-level comparison of the genuine- and fabricated $
 
 ```{r ddfab_density, fig.cap="Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant data for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
 plot_p_gender <- ggplot(dat_summary, aes(x = p_gender, fill = type)) + 
-    geom_density(alpha = .3) + 
-    xlab(TeX("$P$-value")) + 
-    ylab("Density") + 
-    ylim(0, 1.5) + 
-    scale_fill_discrete(guide=FALSE) + 
-    ggtitle('Gender')
-  
-  plot_es_gender <- ggplot(dat_summary, aes(x = es_gender, fill = type)) + 
-    geom_density(alpha = .3) + 
-    xlab(TeX("Effect size ($r$)")) + 
-    ylab("Density") + 
-    scale_fill_discrete(guide=FALSE)
-  
-  # Condition
-  dat_summary_tmp <- dat_summary
-  dat_summary_tmp$p_condition <- log10(dat_summary_tmp$p_condition)
-  plot_p_condition <- ggplot(dat_summary_tmp, aes(x = p_condition, fill = type)) +
-    geom_density(alpha = .3) +
-    xlab(TeX("log10 $P$-value")) +
-    ylab("Density") +
-    scale_fill_discrete(labels = c("Genuine","Fabricated")) + 
-    theme(legend.position="top") +
-    ggtitle('Condition')
-  
-  plot_p_condition$labels$fill <- ""
-  
-  plot_es_condition <- ggplot(dat_summary, aes(x = es_condition, fill = type)) + 
-    geom_density(alpha = .3) + 
-    xlim(0, 1) + 
-    xlab(TeX("Effect size ($r$)")) + 
-    ylab("Density") + 
-    scale_fill_discrete(guide=FALSE)
-  
-  
-  # Interaction
-  plot_p_interaction <- ggplot(dat_summary, aes(x = p_interaction, fill = type)) + 
-    geom_density(alpha = .3) + 
-    xlab(TeX("$P$-value")) + 
-    ylab("Density") + 
-    scale_fill_discrete(guide=FALSE) +
-    ylim(0, 1.5) +
-    ggtitle('Interaction')
-  
-  plot_es_interaction <- ggplot(dat_summary, aes(x = es_interaction, fill = type)) + 
-    geom_density(alpha = .3) + 
-    xlab(TeX("Effect size ($r$)")) + 
-    ylab("Density") + 
-    scale_fill_discrete(guide=FALSE)
-  
-  # Plot
-  grid.arrange(plot_p_gender,
-               plot_p_condition,
-               plot_p_interaction,
-               plot_es_gender,
-               plot_es_condition,
-               plot_es_interaction,
-               ncol = 3)
+  geom_density(alpha = .3) + 
+  xlab(TeX("$P$-value")) + 
+  ylab("Density") + 
+  ylim(0, 1.5) + 
+  scale_fill_discrete(guide=FALSE) + 
+  ggtitle('Gender')
+
+plot_es_gender <- ggplot(dat_summary, aes(x = es_gender, fill = type)) + 
+  geom_density(alpha = .3) + 
+  xlab(TeX("Effect size ($r$)")) + 
+  ylab("Density") + 
+  scale_fill_discrete(guide=FALSE)
+
+# Condition
+dat_summary_tmp <- dat_summary
+dat_summary_tmp$p_condition <- log10(dat_summary_tmp$p_condition)
+plot_p_condition <- ggplot(dat_summary_tmp, aes(x = p_condition, fill = type)) +
+  geom_density(alpha = .3) +
+  xlab(TeX("log10 $P$-value")) +
+  ylab("Density") +
+  scale_fill_discrete(labels = c("Genuine","Fabricated")) + 
+  theme(legend.position="top") +
+  ggtitle('Condition')
+
+plot_p_condition$labels$fill <- ""
+
+plot_es_condition <- ggplot(dat_summary, aes(x = es_condition, fill = type)) + 
+  geom_density(alpha = .3) + 
+  xlim(0, 1) + 
+  xlab(TeX("Effect size ($r$)")) + 
+  ylab("Density") + 
+  scale_fill_discrete(guide=FALSE)
+
+
+# Interaction
+plot_p_interaction <- ggplot(dat_summary, aes(x = p_interaction, fill = type)) + 
+  geom_density(alpha = .3) + 
+  xlab(TeX("$P$-value")) + 
+  ylab("Density") + 
+  scale_fill_discrete(guide=FALSE) +
+  ylim(0, 1.5) +
+  ggtitle('Interaction')
+
+plot_es_interaction <- ggplot(dat_summary, aes(x = es_interaction, fill = type)) + 
+  geom_density(alpha = .3) + 
+  xlab(TeX("Effect size ($r$)")) + 
+  ylab("Density") + 
+  scale_fill_discrete(guide=FALSE)
+
+# Plot
+grid.arrange(plot_p_gender,
+             plot_p_condition,
+             plot_p_interaction,
+             plot_es_gender,
+             plot_es_condition,
+             plot_es_interaction,
+             ncol = 3)
 
 fignr <- fignr + 1
 ```
@@ -437,21 +567,21 @@ Table `r tabnr` indicates that both operationalizations (i.e., $SD_z$ and $max-m
 
 ```{r table_var, echo=FALSE}
 dfvar <- data.frame(Method = c("Homogeneous, all studies combined",
-               "Homogeneous, study 1",
-               "Homogeneous, study 2",
-               "Homogeneous, study 3",
-               "Homogeneous, study 4",
-               "Heterogeneous, all studies combined",
-               "Heterogeneous study 1, low anchor condition",
-               "Heterogeneous study 1, high anchor condition",
-               "Heterogeneous study 2, low anchor condition",
-               "Heterogeneous study 2, high anchor condition",
-               "Heterogeneous study 3, low anchor condition",
-               "Heterogeneous study 3, high anchor condition",
-               "Heterogeneous study 4, low anchor condition",
-               "Heterogeneous study 4, high anchor condition"),
-               SD_z = df$AUROC[c(1:5, 11:19)],
-               max_min_z = df$AUROC[c(6:10, 20:28)])
+                               "Homogeneous, study 1",
+                               "Homogeneous, study 2",
+                               "Homogeneous, study 3",
+                               "Homogeneous, study 4",
+                               "Heterogeneous, all studies combined",
+                               "Heterogeneous study 1, low anchor condition",
+                               "Heterogeneous study 1, high anchor condition",
+                               "Heterogeneous study 2, low anchor condition",
+                               "Heterogeneous study 2, high anchor condition",
+                               "Heterogeneous study 3, low anchor condition",
+                               "Heterogeneous study 3, high anchor condition",
+                               "Heterogeneous study 4, low anchor condition",
+                               "Heterogeneous study 4, high anchor condition"),
+                    SD_z = df$AUROC[c(1:5, 11:19)],
+                    max_min_z = df$AUROC[c(6:10, 20:28)])
 dfvar2 <- dfvar
 names(dfvar2) <- c('Method', 'AUROC $SD_z$', 'AUROC $max-min_z$')
 knitr::kable(dfvar2, row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using variance analyses to detect data fabrication, depicted with the AUROC-value.")
@@ -514,7 +644,7 @@ tabnr <- tabnr + 1
 <!-- This could be done automatically at a large scale easily [data for this are available in @10.3758/s13428-015-0664-2;@10.3390/data1030014] or by a reader while going through a manuscript (e.g., during peer-review). wrt effect sizes -->
 
 
-# Study 2
+# Study 2 - detecting fabricated Stroop data
 
 ```{r prep study 2, echo=FALSE}
 ml3_dat_file <- sprintf('%sdata/study_02/study_02-ml3_stroop/StroopCleanSet.csv', x12)
@@ -538,7 +668,7 @@ To test the validity of statistical methods to detect data fabrication in raw da
 
 ### Data collection
 
-Twenty-one genuine datasets on the Stroop task were collected from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 datasets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure X). The Stroop effect was calculated as a $t$-test of the difference ($H_0:\mu=0$).
+We collected twenty-one genuine datasets on the Stroop task from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 datasets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Similar to Study 1, we assumed these data to be genuine due to the minimal individual gains for fabricating data and the transparency of the project. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure X). The Stroop effect was calculated as a $t$-test of the difference between the congruent and incongruent conditions ($H_0:\mu=0$).
 
 ```{r spreadsheet-study2, fig.cap="Example of a filled in template spreadsheet used in the fabrication process for Study 2. Respondents fabricated data in the yellow cells and green cells, which were used to compute the results of the hypothesis test of the condition effect. If the fabricated data confirm the hypotheses, a checkmark appeared. This template is available at [https://osf.io/2qrbs/](https://osf.io/2qrbs/).", out.width='100%', echo=FALSE}
 knitr::include_graphics('../figures/spreadsheet2.png')
@@ -550,118 +680,364 @@ Each participant received instructions on the data fabrication task via Qualtric
 
 ### Data analysis
 
-```{r ml3}
-ml3_dat <- read.csv(sprintf('%sdata/study_02/ml3_stroop.csv', x12))
+To detect data 
 
-df_ml3 <- NULL
-# Compute the results for the ML3 data
-for(i in 1:length(unique(ml3_dat$study_name)))
+```{r analyze data, echo = FALSE}
+if(!file.exists(sprintf('%sdata/study_02/ml3_fabricated_processed_collated.csv', x12)))
 {
-  tmp <- ml3_dat[ml3_dat$study_name == unique(ml3_dat$study_name)[i], ]
-  # This is an object to simplify concatenation
-  binder <- data.frame(id = unique(ml3_dat$study_name)[i],
-                       benford_congr_m_p = digit_analysis(tmp$MC, type = 'benford')$pval,
-                       benford_congr_sd_p = digit_analysis(tmp$SDC, type = 'benford')$pval,
-                       benford_incongr_m_p = digit_analysis(tmp$MI, type = 'benford')$pval,
-                       benford_incongr_sd_p = digit_analysis(tmp$SDI, type = 'benford')$pval,
-                       terminal_congr_m_p = digit_analysis(tmp$MC, type = 'terminal')$pval,
-                       terminal_congr_sd_p = digit_analysis(tmp$SDC, type = 'terminal')$pval,
-                       terminal_incongr_m_p = digit_analysis(tmp$MI, type = 'terminal')$pval,
-                       terminal_incongr_sd_p = digit_analysis(tmp$SDI, type = 'terminal')$pval,
-                       std_congr_p = std_var(tmp$SDC, tmp$NC, iter = iter),
-                       std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = iter),
-                       mult_m_sd_congr = cor(tmp$MC, tmp$SDC),
-                       mult_m_sd_incongr = cor(tmp$MI, tmp$SDI),
-                       mult_m_m_across = cor(tmp$MC, tmp$MI),
-                       mult_sd_sd_across = cor(tmp$SDC, tmp$SDI))
+  ml3_dat <- read.csv(sprintf('%sdata/study_02/ml3_stroop.csv', x12))
   
-  df_ml3 <- rbind(df_ml3, binder)
+  df_ml3 <- NULL
+  # Compute the results for the ML3 data
+  for(i in 1:length(unique(ml3_dat$study_name)))
+  {
+    tmp <- ml3_dat[ml3_dat$study_name == unique(ml3_dat$study_name)[i], ]
+    
+    x <- t.test(tmp$StroopEffect, mu = 0, var.equal = TRUE)
+    es_r <- sqrt((x$statistic / x$parameter) / ((x$statistic / x$parameter) + 1))
+    # This is an object to simplify concatenation
+    binder <- data.frame(id = unique(ml3_dat$study_name)[i],
+                         type = 'ml3',
+                         benford_congr_m_p = digit_analysis(tmp$MC, type = 'benford')$pval,
+                         benford_congr_sd_p = digit_analysis(tmp$SDC, type = 'benford')$pval,
+                         benford_incongr_m_p = digit_analysis(tmp$MI, type = 'benford')$pval,
+                         benford_incongr_sd_p = digit_analysis(tmp$SDI, type = 'benford')$pval,
+                         terminal_congr_m_p = digit_analysis(tmp$MC, type = 'terminal')$pval,
+                         terminal_congr_sd_p = digit_analysis(tmp$SDC, type = 'terminal')$pval,
+                         terminal_incongr_m_p = digit_analysis(tmp$MI, type = 'terminal')$pval,
+                         terminal_incongr_sd_p = digit_analysis(tmp$SDI, type = 'terminal')$pval,
+                         std_congr_p = std_var(tmp$SDC, tmp$NC, iter = iter),
+                         std_incongr_p = std_var(tmp$SDI, tmp$NI, iter = iter),
+                         mult_m_sd_congr = cor(tmp$MC, tmp$SDC),
+                         mult_m_sd_incongr = cor(tmp$MI, tmp$SDI),
+                         mult_m_m_across = cor(tmp$MC, tmp$MI),
+                         mult_sd_sd_across = cor(tmp$SDC, tmp$SDI),
+                         p_f_mult_m_sd_congr = NA,
+                         p_f_mult_m_sd_incongr = NA,
+                         p_f_mult_m_m_across = NA,
+                         p_f_mult_sd_sd_across = NA,
+                         fisher_combination = NA,
+                         one_min_es_r = 1 - es_r,
+                         es_r = es_r)
+    
+    df_ml3 <- rbind(df_ml3, binder)
+  }
+  
+  # Meta-analyze the multivariate associations to acquire the parametric estimate
+  df_ml3$f_mult_m_sd_congr = atanh(df_ml3$mult_m_sd_congr)
+  df_ml3$f_mult_m_sd_incongr = atanh(df_ml3$mult_m_sd_incongr)
+  df_ml3$f_mult_m_m_across = atanh(df_ml3$mult_m_m_across)
+  df_ml3$f_mult_sd_sd_across = atanh(df_ml3$mult_sd_sd_across)
+  
+  x <- metafor::rma(f_mult_m_sd_congr, sei = 1/sqrt(25-3), method = 'FE', data = df_ml3)
+  f_mult_m_sd_congr_mean <- x$b[1]
+  f_mult_m_sd_congr_std <- x$se[1]
+  
+  x <- metafor::rma(f_mult_m_sd_incongr, sei = 1/sqrt(25-3), method = 'FE', data = df_ml3)
+  f_mult_m_sd_incongr_mean <- x$b[1]
+  f_mult_m_sd_incongr_std <- x$se[1]
+  
+  x <- metafor::rma(f_mult_m_m_across, sei = 1/sqrt(25-3), method = 'FE', data = df_ml3)
+  f_mult_m_m_across_mean <- x$b[1]
+  f_mult_m_m_across_std <- x$se[1]
+  
+  x <- metafor::rma(f_mult_sd_sd_across, sei = 1/sqrt(25-3), method = 'FE', data = df_ml3)
+  f_mult_sd_sd_across_mean <- x$b[1]
+  f_mult_sd_sd_across_std <- x$se[1]
+  
+  # Compute the multivariate p-values for the ML data
+  z_val <- (df_ml3$f_mult_m_sd_congr - f_mult_m_sd_congr_mean) / f_mult_m_sd_congr_std
+  df_ml3$p_f_mult_m_sd_congr <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+  
+  z_val <- (df_ml3$f_mult_m_sd_incongr - f_mult_m_sd_incongr_mean) / f_mult_m_sd_incongr_std
+  df_ml3$p_f_mult_m_sd_incongr <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+  
+  z_val <- (df_ml3$f_mult_m_m_across - f_mult_m_m_across_mean) / f_mult_m_m_across_std
+  df_ml3$p_f_mult_m_m_across <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+  
+  z_val <- (df_ml3$f_mult_sd_sd_across - f_mult_sd_sd_across_mean) / f_mult_sd_sd_across_std
+  df_ml3$p_f_mult_sd_sd_across <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+  
+  # Combining the terminal digit analysis, variance analysis and the multivariate associations
+  # Note that this function adds .0000001 to zero values to prevent -Inf values (log(0) = -Inf)
+  # df_ml3$fisher_combination <- apply(df_ml3[,c(6:11, 16:19)], 1, function(x) fisher_method(x)[,3])
+  
+  df_ml3$fisher_combination <- apply(cbind(df_ml3$terminal_congr_m_p,
+      df_ml3$terminal_congr_sd_p,
+      df_ml3$terminal_incongr_m_p,
+      df_ml3$terminal_incongr_sd_p,
+      df_ml3$std_congr_p,
+      df_ml3$std_incongr_p,
+      df_ml3$p_f_mult_m_sd_congr,
+      df_ml3$p_f_mult_m_sd_incongr,
+      df_ml3$p_f_mult_m_m_across,
+      df_ml3$p_f_mult_sd_sd_across), 1, function(x) fisher_method(x)[,3])
+  
+  # Dropping the redundant variables
+  # If code above changes this will break
+  df_ml3 <- df_ml3[,1:23]
+  
+  # The responses from the fabrication study
+  responses <- list.files(sprintf('%sdata/study_02/responses', x12))
+  df_fab <- NULL
+  
+  for (response in responses)
+  {
+    fab_dat <- read.table(sprintf('%sdata/study_02/responses/%s', x12, response),
+                          sep = '\t', header = TRUE)
+    # For clarity sake
+    names(fab_dat) <- c('id',
+                        'mean_congruent',
+                        'sd_congruent',
+                        'congruent_trials',
+                        'mean_incongruent',
+                        'sd_incongruent',
+                        'incongruent_trials')
+    # Eliminate overprecision in reporting
+    # Instructed participants to fabricate milliseconds and 123.45 is result of copy-paste
+    # Spreadsheet automatically removed this, but by copy-pasting this was undone by PP
+    fab_dat <- as.data.frame(apply(fab_dat, 2, function(x) round(x, 0)))
+    
+    # Stroop effect size calculation
+    sdpooled <- sqrt(((fab_dat$congruent_trials - 1) * fab_dat$sd_congruent^2 + (fab_dat$incongruent_trials - 1) * fab_dat$sd_incongruent^2) / ((fab_dat$congruent_trials + fab_dat$incongruent_trials - 2)))
+    stroopeffect <- (fab_dat$mean_incongruent - fab_dat$mean_congruent) / sdpooled
+    x <- t.test(stroopeffect, mu = 0, var.equal = TRUE)
+    es_r <- sqrt((x$statistic / x$parameter) / ((x$statistic / x$parameter) + 1))
+    
+    # Compute the multivariate correlation p-values for the fab data
+    f_mult_m_sd_congr <- atanh(cor(fab_dat$mean_congruent, fab_dat$sd_congruent))
+    f_mult_m_sd_incongr <- atanh(cor(fab_dat$mean_incongruent, fab_dat$sd_incongruent))
+    f_mult_m_m_across <- atanh(cor(fab_dat$mean_congruent, fab_dat$mean_incongruent))
+    f_mult_sd_sd_across <- atanh(cor(fab_dat$sd_congruent, fab_dat$sd_incongruent))
+    
+    z_val <- (f_mult_m_sd_congr - f_mult_m_sd_congr_mean) / f_mult_m_sd_congr_std
+    p_f_mult_m_sd_congr <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+    
+    z_val <- (f_mult_m_sd_incongr - f_mult_m_sd_incongr_mean) / f_mult_m_sd_incongr_std
+    p_f_mult_m_sd_incongr <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+    
+    z_val <- (f_mult_m_m_across - f_mult_m_m_across_mean) / f_mult_m_m_across_std
+    p_f_mult_m_m_across <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+    
+    z_val <- (f_mult_sd_sd_across - f_mult_sd_sd_across_mean) / f_mult_sd_sd_across_std
+    p_f_mult_sd_sd_across <- 2 * pnorm(q = abs(z_val), mean = 0, sd = 1, lower = FALSE)
+    
+    binder <- data.frame(id = response,
+                         type = 'fabricated',
+                         benford_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'benford')$pval,
+                         benford_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'benford')$pval,
+                         benford_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'benford')$pval,
+                         benford_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'benford')$pval,
+                         terminal_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'terminal')$pval,
+                         terminal_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'terminal')$pval,
+                         terminal_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'terminal')$pval,
+                         terminal_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'terminal')$pval,
+                         std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = iter),
+                         std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = iter),
+                         mult_m_sd_congr = cor(fab_dat$mean_congruent, fab_dat$sd_congruent),
+                         mult_m_sd_incongr = cor(fab_dat$mean_incongruent, fab_dat$sd_incongruent),
+                         mult_m_m_across = cor(fab_dat$mean_congruent, fab_dat$mean_incongruent),
+                         mult_sd_sd_across = cor(fab_dat$sd_congruent, fab_dat$sd_incongruent),
+                         p_f_mult_m_sd_congr = p_f_mult_m_sd_congr,
+                         p_f_mult_m_sd_incongr = p_f_mult_m_sd_incongr,
+                         p_f_mult_m_m_across = p_f_mult_m_m_across,
+                         p_f_mult_sd_sd_across = p_f_mult_sd_sd_across,
+                         fisher_combination = NA,
+                         one_min_es_r = 1 - es_r,
+                         es_r = es_r)
+    
+    binder$fisher_combination <- fisher_method(c(binder$terminal_congr_m_p,
+                                                 binder$terminal_congr_sd_p,
+                                                 binder$terminal_incongr_m_p,
+                                                 binder$terminal_incongr_sd_p,
+                                                 binder$std_congr_p,
+                                                 binder$std_incongr_p,
+                                                 binder$p_f_mult_m_sd_congr,
+                                                 binder$p_f_mult_m_sd_incongr,
+                                                 binder$p_f_mult_m_m_across,
+                                                 binder$p_f_mult_sd_sd_across))[,3]
+    
+    df_fab <- rbind(df_fab, binder)
+    # print(response)
+  }
+  
+  write.csv(rbind(df_ml3, df_fab), sprintf('%sdata/study_02/ml3_fabricated_processed_collated.csv', x12), row.names = FALSE)
 }
-
-# The responses from the study
-responses <- list.files(sprintf('%sdata/study_02/responses', x12))
-df_fab <- NULL
-
-for (response in responses)
-{
-  fab_dat <- read.table(sprintf('%sdata/study_02/responses/%s', x12, response),
-                        sep = '\t', header = TRUE)
-  # For clarity sake
-  names(fab_dat) <- c('id',
-                      'mean_congruent',
-                      'sd_congruent',
-                      'congruent_trials',
-                      'mean_incongruent',
-                      'sd_incongruent',
-                      'incongruent_trials')
-  
-  mult_m_sd_congr <- cor(fab_dat$mean_congruent, fab_dat$sd_congruent)
-  mult_m_sd_incongr <- cor(fab_dat$mean_incongruent, fab_dat$sd_incongruent)
-  mult_m_m_across <- cor(fab_dat$mean_congruent, fab_dat$mean_incongruent)
-  mult_sd_sd_across <- cor(fab_dat$sd_congruent, fab_dat$sd_incongruent)
-  
-  # Slotted for removal and replacement by parametric approach 20170628
-  p_mult_m_sd_congr <- ifelse(mean(df_ml3$mult_m_sd_congr) > mult_m_sd_congr,
-                              sum(df_ml3$mult_m_sd_congr < mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr),
-                              sum(df_ml3$mult_m_sd_congr > mult_m_sd_congr) * 2 / length(df_ml3$mult_m_sd_congr))
-  p_mult_m_sd_incongr <- ifelse(mean(df_ml3$mult_m_sd_incongr) > mult_m_sd_incongr,
-                                sum(df_ml3$mult_m_sd_incongr < mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr),
-                                sum(df_ml3$mult_m_sd_incongr > mult_m_sd_incongr) * 2 / length(df_ml3$mult_m_sd_incongr))
-  p_mult_m_m_across <- ifelse(mean(df_ml3$mult_m_m_across) > mult_m_m_across,
-                              sum(df_ml3$mult_m_m_across < mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across),
-                              sum(df_ml3$mult_m_m_across > mult_m_m_across) * 2 / length(df_ml3$mult_m_m_across))
-  p_mult_sd_sd_across <- ifelse(mean(df_ml3$mult_sd_sd_across) > mult_sd_sd_across,
-                                sum(df_ml3$mult_sd_sd_across < mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across),
-                                sum(df_ml3$mult_sd_sd_across > mult_sd_sd_across) * 2 / length(df_ml3$mult_sd_sd_across))
-  
-  binder <- data.frame(id = response,
-                       benford_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'benford')$pval,
-                       benford_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'benford')$pval,
-                       benford_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'benford')$pval,
-                       benford_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'benford')$pval,
-                       terminal_congr_m_p = digit_analysis(fab_dat$mean_congruent, type = 'terminal')$pval,
-                       terminal_congr_sd_p = digit_analysis(fab_dat$sd_congruent, type = 'terminal')$pval,
-                       terminal_incongr_m_p = digit_analysis(fab_dat$mean_incongruent, type = 'terminal')$pval,
-                       terminal_incongr_sd_p = digit_analysis(fab_dat$sd_incongruent, type = 'terminal')$pval,
-                       std_congr_p = std_var(fab_dat$sd_congruent, fab_dat$congruent_trials, iter = iter),
-                       std_incongr_p = std_var(fab_dat$sd_incongruent, fab_dat$incongruent_trials, iter = iter),
-                       p_mult_m_sd_congr,
-                       p_mult_m_sd_incongr,
-                       p_mult_m_m_across,
-                       p_mult_sd_sd_across)
-  
-  # Add 1 ten millionth to any zero
-  # so the log doesn't go to infinite and messes with the Fisher method
-  p_for_fish <- unlist(ifelse(binder[,6:15] == 0, .0000001, binder[,6:15]))
-  
-  fish <- -2 * sum(log(p_for_fish))
-  df_fish <- length(p_for_fish) * 2
-  p_fish <- pchisq(q = fish, df = df_fish, lower.tail = FALSE)
-  binder <- cbind(binder, p_fish)
-  
-  df_fab <- rbind(df_fab, binder)
-}
-
-write.csv(df_fab, sprintf('%sdata/study_02/df_fab.csv', x12), row.names = FALSE)
 ```
 
 ## Results
 
+```{r, echo = FALSE}
+dat <- read.csv(sprintf('%sdata/study_02/ml3_fabricated_processed_collated.csv', x12))
+
+tp <- matrix(NA, ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+fp <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+fn <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+tn <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+
+temp <- names(dat)[grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")]
+
+j <- 1
+
+for (variables in which(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")))
+{
+  i <- 1 
+  
+  for (threshold in seq(0, 1, .01))
+  {
+    tp[i,j] <- sum(dat[, variables] <= threshold & dat$type == 'fabricated', na.rm = TRUE)
+    fp[i,j] <- sum(dat[, variables] <= threshold & dat$type == 'ml3', na.rm = TRUE)
+    fn[i,j] <- sum(dat[, variables] > threshold & dat$type == 'fabricated', na.rm = TRUE)
+    tn[i,j] <- sum(dat[, variables] > threshold & dat$type == 'ml3', na.rm = TRUE)
+    
+    i <- i + 1
+  }
+  
+  j <- j + 1
+}
+
+# loop through matrix for proper comps
+
+tpr <- matrix(NA, ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+fpr <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+fnr <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+tnr <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+
+ppv <- matrix(NA, ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+fdr <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+npv <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+false_or <- matrix(NA,ncol = sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")), nrow = 101)
+
+for (i in 1:sum(grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")))
+{
+  tpr[, i] <- tp[, i] / (tp[, i] + fn[, i])
+  fnr[, i] <- fn[, i] / (tp[, i] + fn[, i])
+  fpr[, i] <- fp[, i] / (fp[, i] + tn[, i])
+  tnr[, i] <- tn[, i] / (fp[, i] + tn[, i])
+  
+  ppv[, i] <- tp[, i] / (fp[, i] + tp[, i])
+  fdr[, i] <- fp[, i] / (fp[, i] + tp[, i])
+  npv[, i] <- tn[, i] / (tn[, i] + fn[, i])
+  false_or[, i] <- fn[, i] / (tn[, i] + fn[, i])
+}
+fpr <- as.data.frame(fpr)
+tpr <- as.data.frame(tpr)
+fnr <- as.data.frame(fnr)
+tnr <- as.data.frame(tnr)
+
+ppv <- as.data.frame(ppv)
+fdr <- as.data.frame(fdr)
+npv <- as.data.frame(npv)
+false_or <- as.data.frame(false_or)
+
+names(fpr) <- temp
+names(tpr) <- temp
+names(fnr) <- temp
+names(tnr) <- temp
+
+names(ppv) <- temp
+names(fdr) <- temp
+names(npv) <- temp
+names(false_or) <- temp
+
+height = (tpr[-1, ] + tpr[-dim(tpr)[1], ])/2
+width = apply(fpr, 2, diff) # = diff(rev(omspec))
+AUC_res <- apply(height * width, 2, sum)
+
+temp <- names(dat)[grepl(names(dat), pattern = "(_p|p_|one_min_es_r|fisher_combination)")]
+Method <- c("NBL, congruent means",
+            "NBL, congruent SDs",
+            "NBL, incongruent means",
+            "NBL, incongruent SDs",
+            "Terminal digit analysis, congruent means",
+            "Terminal digit analysis, congruent SDs",
+            "Terminal digit analysis, incongruent means",
+            "Terminal digit analysis, incongruent SDs",
+            "Variance analysis, congruent condition",
+            "Variance analysis, incongruent condition",
+            "Multivariate association means and SDs, congruent condition",
+            "Multivariate association means and SDs, incongruent condition",
+            "Multivariate association means, across conditions",
+            "Multivariate association SDs, across conditions",
+            "Fisher combination of terminal, variance, and multivariate",
+            "Effect size ($1-r$)")
+
+df <- data.frame(Method = Method,
+                 AUROC = AUC_res)
+```
+
+### Performance of NBL to detect data fabrication
+
+```{r table_nbl, echo=FALSE}
+knitr::kable(df[1:4,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using the Newcomb-Benford law (NBL) to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+```{r}
+ggplot(dat, aes(x = benford_congr_m_p)) + geom_density(aes(fill = type)) + xlim(0, .00001)
+```
+
+### Performance of terminal digit analysis to detect data fabrication
+
+```{r table_terminal, echo=FALSE}
+knitr::kable(df[5:8,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using terminal digit analysis to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+### Performance of variance analysis to detect data fabrication
+
+```{r table_variance_raw, echo=FALSE}
+knitr::kable(df[9:10,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using variance analysis to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+### Performance of multivariate associations to detect data fabrication
+
+```{r table_multi, echo=FALSE}
+knitr::kable(df[11:14,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using multivariate associations to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+### Performance of combining 
+
+```{r table_fisher_raw, echo=FALSE}
+knitr::kable(df[15,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using variance analysis to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+### Performance of effect sizes
+
+```{r table_es_raw, echo=FALSE}
+knitr::kable(df[16,], row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using variance analysis to detect data fabrication, depicted with the AUROC-value.")
+tabnr <- tabnr + 1
+```
+
+```{r, echo=FALSE, out.width='100%', fig.cap="The effect size distributions from Many Labs 3 and those fabricated by the participants"}
+ggplot(dat, aes(x = es_r)) + geom_density(aes(fill = type), alpha = .3)
+# > min(dat$es_r[dat$type == 'fabricated'])
+# [1] 0.294654
+# > max(dat$es_r[dat$type == 'ml3'])
+# [1] 0.3164714
+```
+
 ## Discussion
 
-# General discussion
+<!-- # General discussion -->
 
-## `ddfab` package
+<!-- The effectiveness of detection mechanisms and their consequences, hence their expected deterrence, is exacerbated in the digital age by the availability of public discussion platforms such as [PubPeer (https://pubpeer.com)](https://pubpeer.com).  -->
+<!-- PubPeer serves as an "online journal club" where anyone can discuss articles. Authors are notified when someone leaves a response, providing them with the possibility to respond. Such a platform allows for public discussion of the paper, including discussion of reanalyses, methodology, availability of materials, etc. When detection mechanisms are freely available to use, they can lead to (a surge of) comments when applied by users. Recently, in 2016, one user (the main author of this paper) used `statcheck` software to report potential statistical reporting inconsistencies for 50,000 psychology articles, which led to a large discussion about (automated) online comments [@10.1038/540151a]. The impact of such new possibilities is not to be underestimated, although its potential to constructively contribute to the scientific discussion should also not be [@10.1038/540007b]. Nonetheless, the `statcheck` software was well validated prior to this application [@10.3758/s13428-015-0664-2] and the same principle applies to the application of statistical methods to detect (potential) data fabrication. -->
 
-All the methods used in this paper are also implemented in the open source R package `ddfab`.
+<!-- ## `ddfab` package -->
 
-However, these results indicate that application of these methods should be informed and as a screening method.
+<!-- All the methods used in this paper are also implemented in the open source R package `ddfab`. -->
 
-## Study fallout
+<!-- However, these results indicate that application of these methods should be informed and as a screening method. -->
 
-While conducting Study 2 reported in this paper, there was considerable criticism from several parties.
+<!-- ## Study fallout -->
 
-We 
+<!-- While conducting Study 2 reported in this paper, there was considerable criticism from several parties. -->
+
+<!-- We  -->
 
 # Session info
 
