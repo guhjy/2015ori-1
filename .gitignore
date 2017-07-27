@@ -5,3 +5,4 @@ submission/manuscript-*
 submission/manuscript.bbl
 submission/manuscript.log
 submission/manuscript.synctex.gz
+.RData
