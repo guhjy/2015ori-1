@@ -20,3 +20,11 @@
 
 # Nov 4, 2016
 1. Charlie uploaded raw Stroop data that matched the trial numbers. Linked to here https://osf.io/n8xa7/
+
+# July 4, 2017
+1. some notes from Jan
+>One idea that I developed while doing the transcribing was to have different check programs for the 3 types of fabrication. As an example:
+>1. For fakers who use existing data sets and just slightly change this existing data set, one could check for similarties using all publicly available data sets. 
+>2. For fakers who do the simulation, one could check for residuals or deviations from a perfect distribition
+>3. For fakers who do it by hand, one could check for regularities like that sequences with number going all up or all down appear more often.
+
