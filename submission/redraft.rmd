@@ -1,0 +1,73 @@
+# Introduction
+
+<!-- consistency of data fabrication v data anomalies -->
+
+Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). 
+Psychology faced Stapel; medical sciences faced Poldermans and Macchiarini; life sciences faced Voignet; physical sciences faced Sch&ouml;n --- these are just a few examples of misconduct cases in the last decade. 
+Overall, an estimated 2\% of all scholars admit to falsifying or fabricating research results at least once [@10.1371/journal.pone.0005738], which due to its self-report nature is likely to be an underestimate. 
+The detection rate of data fabrication is likely to be even lower; for example, only around a dozen cases become public in the United States and the Netherlands, despite that there are several hundreds of thousands of researchers in these countries. 
+At best, this suggests a detection rate below 1\% of those 2\% who admit to fabricating data --- the tip of a seemingly much larger iceberg.
+
+In order to stifle attempts at data fabrication, improved detection of fabricated data is considered to deter such behavior. 
+This idea is based on deterrence theory [@leviathan], which stipulates that increased risk of detection decreases the utility of scientific misconduct, hence, fewer people will engage in it. 
+Detection techniques have developed to varying degrees for fabrication, falsification, and plagiarism.
+Plagiarism scanners have been around the longest [e.g., @10.1109/13.28038] and are widely implemented not only at journals but also in student evaluation. 
+For data fabrication, developments around detecting image manipulation are more recent and these methods are being implemented at journals. 
+For example, the Journal of Cell Biology and the EMBO journal scan each submitted image for potential manipulation [@The_Journal_of_Cell_Biology2015-vh;@10.1038/546575a], which supposedly increases the risk of (blatant) image manipulation. 
+More recently, algorithms are being developed to automate the scanning of images for such manipulations [@10.1007/s11948-016-9841-7]. 
+Moreover, the application of such tools can also help researchers systematically evaluate research articles in order to estimate the extent to which image manipulation occurs [4\% of all papers are estimated to contain manipulated images, @10.1128/mBio.00809-16] or what factors are predictive of image manipulation [@10.1007/s11948-018-0023-7]. 
+
+Detection methods for data fabrication in empirical research are often based on a mix of psychology theory and statistics theory. 
+Because humans are notoriously bad at understanding and estimating randomness [@10.1126/science.185.4157.1124;@10.1037/h0031322;@10.1037/1082-989X.5.2.241], this could manifest itself in the fundamentally probabilistic data they try to fabricate. 
+As such, when data are fabricated, principles of statistics and randomness could easily be violated at various dimension of the data [@Haldane1948-nm]. 
+Based on this idea, statistical methods can be used to detect anomalies in investigations. Whether data are in line with the reported probabilistic processes and their theoretically expected outcomes (e.g., random assignment) can indicate deviations from the reported protocol, potentially even data fabrication. 
+<!-- ref naar wagenaar 1972? in l21 -->
+
+Statistical methods have proven to be of importance in initiating data fabrication investigations or in assessing scope of potential data fabrication. 
+For example, Kranke, Apfel, and Roewer skeptically perceived Fuji's "incredibly nice" data [@10.1213/00000539-200004000-00053] and used statistical methods to contextualize their skepticism.
+At the time, a reviewer perceived them to be on a "crusade  against Fujii and his colleagues" [@@10.1111/j.1365-2044.2012.07318.x] and further investigation was absent. 
+Only when Carlisle extended the systematic investigation to 168 of Fuji's papers [@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13650;@10.1111/anae.13126] did events cumulate into an investigation- and ultimately retraction of 183 peer-reviewed papers [@oransky2015;@10.1016/j.ijoa.2012.10.00]. 
+In another example, the Stapel case, statistical evaluation of his oeuvre  occurred after he had already confessed to fabricating data [@Levelt2012].
+This resulted in 58 retractions [@oransky2015] and cleared all PhD students of wrongdoing [@Levelt2012].
+
+In order to determine whether generic application of statistical methods to detect data anomalies is responsible, their diagnostic value requires further investigation. 
+After all, accusations of data fabrication have grave consequences for the people involved [regretfully, the STAP case brings this to the fore very clearly; @10.1038/520600a]. 
+Many of these statistical methods to detect data anomalies are quantifications of initial suspicions by researchers.
+Hence, until validated, these should be considered proposed methods.
+In some cases, convergent evidence is provided by testing the underlying psychological premises in the general population [@10.1080/08989629508573866;@10.1080/08989620212969] but the question remains whether this premise also applies for data fabricators.
+Considering we hardly know how researchers might go about fabricating data, this seems especially problematic. 
+Known cases provide relatively few and biased insights into the mind of the data fabricator. 
+Relatively extensive descriptions in rare and partial autobiogrophical accounts provide little insight into the actual data fabrication process, except for the setting where it might take place [e.g., late at night when no one is around; @stapel_book].
+
+<!-- Carlisle tested whether Fuji's Randomized Clinical Trials (RCTs) baseline measurements were identically distributed across groups. 
+If random assignment occurred, this should be the case. 
+As such, the $p$-values for group comparisons would be expected to be uniformly distributed because the null hypothesis of identical distributions across groups is true by definition of the randomized design. 
+In the Fuji papers, group comparisons showed excessive consistency, resulting primarily in high $p$-values (e.g., .99, .95) and a high mean $p$-value across the comparisons (mean $p$-value of .5 is expected under uniform distribution).
+As an illustration, see Table 1, which depicts 10 hypothetical studies containing 100 participants per condition. 
+Set 1 depicts true randomized designs; Set 2 depicts fabricated designs. 
+The mean $p$-value for the true randomized design Set 1 is `r round(mean(ex1_1tp), 3)`, whereas the fabricated Set 2 has mean $p$-value `r round(mean(ex2_1tp), 3)`.
+ -->
+ 
+<!-- insert code for the r bits in the next paragraph here -->
+
+We present two studies investigating the diagnostic performance of statistical methods to detect data fabrication.
+These studies investigate methods to detect data fabrication in summary statistics (Study 1) or in raw data (Study 2). 
+In Study 1, we invited researchers to fabricate summary statistics for a set of four anchoring studies, for which we also had genuine data from the Many Labs initiative [@].
+In Study 2, we invited researchers to fabricate raw data for a Stroop experiment, for which we also had genuine data from the Many Labs 2/3 initiative [@]. 
+Before presenting these studies, we expand on the theoretical framework of the investigated statistical methods to detect data fabrication.
+<!-- We note that the reviewed methods are not exhaustive of all methods available to test for potential data fabrication in empirical data [see also, @buyse1999;@10.7287/peerj.preprints.2400v1;@10.7287/peerj.preprints.2064v1;@sprite-heathers]. -->
+
+# Theoretical framework
+
+In the current paper, we differentiate between statistical methods to detect potential data fabrication based on reported summary statistics or raw data. 
+Below, we expand on the theoretical underpininings of these methods and provide sample code to run these, where appropriate (implemented in the `ddfab` package for R).
+For summary statistics, we review $p$-value analysis, variance analysis, and effect size analysis as potential ways to detect data fabrication. 
+$P$-value analyses can be applied whenever a set of nonsignificant $p$-values are reported; variance analysis can be applied whenever a set of variances are reported for independent groups alongside the sample sizes per group; effect size analysis can be used whenever the effect size is reported or can be computed [e.g., an APA reported t- or F-statistic;@10.1525/collabra.71]. 
+For raw data, we review digit analyses (i.e., the Newcomb-Benford law and terminal digit analysis) and multivariate associations as potential ways to detect data fabrication. 
+The Newcomb-Benford law can be applied when untruncated ratio- or count scale measures are present [@10.1016/j.spa.2005.05.003]; terminal digit analysis can be applied whenever there are sufficient digits [see also @10.1080/08989629508573866]. 
+Multivariate associations can be investigated whenever there are two or more variables available and data on that same relation is available from (assumably) genuine data sources.
+
+## Detecting data fabrication in summary statistics
+
+### P-value analysis
+

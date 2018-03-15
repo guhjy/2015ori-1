@@ -132,9 +132,7 @@ names(df) <- c("Study",
         "P-value [S2]")
 ```
 
-Statistical methods to detect data fabrication have been applied in several cases of scientific misconduct in recent years and has potential for future application beyond these specific cases. 
-For example, excessive consistency in papers by Fuji were highlighted with statistical methods [@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126], resulting in 183 retractions [@oransky2015]. Carlisle's method works as follows: in true randomized clinical trials (RCTs) baseline measurements should be identically distributed across groups. As such, the $p$-values for group comparisons would be expected to be uniformly distributed because the null hypothesis of identical distributions across groups is true by definition of the randomized design. In the Fuji papers, group comparisons showed excessive consistency, resulting primarily in high $p$-values (e.g., .99, .95) and a high mean $p$-value across the comparisons, where a mean $p$-value of .5 is expected. As an illustration, see Table `r tabnr`, which depicts 10 hypothetical studies containing 100 participants per condition, for true randomized designs (Set 1) or for fabricated designs (Set 2). The mean $p$-value for the true randomized design Set 1 is `r round(mean(ex1_1tp), 3)`, whereas the fabricated Set 2 has mean $p$-value `r round(mean(ex2_1tp), 3)`. Other statistical methods to detect data fabrication are addressed in the theoretical sections.
-.
+Statistical methods to detect data fabrication have been applied in several 
 
 ```{r table_excess, echo = FALSE}
 knitr::kable(df, digits = 3, caption = "Examples of means and standard deviations for a continuous outcome in genuine- and fabricated randomized clinical trials. Set 1 (S1) is randomly generated data under the null hypothesis of random assignment (assumed to be the genuine process), whereas Set 2 (S2) is generated under excessive consistency with equal groups. Each trial condition contains 100 participants. The $p$-values are the result of independent $t$-tests comparing the experimental and control conditions within each respective set.")
@@ -262,18 +260,18 @@ knitr::kable(tab, digits = 3, caption = 'The expected first digit distribution, 
 tabnr <- tabnr + 1
 ```
 
-However, given that the NBL only applies under specific conditions that are rarely fulfilled in the social sciences, its applicability for detecting data fabrication in science can be questioned. First, the NBL only applies for true ratio scale measures [@10.2307/2246134;@10.1214/11-PS175]. Second, sufficient range on the measure is required for the NBL to apply [i.e., range from $1-1000000$ ;@10.1198/tast.2009.0005]. Third, these measures should not be subject to digit preferences, for example due to psychological preferences for rounded numbers. Fourth, any form of truncation undermines the NBL [@10.1515/9781400866595-011]. Moreover, some research has even indicated humans might be sensitive to fabricating data that are in line with the NBL [@10.1080/02664760601004940;@Burns2009], immediately undermining the applicability of the NBL. Nonetheless, considering the four conditions for the NBL to apply, we preregistered that this method would not prove fruitful [@10.3897/rio.2.e8860].
+However, given that the NBL only applies under specific conditions that are rarely fulfilled in the social sciences, its applicability for detecting data fabrication in science can be questioned. First, the NBL only applies for true ratio scale measures [@10.2307/2246134;@10.1214/11-PS175]. Second, sufficient range on the measure is required for the NBL to apply [i.e., range from at least $1-1000000$ or $1-10^6$;@10.1198/tast.2009.0005]. Third, these measures should not be subject to digit preferences, for example due to psychological preferences for rounded numbers. Fourth, any form of truncation undermines the NBL [@10.1515/9781400866595-011]. Moreover, some research has even indicated humans might be sensitive to fabricating data that are in line with the NBL [@10.1080/02664760601004940;@Burns2009], immediately undermining the applicability of the NBL. As such, we think that this method would not prove fruitful in psychology research because rarely are measures true ratio scales with sufficient range to show the NBL properties in the first digit [@10.3897/rio.2.e8860].
 
 #### Terminal digit analysis
 
-Terminal digit analysis is based on the principle that the rightmost digit is the most random digit of a number, hence, is expected to be uniformly distributed under specific conditions [@10.1080/08989629508573866;@10.1080/03610919608813325]. Terminal digit analysis is conducted with a $\chi^2$-test ($df=10-1$) on the digit occurrence counts (including zero), where the observed frequencies are compared with the expected uniform frequencies. Tthe rule of thumb outlined by @agresti2003categorical indicates at least 50 observations are required to provide a meaningful test of the terminal digit distribution ($n=I\times J \times 5$, with $I$ rows and $J$ columns). Terminal digit analysis was developed during the Imanishi-Kari case by @10.1080/03610919608813325 [for a history of this decade long case, see @kevles2000baltimore]. 
+Terminal digit analysis is based on the principle that the rightmost digit is the most random digit of a number, hence, is expected to be uniformly distributed under specific conditions [@10.1080/08989629508573866;@10.1080/03610919608813325]. Terminal digit analysis is conducted with a $\chi^2$-test ($df=10-1$) on the digit occurrence counts (including zero), where the observed frequencies are compared with the expected uniform frequencies. The rule of thumb outlined by @agresti2003categorical indicates at least 50 observations are required to provide a meaningful test of the terminal digit distribution ($n=I\times J \times 5$, with $I$ rows and $J$ columns). Terminal digit analysis was developed during the Imanishi-Kari case by @10.1080/03610919608813325 [for a history of this decade long case, see @kevles2000baltimore]. 
 
-As an example, Figure `r fignr` depicts the digit counts for the first- through fifth digit of a random, normally distributed variable. The first- and second digit distributions are clearly non-uniform, whereas the third-, fourth-, and fifth digit distributions are uniformly distributed.
+As an example, Figure `r fignr` depicts the digit counts for the first- through fifth digit of a random, normally distributed variable (i.e., $N\sim(0,1)$). The first- and second digit distributions are clearly non-uniform, whereas the third digit distribution is less obvious but still non-uniform, and the fourth-, and fifth digit distributions are uniformly distributed.
 
-```{r, echo=FALSE, fig.align="center", fig.asp=.5, out.width='100%', fig.cap="Illustration of how digit distributions evolve from first- through later digits. We sampled 100,000 values from a normal distribution, N~(0, 1.5), to create these digit distributions."}
+```{r, echo=FALSE, fig.align="center", fig.asp=.5, out.width='100%', fig.cap="Illustration of how digit distributions evolve from first- through later digits. We sampled 100,000 values from a normal distribution, N~(0, 1), to create these digit distributions."}
 set.seed(1234)
 tmp1 <- 0
-tmp2 <- 1.5
+tmp2 <- 1
 y <- data.frame(value = rnorm(100000, tmp1, tmp2))
 x <- abs(y$value)
 splitted <- strsplit(as.character(x), "")
@@ -333,13 +331,59 @@ grid.arrange(p1, p2, p3, p4, p5, empty, empty, overall, empty, empty,
 fignr <- fignr + 1
 ```
 
-As such, the rightmost digit can be expected to be uniformly distributed if sufficient precision is provided [@10.1080/08989629508573866]. For our purposes, sufficient precision is determined as the terminal digit being at least the third leading digit [i.e., minimally 1.23 or 12.3 or 123].
+```{r, echo = FALSE}
+if(!file.exists('../data/study_02/p5'))
+{
+p1 <- NULL
+p2 <- NULL
+p3 <- NULL
+p4 <- NULL
+p5 <- NULL
+
+for(i in 1:1000)
+{
+set.seed(1234 + i)
+tmp1 <- 0
+tmp2 <- 1
+n <- 500
+y <- data.frame(value = rnorm(n, tmp1, tmp2))
+x <- abs(y$value)
+splitted <- strsplit(as.character(x), "")
+df1 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[1])))))
+df1 <- data.frame(digit = df1[!df1$digit == 0,])
+df2 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[3])))))
+df3 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[4])))))
+df4 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[5])))))
+df5 <- data.frame(digit = as.numeric(unlist(lapply(splitted, function(x) return(x[6])))))    
+
+p1[i] <- digit_analysis(df1[,1], type = "terminal")$pval
+p2[i] <- digit_analysis(df2[,1], type = "terminal")$pval
+p3[i] <- digit_analysis(df3[,1], type = "terminal")$pval
+p4[i] <- digit_analysis(df4[,1], type = "terminal")$pval
+p5[i] <- digit_analysis(df5[,1], type = "terminal")$pval
+}
+
+save('../data/study_02/p1')
+save('../data/study_02/p2')
+save('../data/study_02/p3')
+save('../data/study_02/p4')
+save('../data/study_02/p5')
+}
+
+load('../data/study_02/p1')
+load('../data/study_02/p2')
+load('../data/study_02/p3')
+load('../data/study_02/p4')
+load('../data/study_02/p5')
+```
+
+As such, the rightmost digit can be expected to be uniformly distributed if sufficient precision is provided [@10.1080/08989629508573866]. What sufficient precision is, we investigated by running a small simulation study, drawing 500 random values from a normal distribution ($N\sim(0,1)$) thousand times and conducting a terminal digit test for each of the first five digits (similar to Figure `r fignr`). For the third-, fourth-, and fifth- digits, tests operated on nominal $\alpha$ levels (i.e., under $\alpha=.05$, false positives were $`r round(sum(p3 > .05) / 1000, 3)`$, $`r round(sum(p4 > .05) / 1000, 3)`$, $`r round(sum(p5 > .05) / 1000, 3)`$, respectively). Hence, sufficient precision for our purposes is determined as the terminal digit being conducted on at least the third leading digit (i.e., minimally 1.23 or 12.3 or 123).
 
 ### Multivariate associations
 
-True data occur within a web of relations, which can be observed in genuine data and easily forgotten while fabricating data. The multivariate relations between different variables arise from stochastic processes and are not readily known, hence difficult to take into account when someone wants to fabricate data. As such, using these multivariate associations to detect fabrication from genuine data might prove valuable.
+Often, different measurements show relations that are non-obvious to the researcher. Hence, such relations between measurements might be forgotten by people who fabricate data or the fabricators might simply be unable to fabricate data that also show these relations. For example, in response time latencies, there is a negative relation between mean response time and the variance of the response time, where lower mean response times are accompanied by a lower variance. Given that the multivariate relations between different variables arise from stochastic processes and are not readily known in either their form or size, it might be difficult to take into account when someone wants to fabricate data. As such, using these multivariate associations to detect fabrication from genuine data might prove valuable.
 
-The multivariate associations between different variables can be estimated from control data that are (assumably) genuine. For example, if the multivariate association between means (Ms) and standard deviations (SDs) is of interest, control data for that same measure can be collected from the literature, assuming the measure has been used in other studies. With these control data, a meta-analysis provides an overall estimate of the multivariate relation.
+The multivariate associations between different variables can be estimated from control data that are (assumably) genuine. For example, if the multivariate association between means (Ms) and standard deviations (SDs) is of interest, control data for that same measure can be collected from the literature, assuming the measure has been used in other studies. With these control data, a meta-analysis provides an overall estimate of the multivariate relation that can subsequently be used in a parametric $z$-test (assuming normality).
 
 ```{r, echo=FALSE}
 cortmp <- NULL
@@ -370,7 +414,7 @@ corfabno <- data.frame(cor = .2)
 corfab <- data.frame(cor = .5)
 ```
 
-The multivariate relation from the genuine data is subsequently used to estimate how extreme the observed multivariate relation is. Consider the following fictitious example, regarding the multivariate association between Ms and SDs for a response latency task. Figure `r fignr` depicts a simulated distribution of the association between Ms and SDs from the literature. The observed relation between Ms and SDs from two papers we want to (fictitiously) screen are `r corfab$cor` and `r corfabno$cor`. As such, we immediately see in Figure `r fignr` that the former is flagged as being potentially anomalous (i.e., the red dot; two-tailed $p$-value $`r pnorm(corfab$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$ of the time), whereas the latter (blue dot) is not flagged ($p$-value: $`r pnorm(corfab$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$). 
+The multivariate relation from the genuine data is subsequently used to estimate how extreme the observed multivariate relation is. Consider the following fictitious example, regarding the multivariate association between Ms and SDs for a response latency task. Figure `r fignr` depicts a simulated population distribution of the association between Ms and SDs from the literature ($N\sim(.123, .1)$). The observed relation between Ms and SDs from two papers we want to (fictitiously) screen are `r corfab$cor` and `r corfabno$cor`. As such, we immediately see in Figure `r fignr` that the former is flagged as being potentially anomalous (i.e., the red dot; two-tailed $p$-value $`r pnorm(corfab$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$ of the time), whereas the latter (blue dot) is not flagged ($p$-value: $`r pnorm(corfabno$cor, mean(cortmp$cortmp), sd(cortmp$cortmp), lower.tail = FALSE) * 2`$). 
 
 ```{r, echo=FALSE, out.width='100%', fig.cap="A fictitious distribution of observed association between Ms and SDs across 100 studies. The blue dot indicates the observed relation that is subject to screening for data fabrication."}
 ggplot(cortmp, aes(x = cortmp)) +
@@ -385,7 +429,7 @@ ggplot(cortmp, aes(x = cortmp)) +
 
 # Study 1 - detecting fabricated anchoring effects
 
-We tested the performance of statistical methods to detect data fabrication in summary statistics with genuine- and fabricated summary statistics from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Is the percentage of African countries in the United Nations more or less than [10\% or 65\%]?'. These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/science.185.4157.1124], despite essentially posing the same factual question. A considerable amount of genuine datasets on this heuristic are freely available and we collected fabricated datasets within this study. This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
+We tested the performance of statistical methods to detect data fabrication in summary statistics with genuine- and fabricated summary statistics from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. For example 'Do you think the percentage of African countries in the UN is above or below  [10\% or 65\%]?  What do you think is the percentage of African countries in the UN?'. These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/science.185.4157.1124], despite essentially posing the same factual question. A considerable amount of genuine data sets on this heuristic are freely available and we collected fabricated data sets within this study. This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
 
 ## Methods
 
@@ -403,19 +447,19 @@ if(!file.exists(sprintf('%sdata/study_01/study1_res.csv', x12)))
 }
 ```
 
-We collected summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. Each of the four studies provided us with summary statistics for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF ([https://osf.io/b24pq](https://osf.io/b24pq)) and a preregistration is available at [https://osf.io/ejf5x](https://osf.io/ejf5x) (deviations are explicated in this report).
+We collected summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. Each of the four studies provided us with summary statistics for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. Throughout this study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. All materials, data, and analyses scripts are freely available on the OSF ([https://osf.io/b24pq](https://osf.io/b24pq)) and a preregistration is available at [https://osf.io/tshx8/](https://osf.io/tshx8/). Throughout this report, we will indicate which facets were not preregistered or deviate from the preregistration by denoting "(not preregistered)" or "(deviation from preregistration)", respectively.
 
 ### Data collection
 
-We downloaded thirty-six genuine datasets from the publicly available Many Labs (ML) project [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178]. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fabricating data, we assumed these data to be genuine. For each of the thirty-six locations we computed sample sizes, means, and standard deviations for each of the four conditions in the four anchoring studies (i.e., $3\times4\times4$) for each of the thirty-six locations. We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
+We downloaded thirty-six genuine data sets from the publicly available Many Labs (ML) project [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178]. The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. Considering the size of the ML project, the transparency of research results, and minimal individual gain for fabricating data, we assumed these data to be genuine. For each of the thirty-six locations we computed three summary statistics (i.e., sample sizes, means, and standard deviations) for each of the four conditions in the four anchoring studies (i.e., $3\times4\times4$) for each of the thirty-six locations. We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
 
-Using quotum sampling, we collected thirty-six fabricated datasets of summary statistics for the same four anchoring studies. Quotum sampling was used to sample as many responses as possible for the available 36 rewards (i.e., not all respondents might request the gift card and count towards the quotum; one participant did not request a reward). The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect [@10.1126/science.185.4157.1124;@10.1037/e722982011-058], for which summary statistics were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies (note: we found out several non-U.S. researchers were included because the WoS filter also retained papers with co-authors from the U.S.). WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
+The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in Web of Science (WoS) with the filter set to the U.S. We sampled psychology researchers to improve familiarity with the anchoring effect [@10.1126/science.185.4157.1124;@10.1037/e722982011-058], for which summary statistics were fabricated. We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies and in order to reduce heterogeneity across fabricators. WoS was searched on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
 
-We invited a random sample of 1,000 researchers via e-mail to participate in this study on April 25, 2016 (invitation: [osf.io/s4w8r](https://osf.io/s4w8r)). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the respondents that they could stop at any time without providing a reason. If they wanted, respondents received a $30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional $50 Amazon gift card if they were one of three top fabricators. The provided e-mail addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at [osf.io/w984b](https://osf.io/w984b).
+From these 2,038 psychology researchers, we invited a random sample of 1,000 researchers via e-mail to participate in this study on April 25, 2016 (invitation: [osf.io/s4w8r](https://osf.io/s4w8r)). The study took place via Qualtrics with anonimization procedures in place (e.g., no IP-addresses saved). We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. We also clarified to the respondents that they could stop at any time without providing a reason. If they wanted, respondents received a $30 Amazon gift card as compensation for their participation if they were willing to enter their email address. They could win an additional $50 Amazon gift card if they were one of three top fabricators. The provided e-mail addresses were unlinked from individual responses upon sending the bonus gift cards. The full text of the Qualtrics survey is available at [osf.io/w984b](https://osf.io/w984b).
 
-Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that fulfilled three hypotheses. We instructed respondents to fabricate results for the following hypotheses: there is (i) a main effect of condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. We fixed the sample sizes to 25 per cell; respondents did not need to fabricate sample sizes. The fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of statistical tools to detect data fabrication.
+Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that corresponded to three hypotheses. We instructed respondents to fabricate results for the following hypotheses: there is (i) a positive main effect of the anchoring condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. We fixed the sample sizes to 25 per cell; respondents did not need to fabricate sample sizes. These fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of statistical tools to detect data fabrication.
 
-We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure `r fignr` depicts an example of this spreadsheet (original: [https://osf.io/w6v4u](https://osf.io/w6v4u)). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure `r fignr`. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses.
+We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. Figure `r fignr` depicts an example of this spreadsheet (original: [https://osf.io/w6v4u](https://osf.io/w6v4u)). We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure `r fignr`. We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses. Technically, participants could provide a response that did not correspond to the instructions.
 
 ```{r spreadsheet-study1, fig.cap="Example of a filled in template spreadsheet used in the fabrication process of Study 1. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell (one of four template spreadsheets available at [https://osf.io/w6v4u/](https://osf.io/w6v4u/)).", out.width='100%', echo=FALSE}
 knitr::include_graphics('../figures/spreadsheet.png')
@@ -423,7 +467,7 @@ knitr::include_graphics('../figures/spreadsheet.png')
 fignr <- fignr + 1
 ```
 
-Upon completing the fabrication of the data, respondents were debriefed. Respondents answered several questions about their statistical knowledge and approach to data fabrication and finally we reminded them that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. We rewarded participation with a $30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus $50 Amazon gift card.
+Upon completing the fabrication of the data, respondents were debriefed within the Qualtrics survey environment ([osf.io/rg3qc/](https://osf.io/rg3qc/)). Respondents answered several questions about their statistical knowledge and approach to data fabrication and finally we reminded them that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. This reminder was intented to minimize potential carry-over affects of the unethical behavior performed by the participants [@10.1509/jmkr.45.6.633]. We rewarded participation with a $30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus $50 Amazon gift card. We determined which results were most difficult to detect as fabricated using the combined Fisher method, explained further below. Using quotum sampling, we collected as many responses as possible for the available 36 rewards, resulting in 39 fabricated data sets ([https://osf.io/e6zys](https://osf.io/e6zys); `r sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))` participants did not participate for a bonus).
 
 ### Data analysis
 
@@ -444,7 +488,14 @@ dat_summary$es_interaction <- sqrt(dat_summary$es2_interaction)
 dat_summary$es_p <- 1 - dat_summary$es_condition
 ```
 
-We analyzed the genuine- and fabricated datasets for the four anchoring studies in four ways. First, we applied variance analyses to the reported variances of each of the four groups per study separately. Second, we applied the reversed Fisher method to the results of the gender and interaction hypotheses (i.e., nonsignificant results) across the four studies. Third, we combined the results from the variance analyses and the reversed Fisher method, using the original Fisher method [@fisher1925]. Fourth, and not preregistered, we used effect size analysis (i.e., $1-r$) that is a proxy of how extreme an effect is.
+<!-- 1. pvalue
+2. variance
+3. effect size -->
+
+INVOEGEN
+Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). 
+
+We analyzed the genuine- and fabricated data sets for the four anchoring studies in four ways. First, we applied the reversed Fisher method to the results of the gender and interaction hypotheses (i.e., nonsignificant results) across the four studies. Second, we applied variance analyses to the reported variances of each of the four groups per study separately. Third, and not preregistered, we used effect size analysis (i.e., $1-r$) that is a proxy of how extreme an effect is. Fourth, we combined the results from the reversed Fisher method and variance analyses, using the original Fisher method [@fisher1925]. 
 
 Specifically for the variance analyses, we deviated from the preregistration. Initially, we simultaneously analyzed the reported variances per study across the anchoring conditions. However, upon analyzing these values, we realized that the variance analyses assume that the reported variances are from the same population distribution, which is not necessarily the case for the anchoring conditions. Hence, we included two variance analyses per anchoring study (i.e., one for the high anchoring condition and one for the low anchoring condition). In the results we differentiate between these by using 'homogeneous' (across conditions) and 'heterogeneous' (separated for low- and high anchoring conditions).
 
@@ -582,11 +633,10 @@ df <- data.frame(Method = Method,
          AUROC = AUC_res)
 ```
 
-The collected data included `r table(dat_summary$type)[1]` genuine data from Many Labs 1 [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178] and `r table(dat_summary$type)[2]` fabricated datasets ([https://osf.io/e6zys](https://osf.io/e6zys); `r sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))` participants did not participate for a bonus). 
 
-Figure `r fignr` shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). These group-level comparisons provide an overview of the differences between the genuine- and fabricated data [see also @10.1186/1471-2288-3-18]. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses). However, there seem to be large group differences when we required subjects to fabricate significant data (i.e., condition hypothesis). Considering this, we also investigated how well effect sizes perform in detecting data fabrication (not preregistered). In the following sections, we investigate the performance of such statistical methods to detect data fabrication on an respondent-level basis.
+Figure `r fignr` shows a group-level comparison of the genuine- and fabricated $p$-values and effect sizes ($r$). These group-level comparisons provide an overview of the differences between the genuine- and fabricated data [see also @10.1186/1471-2288-3-18]. These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses). However, there seem to be large group differences when we required subjects to fabricate significant summary statistics (i.e., condition hypothesis).respondent-level basis.
 
-```{r ddfab_density, fig.cap="Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant data for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
+```{r ddfab_density, fig.cap="Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant summary statistics for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
 plot_p_gender <- ggplot(dat_summary, aes(x = p_gender, fill = type)) + 
  geom_density(alpha = .3) + 
  xlab(TeX("$P$-value")) + 
@@ -648,6 +698,13 @@ grid.arrange(plot_p_gender,
 
 fignr <- fignr + 1
 ```
+
+<!-- aanhouden oorspronkelijke volgorde
+
+1. p
+2. variance
+3. effect
+4. fisher combined (p+variance) -->
 
 ### Performance of variance analysis to detect data fabrication
 
@@ -729,6 +786,9 @@ tabnr <- tabnr + 1
 % Comparison between methods not tested, large error given small sample.
 % This provides just initial work -->
 
+<!-- (note: we found out several non-U.S. researchers were included because the WoS filter also retained papers with co-authors from the U.S.). 
+ -->
+
 <!-- This could be done automatically at a large scale easily [data for this are available in @10.3758/s13428-015-0664-2;@10.3390/data1030014] or by a reader while going through a manuscript (e.g., during peer-review). wrt effect sizes -->
 
 
@@ -756,7 +816,7 @@ To test the validity of statistical methods to detect data fabrication in raw da
 
 ### Data collection
 
-We collected twenty-one genuine datasets on the Stroop task from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 datasets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Similar to Study 1, we assumed these data to be genuine due to the minimal individual gains for fabricating data and the transparency of the project. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure `r fignr`). The Stroop effect was calculated as a $t$-test of the difference between the congruent and incongruent conditions ($H_0:\mu=0$).
+We collected twenty-one genuine data sets on the Stroop task from the Many Labs 3 project [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. Many Labs 3 (ML3) includes 20 participant pools from universities and one online sample [the original preregistration mentioned 20 data sets, accidentally overlooking the online sample; @10.3897/rio.2.e8860]. Similar to Study 1, we assumed these data to be genuine due to the minimal individual gains for fabricating data and the transparency of the project. Using the original raw data and analysis script from ML3 ([https://osf.io/qs8tp/](https://osf.io/qs8tp/)), we computed the mean (M) and standard deviation (SD) for the participant's response latencies in both the within-subjects conditions of congruent trials and incongruent trials. These also formed the basis for the template of the data that needed to be fabricated by the participants (see also Figure `r fignr`). The Stroop effect was calculated as a $t$-test of the difference between the congruent and incongruent conditions ($H_0:\mu=0$).
 
 ```{r spreadsheet-study2, fig.cap="Example of a filled in template spreadsheet used in the fabrication process for Study 2. Respondents fabricated data in the yellow cells and green cells, which were used to compute the results of the hypothesis test of the condition effect. If the fabricated data confirm the hypotheses, a checkmark appeared. This template is available at [https://osf.io/2qrbs/](https://osf.io/2qrbs/).", out.width='100%', echo=FALSE}
 knitr::include_graphics('../figures/spreadsheet2.png')
@@ -764,7 +824,7 @@ knitr::include_graphics('../figures/spreadsheet2.png')
 fignr <- fignr + 1
 ```
 
-We collected twenty-eight faked datasets on the Stroop task experimentally in a two-stage sampling procedure. First, we invited 80 Dutch and Flemish psychology researchers who published a peer-reviewed paper on the Stroop task between 2005-2015 as available in the Thomson Reuters’ Web of Science database. We selected Dutch and Flemish researchers to allow for face-to-face interviews on how the data were fabricated. We chose the period 2005-2015 to prevent a drastic decrease in the probability that the corresponding author would still be addressable via the given email. The database was searched on October 10, 2016 and 80 unique e-mails were retrieved from 90 publications. Only two of these 80 participated in the study. We subsequently implemented a second sampling stage where we collected e-mails from all PhD-candidates, teachers, and professors of psychology related departments at Dutch universities. This resulted in 1659 additional unique e-mails that we subsequently invited to participate in this study. Due to a malfunction in Qualtrics' quotum sampling, we oversampled, resulting in 28 participants instead of the originally intended 20 participants.
+We collected twenty-eight faked data sets on the Stroop task experimentally in a two-stage sampling procedure. First, we invited 80 Dutch and Flemish psychology researchers who published a peer-reviewed paper on the Stroop task between 2005-2015 as available in the Thomson Reuters’ Web of Science database. We selected Dutch and Flemish researchers to allow for face-to-face interviews on how the data were fabricated. We chose the period 2005-2015 to prevent a drastic decrease in the probability that the corresponding author would still be addressable via the given email. The database was searched on October 10, 2016 and 80 unique e-mails were retrieved from 90 publications. Only two of these 80 participated in the study. We subsequently implemented a second sampling stage where we collected e-mails from all PhD-candidates, teachers, and professors of psychology related departments at Dutch universities. This resulted in 1659 additional unique e-mails that we subsequently invited to participate in this study. Due to a malfunction in Qualtrics' quotum sampling, we oversampled, resulting in 28 participants instead of the originally intended 20 participants.
 
 Each participant received instructions on the data fabrication task via Qualtrics but was allowed to fabricate data until the face-to-face interview took place. In other words, each participant could take the time they wanted/needed to fabricate the data as extensively as they liked. Each participant received downloadable instructions (original: [https://osf.io/7qhy8/](https://osf.io/7qhy8/)) and the template spreadsheet via Qualtrics (see Figure X; [https://osf.io/2qrbs/](https://osf.io/2qrbs/)). The interview was scheduled via Qualtrics with JGV, who blinded the rest of the research team from the identifying information of each participant and the date of the interview. All interviews took place between January 31 and March 3, 2017. To incentivize researchers to participate, they received 100 euros for participation; to incentivize them to fabricate (supposedly) hard to detect data they could win an additional 100 euros if they belonged to one out of three top fabricators. The contents of the interview were transcribed for further research on qualitatively assessing how researchers might fabricate experimental data.
 
