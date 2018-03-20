@@ -1,3 +1,17 @@
+---
+title: "Automated detection of data fabrication using statistical tools"
+author: "Chris HJ Hartgerink, Jan G Voelkel, Jelte M Wicherts, Marcel ALM van Assen"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+ pdf_document:
+  toc: yes
+ html_document:
+  toc: yes
+  toc_depth: 2
+csl: ../bibliography/apa.csl
+bibliography: ../bibliography/library2.bib
+---
+
 # Introduction
 
 <!-- consistency of data fabrication v data anomalies -->
@@ -52,17 +66,18 @@ The mean $p$-value for the true randomized design Set 1 is `r round(mean(ex1_1tp
 
 We present two studies investigating the diagnostic performance of statistical methods to detect data fabrication.
 These studies investigate methods to detect data fabrication in summary statistics (Study 1) or in raw data (Study 2). 
-In Study 1, we invited researchers to fabricate summary statistics for a set of four anchoring studies, for which we also had genuine data from the Many Labs initiative [@].
-In Study 2, we invited researchers to fabricate raw data for a Stroop experiment, for which we also had genuine data from the Many Labs 2/3 initiative [@]. 
+In Study 1, we invited researchers to fabricate summary statistics for a set of four anchoring studies, for which we also had genuine data from the Many Labs 1 initiative [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178].
+In Study 2, we invited researchers to fabricate raw data for a Stroop experiment, for which we also had genuine data from the Many Labs 3 initiative [[https://osf.io/n8xa7/](https://osf.io/n8xa7/); @10.1016/j.jesp.2015.10.012]. 
 Before presenting these studies, we expand on the theoretical framework of the investigated statistical methods to detect data fabrication.
 <!-- We note that the reviewed methods are not exhaustive of all methods available to test for potential data fabrication in empirical data [see also, @buyse1999;@10.7287/peerj.preprints.2400v1;@10.7287/peerj.preprints.2064v1;@sprite-heathers]. -->
 
 # Theoretical framework
 
 In the current paper, we differentiate between statistical methods to detect potential data fabrication based on reported summary statistics or raw data. 
-Below, we expand on the theoretical underpininings of these methods and provide sample code to run these, where appropriate (implemented in the `ddfab` package for R).
+Below, we expand on the theoretical underpininings of these methods and provide sample code to run these, where appropriate (implemented in the `ddfab` package for R). 
+<!-- worth thinking about whether this is ethical if methods prove irresponsible -->
 For summary statistics, we review $p$-value analysis, variance analysis, and effect size analysis as potential ways to detect data fabrication. 
-$P$-value analyses can be applied whenever a set of nonsignificant $p$-values are reported; variance analysis can be applied whenever a set of variances are reported for independent groups alongside the sample sizes per group; effect size analysis can be used whenever the effect size is reported or can be computed [e.g., an APA reported t- or F-statistic;@10.1525/collabra.71]. 
+$P$-value analyses can be applied whenever a set of nonsignificant $p$-values are reported; variance analysis can be applied whenever a set of variances and accompanying sample sizes are reported for independent, randomly assigned groups; effect size analysis can be used whenever the effect size is reported or can be computed [e.g., an APA reported t- or F-statistic; @10.1525/collabra.71]. 
 For raw data, we review digit analyses (i.e., the Newcomb-Benford law and terminal digit analysis) and multivariate associations as potential ways to detect data fabrication. 
 The Newcomb-Benford law can be applied when untruncated ratio- or count scale measures are present [@10.1016/j.spa.2005.05.003]; terminal digit analysis can be applied whenever there are sufficient digits [see also @10.1080/08989629508573866]. 
 Multivariate associations can be investigated whenever there are two or more variables available and data on that same relation is available from (assumably) genuine data sources.
@@ -70,4 +85,19 @@ Multivariate associations can be investigated whenever there are two or more var
 ## Detecting data fabrication in summary statistics
 
 ### P-value analysis
+
+The distribution of a single- or a set of $p$-values is uniform if the null hypothesis is true; it is right-skewed if the alternative hypothesis is true [@fisher1925]. 
+The distribution of one $p$-value is the result of the population effect size, the precision of the estimate, and the observed effect size, whose properties carry over to a set of independent $p$-values if those $p$-values are independent. 
+As such, the $p$-value distribution of a set of independent $p$-values is uniform when the null hypothesis is true, or right-skewed when the alternative hypothesis is true. 
+
+When assumptions underlying the computation of a $p$-value are violated, $p$-value distributions can take on a variety of shapes. 
+For example, when optional stopping occurs and the null hypothesis is true, $p$-values just below .05 become more frequent [@10.1080/17470218.2014.982664;@10.7717/peerj.1935]. 
+However, when optional stopping occurs under the alternative hypothesis or when other researcher degrees of freedom are used, a right-skewed distribution for significant $p$-values can still occur [@10.1037/xge0000086;@10.7717/peerj.1935/fig-1].
+
+When independent $p$-values are not right-skewed or uniformly distributed (as would be theoretically expected), it can indicate potential data fabrication. 
+For example, in the Fuji case, supposedly randomly assigned groups were fabricated. 
+In truly randomly assigned groups, the measurements are statistically identical (prior to an intervention). 
+However, in the Fuji case Carlisle observed many large $p$-values, which ultimately led to the identification of potential data fabrication [@]. 
+In Table xxxx we illustrate the difference between expected data under the null distribution (Set 1) and excessively consistent and potentially fabricated data (Set 2). 
+More specifically, the expected value of a uniform $p$-value distribution is .5, but the fabricated data from our illustration have a mean $p$-value of `r round(mean(ex2_1tp), 3)`.
 
