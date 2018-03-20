@@ -101,3 +101,18 @@ However, in the Fuji case Carlisle observed many large $p$-values, which ultimat
 In Table xxxx we illustrate the difference between expected data under the null distribution (Set 1) and excessively consistent and potentially fabricated data (Set 2). 
 More specifically, the expected value of a uniform $p$-value distribution is .5, but the fabricated data from our illustration have a mean $p$-value of `r round(mean(ex2_1tp), 3)`.
 
+In order to test whether a distribution of independent $p$-values might be fabricated, we previously proposed using the Fisher method [@fisher1925;@10.1186/s41073-016-0012-9]. 
+The Fisher method originally was intended as a meta-analytic tool, which tests whether there is sufficient evidence for an effect (i.e., right-skewed $p$-value distribution). 
+This test is computed as
+$$
+\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(p_i)
+$$
+where it tests for more smaller $p$-values than larger $p$-values across the $k$ number of $p$-values. 
+Reversing this results in
+$$
+\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
+$$
+where it now tests for more larger $p$-values than smaller $p$-values across the $k$ number of $p$-values that fall above the threshold $t$ (i.e., the Fisher method now tests for left-skew). 
+When $t=0$, all $p$-values are selected. 
+When $t>0$ the remaining $p$-values are rescaled to fit the original 0-1 range (i.e., dividing by $1-t$). 
+This test is similar (but not equivalent) to Carlisle's method testing for excessive homogeneity across baseline measurements in RCTs [@10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126].

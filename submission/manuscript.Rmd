@@ -148,25 +148,9 @@ Even though structure and contents of data can look different depending on the s
 
 # Theoretical framework
 
-In the current paper, we differentiate between statistical methods to detect potential data fabrication based on reported summary statistics or raw data. For summary statistics, we review $p$-value analysis, variance analysis, and effect size analysis as potential ways to detect data fabrication. $P$-value analysis can be applied whenever sufficient nonsignificant $p$-values are reported; variance analysis can be applied whenever a set of variances are reported for independent groups alongside the sample sizes per group; effect size analysis can be used whenever the effect size is reported or can be computed [e.g., an APA reported t- or F-statistic;@10.1525/collabra.71]. For raw data, we review digit analyses (i.e., the Newcomb-Benford law and terminal digit analysis) and multivariate associations as potential ways to detect data fabrication. Both types of digit analyses can be applied when ratio scale measures are present in the raw data and only terminal digit analysis can be applied when there are continuous measures. Multivariate associations can be investigated whenever there are two or more variables and data on that same relation is available from (assumably) genuine data sources.
-
 ## Detecting data fabrication in summary statistics
 
 ### P-value analysis
-
-The distribution of a $p$-value is uniform if the null hypothesis is true and right-skewed if the alternative hypothesis is true [@fisher1925]. The distribution of one $p$-value is the result of the population effect size, the precision of the estimate, and the observed effect size, whose properties carry over to a set of independent $p$-values if those $p$-values are independent. As such, the $p$-value distribution of a set of $p$-values is uniform when the null hypothesis is true, or right-skewed when the alternative hypothesis is true.
-
-When a $p$-value distribution of independent $p$-values is not uniform or right-skewed, as would be theoretically expected, it can indicate potential data fabrication. For example, in the Fuji case, supposedly identically distributed groups were fabricated. However, this resulted in excessively large $p$-values and ultimately the identification of potential data fabrication by @10.1111/j.1365-2044.2012.07128.x. Our illustration in Table `r tabnr` also shows the difference between expected data under the null distribution (Set 1) and what might result from excessively consistent and fabricated data (Set 2). More specifically, the expected value of a uniform $p$-value distribution is .5, but the fabricated data from our illustration result in a mean $p$-value of `r round(mean(ex2_1tp), 3)`.
-
-In order to test whether the distribution of nonsignificant and independent $p$-values might be fabricated, we proposed an adaptation of Fisher's method [@10.1186/s41073-016-0012-9]. This adaptation is a reversal of the original Fisher method [@fisher1925], which was introduced as a meta-analytic test for the presence of an effect. This test is computed as 
-$$F
-\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(p_i)
-$$
-where it tests for more smaller $p$-values than larger $p$-values across the $k$ number of $p$-values. Reversing the original Fisher method, which tests for right-skew, into a Fisher method that tests for left-skew results in 
-$$
-\chi^2_{2k}=-2\sum\limits^k_{i=1}\ln(1-\frac{p_i-t}{1-t})
-$$
-where it now tests for more larger $p$-values than smaller $p$-values across the $k$ number of $p$-values that fall above the threshold $t$. When the threshold is set to zero, it selects all $p$-values, but when this $t>0$ the remaining $p$-values are rescaled to fit the original 0-1 range (i.e., by dividing by $1-t$). Upon writing this paper, it became clear to us that this reversed Fisher method is similar to the operating principle of Carlisle's method testing for excessive homogeneity across baseline measurements in RCTs [@10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126], which we had not realized before.
 
 ```{r, echo = FALSE}
 threshold <- .05
