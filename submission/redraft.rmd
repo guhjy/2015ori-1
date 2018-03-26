@@ -14,6 +14,53 @@ bibliography: ../bibliography/library2.bib
 
 # Introduction
 
+```{r echo = FALSE}
+m <- 50
+sd <- 10
+n <- 100
+
+set.seed(1234)
+x1_1 <- replicate(n = 10, expr = rnorm(n, m, sd))
+x1_2 <- replicate(n = 10, expr = rnorm(n, m, sd))
+
+ex1_1em <- apply(x1_1, 2, mean)
+ex1_1esd <- apply(x1_1, 2, sd)
+ex1_1cm <- apply(x1_2, 2, mean)
+ex1_1csd <- apply(x1_2, 2, sd)
+ex1_1tp <- NULL
+for (i in 1:dim(x1_1)[2]) ex1_1tp[i] <- t.test(x = x1_1[,i], y = x1_2[,i], var.equal=TRUE)$p.value
+ex1_1tp <- unlist(ex1_1tp)
+
+set.seed(1234)
+x2_1em <- replicate(n = 10, expr = m + runif(1, 0, 20))
+x2_2cm <- replicate(n = 10, expr = m + runif(1, 0, 20))
+x2_1esd <- replicate(n = 10, expr = sd + runif(1, 0, 1.5))
+x2_2csd <- replicate(n = 10, expr = sd + runif(1, 0, 1.5))
+
+sdpooled <- ((n - 1) * x2_1esd^2 + (n - 1) * x2_2csd^2)/(n * 2 - 2)
+tval <- (x2_1em - x2_2cm) / sdpooled
+ex2_1tp <- pt(abs(tval), n * 2 - 2, lower.tail = FALSE) * 2
+
+# Just saving for later use in theory section
+# set.seed(1234)
+# std_var(n = rep(100, length(x2_1esd) * 2), sds = c(x2_1esd, x2_2csd), iter = 10000)
+
+df <- data.frame(study = sprintf("Study %s", 1:10),
+         sprintf("%s (%s)", round(ex1_1em, 3), round(ex1_1esd, 3)),
+         sprintf("%s (%s)", round(ex1_1cm, 3), round(ex1_1csd, 3)),
+         ex1_1tp,
+         sprintf("%s (%s)", round(x2_1em, 3), round(x2_1esd, 3)),
+         sprintf("%s (%s)", round(x2_2cm, 3), round(x2_2csd, 3)),
+         ex2_1tp)
+names(df) <- c("Study",
+        "$M_E$ ($SD_E$) [S1]",
+        "$M_C$ ($SD_C$) [S1]",
+        "P-value [S1]",
+        "$M_E$ ($SD_E$) [S2]",
+        "$M_C$ ($SD_C$) [S2]",
+        "P-value [S2]")
+```
+
 <!-- consistency of data fabrication v data anomalies -->
 
 Any field of empirical inquiry is faced with cases of scientific misconduct at some point, either in the form of fabrication, falsification or plagiarism (FFP). 
