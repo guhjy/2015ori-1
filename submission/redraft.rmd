@@ -148,6 +148,10 @@ However, in the Fuji case Carlisle observed many large $p$-values, which ultimat
 In Table xxxx we illustrate the difference between expected data under the null distribution (Set 1) and excessively consistent and potentially fabricated data (Set 2). 
 More specifically, the expected value of a uniform $p$-value distribution is .5, but the fabricated data from our illustration have a mean $p$-value of `r round(mean(ex2_1tp), 3)`.
 
+```{r table_excess, echo = FALSE}
+knitr::kable(df, digits = 3, caption = "Examples of means and standard deviations for a continuous outcome in genuine- and fabricated randomized clinical trials. Set 1 (S1) is randomly generated data under the null hypothesis of random assignment (assumed to be the genuine process), whereas Set 2 (S2) is generated under excessive consistency with equal groups. Each trial condition contains 100 participants. The $p$-values are the result of independent $t$-tests comparing the experimental and control conditions within each respective set.")
+```
+
 In order to test whether a distribution of independent $p$-values might be fabricated, we previously proposed using the Fisher method [@fisher1925;@10.1186/s41073-016-0012-9]. 
 The Fisher method originally was intended as a meta-analytic tool, which tests whether there is sufficient evidence for an effect (i.e., right-skewed $p$-value distribution). 
 This test is computed as
@@ -163,3 +167,30 @@ where it now tests for more larger $p$-values than smaller $p$-values across the
 When $t=0$, all $p$-values are selected. 
 When $t>0$ the remaining $p$-values are rescaled to fit the original 0-1 range (i.e., dividing by $1-t$). 
 This test is similar (but not equivalent) to Carlisle's method testing for excessive homogeneity across baseline measurements in RCTs [@10.1111/anae.13938;@10.1111/j.1365-2044.2012.07128.x;@10.1111/anae.13126].
+
+```{r, echo = FALSE}
+threshold <- .05
+genuine_p <- ex1_1tp[ex1_1tp > threshold]
+fab_p <- ex2_1tp[ex2_1tp > threshold]
+genuine_chi <- -2 * sum(log(1 - ((genuine_p - threshold) / (1 - threshold))))
+fab_chi <- -2 * sum(log(1 - ((fab_p - threshold) / (1 - threshold))))
+genuine_chi_p <- pchisq(q = genuine_chi, df = 2 * length(genuine_p), lower.tail = FALSE)
+fab_chi_p <- pchisq(q = fab_chi, df = 2 * length(fab_p), lower.tail = FALSE)
+x <- c(.21, -.08, -.37, -.08, .32)
+pval <- pnorm(abs(x), 0, 1, lower.tail = FALSE) * 2
+pval <- pval[pval > threshold]
+chi <- -2 * sum(log(1 - ((pval - threshold) / (1 - threshold))))
+p_chi <- pchisq(q = chi, df = 2 * length(pval), lower.tail = FALSE)
+```
+
+As an example, we apply the reversed Fisher method to both the genuine- and fabricated results. 
+Using the threshold $t=`r threshold`$ to only select the nonsignificant results from Table xxxx, we retain $k=`r length(genuine_p)`$ genuine $p$-values and $k=`r length(fab_p)`$ fabricated $p$-values. 
+This results in $\chi^2_{2\times`r length(genuine_p)`}=`r round(genuine_chi, 3)`,p=`r round(genuine_chi_p, 3)`$ for the genuine data from Table xxxx; $\chi^2_{2\times`r length(fab_p)`}=`r round(fab_chi, 3)`,p=`r round(fab_chi_p, 3)`$ for the fabricated data from Table xxxx. 
+Another more practical example directly from the Fuji case [@10.1111/j.1365-2044.2012.07128.x], anecdotally illustrates that actual fabricated data can result in significant findings with the reversed Fisher method. 
+For example, $p$-values extracted from the original Table 3 [fentanyl dose; @10.1111/j.1365-2044.2012.07128.x] for five independent comparisons show excessively high $p$-values, $\chi^2_{2\times`r length(pval)`}=`r round(chi, 3)`, p=`r round(p_chi, 3)`$.
+
+We note that misspecified one-tailed tests can also result in excessive amounts of large $p$-values.
+For correctly specified one-tailed tests, the $p$-value distribution is right-skewed if the alternative hypothesis is true. 
+When the alternative hypothesis is true, but the effect is in the opposite direction of the hypothesized effect (e.g., a negative effect when a one-tailed test for a positive effect is conducted), this results in a left-skewed $p$-value distribution.
+As such, any data fabrication detected with this method would need to be inspected for misspecified one-tailed hypotheses to preclude false conclusions. 
+In the studies we present in this manuscript, misspecification of one-tailed hypothesis testing is not an issue because we prespecified the effect and its direction to the participants.
