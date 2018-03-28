@@ -194,3 +194,13 @@ For correctly specified one-tailed tests, the $p$-value distribution is right-sk
 When the alternative hypothesis is true, but the effect is in the opposite direction of the hypothesized effect (e.g., a negative effect when a one-tailed test for a positive effect is conducted), this results in a left-skewed $p$-value distribution.
 As such, any data fabrication detected with this method would need to be inspected for misspecified one-tailed hypotheses to preclude false conclusions. 
 In the studies we present in this manuscript, misspecification of one-tailed hypothesis testing is not an issue because we prespecified the effect and its direction to the participants.
+
+# Study 1 - detecting fabricated summary statistics
+
+We tested the performance of statistical methods to detect data fabrication in summary statistics with genuine- and fabricated summary statistics from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. 
+The anchoring effect is a well-known psychological heuristic that uses the information in the question as the starting point for the answer, which is then adjusted to yield a final estimate of a quantity. 
+For example 'Do you think the percentage of African countries in the UN is above or below  [10\% or 65\%]?  What do you think is the percentage of African countries in the UN?'. 
+These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/science.185.4157.1124], despite essentially posing the same factual question. 
+A considerable amount of (assumably) genuine data sets on the anchoring  heuristic are freely available [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178] and we collected fabricated data sets within this study. 
+This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
+
