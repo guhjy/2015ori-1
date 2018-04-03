@@ -195,6 +195,22 @@ When the alternative hypothesis is true, but the effect is in the opposite direc
 As such, any data fabrication detected with this method would need to be inspected for misspecified one-tailed hypotheses to preclude false conclusions. 
 In the studies we present in this manuscript, misspecification of one-tailed hypothesis testing is not an issue because we prespecified the effect and its direction to the participants.
 
+### Variance analysis
+
+Sample variance- or standard deviation estimates are typically reported to indicate dispersion, but just like the mean there should be sampling error in this estimate proportional to the sample size [i.e., $\sigma/\sqrt{2n}$ under the assumption of normality, p. 351,@yule1922]. 
+If an observed random variable $x$ is normally distributed, the variance of $x$ is $\chi^2$-distributed [p. 445; @hogg-tanis]; that is
+$$
+var(x)\sim\frac{\chi^2_{N_j-1}}{N_j-1}
+$$
+where $N$ is the sample size of the $j$th group. 
+Using the reported summary statistics, we can compute the Mean Squares within ($MS_w$) each condition as
+$$
+MS_w=\frac{\sum\limits^k_{j=1}(N_j-1)s^2_j}{\sum\limits^k_{j=1}(N_j-1)}
+$$
+where $s^2_j$ is the variance in the $j$th group. 
+The reported variances can be standardized by dividing the observed variances by the $MS_w$; we denote standardized variances with z^2$.
+
+
 # Study 1 - detecting fabricated summary statistics
 
 We tested the performance of statistical methods to detect data fabrication in summary statistics with genuine- and fabricated summary statistics from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. 
