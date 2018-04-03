@@ -204,3 +204,11 @@ These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/sc
 A considerable amount of (assumably) genuine data sets on the anchoring  heuristic are freely available [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178] and we collected fabricated data sets within this study. 
 This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
 
+## Methods
+
+We collected summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. 
+Each of the four studies provided us with summary statistics for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. 
+Throughout our study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. 
+For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. 
+All materials, data, and analyses scripts are freely available on the OSF ([https://osf.io/b24pq](https://osf.io/b24pq)) and a preregistration is available at [https://osf.io/tshx8/](https://osf.io/tshx8/). 
+Throughout this report, we will indicate which facets were not preregistered or deviate from the preregistration by denoting "(not preregistered)" or "(deviation from preregistration)", respectively.
