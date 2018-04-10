@@ -12,6 +12,13 @@ csl: ../bibliography/apa.csl
 bibliography: ../bibliography/library2.bib
 ---
 
+```{r echo = FALSE}
+source('../functions/digit_analysis.R')
+source('../functions/std_var.R')
+source('../functions/fisher_method.R')
+```
+
+
 # Introduction
 
 ```{r echo = FALSE}
@@ -208,8 +215,40 @@ $$
 MS_w=\frac{\sum\limits^k_{j=1}(N_j-1)s^2_j}{\sum\limits^k_{j=1}(N_j-1)}
 $$
 where $s^2_j$ is the variance in the $j$th group. 
-The reported variances can be standardized by dividing the observed variances by the $MS_w$; we denote standardized variances with z^2$.
+The reported variances can be standardized by dividing the observed variances by the $MS_w$; we denote standardized variances with $z^2$.
 
+By standardizing the reported variances observed dispersion across measures can be calculated. 
+Observed dispersion of the standardized variances can be operationalized as the standard deviation of the variances [denoted in this paper as $SD_z$, @10.1177/0956797613480366] or as the range of the variances (denoted as $max-min_z$). 
+Note that such comparisons are only meaningful if the reported variances originate from a homogeneous population distribution of variances (otherwise, subgroups need to be made). 
+
+In order to compute the expected dispersion, we use the distribution of the standardized variances to compute how extreme the observed dispersion of the variances is. 
+Assuming normality, the distribution of the standardized variances follows a $\chi^2$-distribution in the form of
+$$
+z^2_j\sim\left(\frac{\chi^2_{N_j-1}}{N_j-1}\right)/MS_w
+$$
+which is the result of the distribution of $var(x)$ as denoted earlier, divided by the $MS_w$. 
+From this distribution, fictitious variances can be generated for each group under investigation. These are subsequently used to compute one of the measures for dispersion proposed in the previous paragraph (e.g., standard deviation of the variances). 
+Repeating this across $i$ iterations provides an estimate of the density function for the expected dispersion of the variances. By comparing the observed dispersion of the variances with the expected variances, we can estimate how extreme our observations are. 
+For our purposes, too little dispersion in the variances indicates potential fabrication in the reported data [@10.1177/0956797613480366].
+
+```{r, echo = FALSE}
+sd1 <- c(ex1_1esd, ex1_1csd)
+sd2 <- c(x2_1esd, x2_2csd)
+
+iterate <- 10000
+res1 <- std_var(n = rep(100, length(sd1)), sds = sd1, iter = iterate)
+res2 <- std_var(n = rep(100, length(sd2)), sds = sd2, iter = iterate)
+```
+
+As an example, we apply the variance analysis to the illustration from Table xxxx and the Smeesters case. 
+For the reported standard deviations in Table xxxx, we apply the variance analysis across those in the genuine- and fabricated sets separately. 
+For the genuine data (Set 1), we find that the reported mean standard deviation is `r mean(sd1)` with a standard deviation of `r sd(sd1)`; for the fabricated data (Set 2), we find that the reported mean standard deviation is `r mean(sd2)` with a standard deviation of `r sd(sd2)`. 
+These summary statistics of the summary statistics already indicate there is a difference between the genuine- and fabricated data.
+Variance analysis helps us quantify this: Set 1 has no excessive consistency (`r round(res1, 3)`), whereas Set 2 does show excessive consistency (`r round(res2, 3)`). 
+In words, out of `r iterate` theoretically expected samples, `r res1 * iterate` showed more consistency for Set 1, whereas only `r res2 * iterate` showed more consistency for Set 2. 
+As a non-fictional example, three independent conditions from the same study ($n_k=15$) were reported to have standard deviations 25.09, 24.58, and 25.65 in the Smeesters case. 
+The standard deviation of these standard deviations is `r round(sd(c(25.09, 24.58, 25.65)), 2)` (i.e., $SD_z$). 
+Such consistency (or even more) would only be observed in `r round(std_var(n = rep(15, 3), sds = c(25.09, 24.58, 25.65), iter = iterate) * 100, 2)`% of 100,000 simulated replications [@10.1177/0956797613480366]. 
 
 # Study 1 - detecting fabricated summary statistics
 
@@ -228,3 +267,5 @@ Throughout our study, the unit of analysis is a set of summary statistics (i.e.,
 For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. 
 All materials, data, and analyses scripts are freely available on the OSF ([https://osf.io/b24pq](https://osf.io/b24pq)) and a preregistration is available at [https://osf.io/tshx8/](https://osf.io/tshx8/). 
 Throughout this report, we will indicate which facets were not preregistered or deviate from the preregistration by denoting "(not preregistered)" or "(deviation from preregistration)", respectively.
+
+# References
