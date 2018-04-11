@@ -268,4 +268,12 @@ For current purposes, a respondent is defined as researcher/lab where the four a
 All materials, data, and analyses scripts are freely available on the OSF ([https://osf.io/b24pq](https://osf.io/b24pq)) and a preregistration is available at [https://osf.io/tshx8/](https://osf.io/tshx8/). 
 Throughout this report, we will indicate which facets were not preregistered or deviate from the preregistration by denoting "(not preregistered)" or "(deviation from preregistration)", respectively.
 
+### Data collection
+
+We downloaded thirty-six genuine data sets from the publicly available Many Labs (ML) project [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178]. 
+The ML project replicated several effects across thirty-six locations, including the anchoring effect in the four studies mentioned previously. 
+Considering the size of the ML project, the transparency of research results, and minimal individual gain for fabricating data, we assumed these data to be genuine. 
+For each of the thirty-six locations we computed three summary statistics (i.e., sample sizes, means, and standard deviations) for each of the four conditions in the four anchoring studies (i.e., $3\times4\times4$) for each of the thirty-six locations. 
+We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
+
 # References
