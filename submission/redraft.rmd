@@ -276,4 +276,10 @@ Considering the size of the ML project, the transparency of research results, an
 For each of the thirty-six locations we computed three summary statistics (i.e., sample sizes, means, and standard deviations) for each of the four conditions in the four anchoring studies (i.e., $3\times4\times4$) for each of the thirty-six locations. 
 We computed these summary statistics from the raw ML data, which were cleaned using the original analysis scripts from the ML project.
 
+The sampling frame consisted of 2,038 psychology researchers who published a peer-reviewed paper in 2015, as indexed in Web of Science (WoS) with the filter set to the U.S. 
+We sampled psychology researchers to improve familiarity with the anchoring effect [@10.1126/science.185.4157.1124;@10.1037/e722982011-058], for which summary statistics were fabricated. 
+We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies and in order to reduce heterogeneity across fabricators. 
+We searched WoS on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
+
+
 # References
