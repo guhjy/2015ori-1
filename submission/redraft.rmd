@@ -16,6 +16,9 @@ bibliography: ../bibliography/library2.bib
 source('../functions/digit_analysis.R')
 source('../functions/std_var.R')
 source('../functions/fisher_method.R')
+
+tabnr <- 1
+fignr <- 1
 ```
 
 
@@ -191,10 +194,7 @@ p_chi <- pchisq(q = chi, df = 2 * length(pval), lower.tail = FALSE)
 ```
 
 As an example, we apply the reversed Fisher method to both the genuine- and fabricated results. 
-Using the threshold $t=`r threshold`$ to only select the nonsignificant results from Table xxxx, we retain $k=`r length(genuine_p)`$ genuine $p$-values and $k=`r length(fab_p)`$ fabricated $p$-values. 
-This results in $\chi^2_{2\times`r length(genuine_p)`}=`r round(genuine_chi, 3)`,p=`r round(genuine_chi_p, 3)`$ for the genuine data from Table xxxx; $\chi^2_{2\times`r length(fab_p)`}=`r round(fab_chi, 3)`,p=`r round(fab_chi_p, 3)`$ for the fabricated data from Table xxxx. 
-Another more practical example directly from the Fuji case [@10.1111/j.1365-2044.2012.07128.x], anecdotally illustrates that actual fabricated data can result in significant findings with the reversed Fisher method. 
-For example, $p$-values extracted from the original Table 3 [fentanyl dose; @10.1111/j.1365-2044.2012.07128.x] for five independent comparisons show excessively high $p$-values, $\chi^2_{2\times`r length(pval)`}=`r round(chi, 3)`, p=`r round(p_chi, 3)`$.
+Using the threshold $t=`r threshold`$ to only select the nonsignificant results from Table xxxx, we retain $k=`r length(genuine_p)`$ genuine $p$-values and $k=`r length(fab_p)`$ fabricated $p$-values. This results in $\chi^2_{2\times`r length(genuine_p)`}=`r round(genuine_chi, 3)`,p=`r round(genuine_chi_p, 3)`$ for the genuine data from Table xxxx; $\chi^2_{2\times`r length(fab_p)`}=`r round(fab_chi, 3)`,p=`r round(fab_chi_p, 3)`$ for the fabricated data from Table xxxx. Another more practical example directly from the Fuji case [@10.1111/j.1365-2044.2012.07128.x], anecdotally illustrates that actual fabricated data can result in significant findings with the reversed Fisher method. For example, $p$-values extracted from the original Table 3 [fentanyl dose; @10.1111/j.1365-2044.2012.07128.x] for five independent comparisons show excessively high $p$-values, $\chi^2_{2\times`r length(pval)`}=`r round(chi, 3)`, p=`r round(p_chi, 3)`$.
 
 We note that misspecified one-tailed tests can also result in excessive amounts of large $p$-values.
 For correctly specified one-tailed tests, the $p$-value distribution is right-skewed if the alternative hypothesis is true. 
@@ -250,6 +250,37 @@ As a non-fictional example, three independent conditions from the same study ($n
 The standard deviation of these standard deviations is `r round(sd(c(25.09, 24.58, 25.65)), 2)` (i.e., $SD_z$). 
 Such consistency (or even more) would only be observed in `r round(std_var(n = rep(15, 3), sds = c(25.09, 24.58, 25.65), iter = iterate) * 100, 2)`% of 100,000 simulated replications [@10.1177/0956797613480366]. 
 
+### Effect sizes
+
+Large effects have previously been opted to arise from dubious origins [@10.1111/j.1745-6924.2009.01128.x], but there is sufficient evidence that large effects arise from data fabrication. 
+For example, in the misconduct investigations in the Stapel case, effect sizes were one particular indicator of data fabrication in certain papers [@Levelt2012]. 
+Some papers showed extreme explained variances of up to 95%. 
+Moreover, @10.1186/1471-2288-3-18 asked faculty members from three universities to fabricate data sets and found that the fabricated data showed much larger effect sizes than the genuine data. 
+From our own anecdotal experience, we have found that large effect sizes raised initial suspicions of data fabrication (e.g., $d>20$). 
+In clinical trials, extreme effect sizes are also used to identify potentially fabricated data in multi-site trials while the study is still being conducted [@10.1016/0197-24569190037-M].
+
+```{r, echo = FALSE}
+tval <- 3.55
+df <- 59
+```
+
+Effect sizes can be reported in research reports in various ways. 
+For example, the most commons ways effect sizes are reported in papers are as a standardized mean difference (e.g., $d$), as an explained variance (e.g., $R^2$), or as a test statistic. 
+A test statistic is also a measure of effect size, albeit in a not directly interpretable form. 
+A test result such as $t(
+`r df`)=`r tval`$ corresponds to $d=`r round(2*tval / sqrt(df), 3)` and $r=`r round((tval^2 / df) / ((tval^2 / df) + 1), 3)` [@10.1525/collabra.71]. 
+These effect sizes can readily be recomputed based on data extracted with `statcheck` across thousands of results [@10.3758/s13428-015-0664-2;@10.3390/data1030014].
+
+Observed effect sizes can subsequently be compared with the effect distribution of other studies investigating the same effect. 
+For example, if a study on the 'foot-in-the-door' technique yields an effect size of $r=.8$, we can collect other studies that investigate the 'foot-in-the-door' effect and compare how extreme that $r=.8$ is in comparison to the other studies. 
+If the largest observed effect size in the literature is $r=.2$ and a reasonable number of studies on the 'foot-in-the-door' effect have been done, this can be considered extreme and a flag for potential data fabrication. 
+This method specifically looks at situations where fabricators would want to fabricate the existence of an effect (not the absence of one).
+
+Collecting the effect distribution to compare with requires some attention, however. 
+Considering published research is biased towards statistically significant results [e.g., @10.1007/bf01173636] and results in inflated effect sizes [@10.1037/gpr0000034], effect distributions from published literature will tend to be conservative in detecting potential extreme effects due to data fabrication. 
+Unbiased effect size distributions for an effect can be collected from large-scale replication projects, such as Registered Replication Reports [e.g., @10.1177/1745691616664694].
+
+
 # Study 1 - detecting fabricated summary statistics
 
 We tested the performance of statistical methods to detect data fabrication in summary statistics with genuine- and fabricated summary statistics from four anchoring studies [@10.1126/science.185.4157.1124;@10.1037/e722982011-058]. 
@@ -281,5 +312,69 @@ We sampled psychology researchers to improve familiarity with the anchoring effe
 We filtered for U.S. researchers to ensure familiarity with the imperial measurement system, which is the scale of some of the anchoring studies and in order to reduce heterogeneity across fabricators. 
 We searched WoS on October 13, 2015. In total, 2,038 unique corresponding e-mails were extracted from 2,014 papers (due to multiple corresponding authors).
 
+From these 2,038 psychology researchers, we e-mailed a random sample of 1,000 researchers to participate in this study (April 25, 2016; [osf.io/s4w8r](https://osf.io/s4w8r)). 
+We used Qualtrics and removed identifying information not essential to the study (e.g., no IP-addresses saved). 
+We informed the participating researchers that the study would require them to fabricate data and explicitly mentioned that we would investigate these data with statistical methods to detect data fabrication. 
+We also clarified to the respondents that they could stop at any time without providing a reason. 
+If they wanted, respondents received a $30 Amazon gift card as compensation for their participation if they were willing to enter their email address. 
+They could win an additional $50 Amazon gift card if they were one of three top fabricators (how we determined this is explained in the Data Analysis section). 
+The provided e-mail addresses were unlinked from individual responses upon sending the bonus gift cards. 
+The full text of the Qualtrics survey is available at [osf.io/w984b](https://osf.io/w984b).
+
+Each respondent was instructed to fabricate 32 summary statistics (4 studies $\times$ 2 conditions $\times$ 2 sexes $\times$ 2 statistics [mean and sd]) that corresponded to three hypotheses. 
+We instructed respondents to fabricate results for the following hypotheses: there is (i) a positive main effect of the anchoring condition, (ii) no effect of sex, and (iii) no interaction effect between condition and sex. 
+We fixed the sample sizes to 25 per cell; respondents did not need to fabricate sample sizes. 
+These fabricated summary statistics and their accompanying test results for these three hypotheses serve as the data to examine the properties of statistical tools to detect data fabrication.
+
+We provided respondents with a template spreadsheet to fill out the fabricated data, in order to standardize the fabrication process without restraining the participant in how they chose to fabricate data. 
+Figure `r fignr` depicts an example of this spreadsheet (original: [https://osf.io/w6v4u](https://osf.io/w6v4u)). 
+We requested respondents to fill in the yellow cells with fabricated data, which includes means and the standard deviations for four conditions. 
+Using these values, statistical tests are computed and shown in the "Current result" column instantaneously. 
+If these results confirmed the hypotheses, a checkmark appeared as depicted in Figure `r fignr`. 
+We required respondents to copy-paste the yellow cells into Qualtrics, to provide a standardized response format that could be automatically processed in the analyses. 
+Technically, participants could provide a response that did not correspond to the instructions.
+
+```{r spreadsheet-study1, fig.cap="Example of a filled in template spreadsheet used in the fabrication process of Study 1. Respondents fabricated data in the yellow cells, which were used to compute the results of the hypothesis tests. If the fabricated data confirm the hypotheses, a checkmark appeared in a green cell (one of four template spreadsheets available at [https://osf.io/w6v4u/](https://osf.io/w6v4u/)).", out.width='100%', echo=FALSE}
+knitr::include_graphics('../figures/spreadsheet.png')
+
+fignr <- fignr + 1
+```
+
+Upon completion of the data fabrication, we debriefed respondents within the Qualtrics environment ([osf.io/rg3qc/](https://osf.io/rg3qc/)). 
+Respondents answered several questions about their statistical knowledge and approach to data fabrication and finally we reminded them that data fabrication is widely condemned by professional organizations, institutions, and funding agencies alike. 
+This reminder was intended to minimize potential carry-over effects of the unethical behavior into actual research practice [@10.1509/jmkr.45.6.633]. 
+We rewarded participation with a \$30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus \$50 Amazon gift card. 
+Using quotum sampling, we collected as many responses as possible for the available 36 rewards, resulting in 39 fabricated data sets ([https://osf.io/e6zys](https://osf.io/e6zys); `r sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))` participants did not participate for a bonus).
+
+% We determined which results were most difficult to detect as fabricated using the combined Fisher method, explained further below. 
+
+### Data analysis
+
+We analyzed the genuine- and fabricated data sets for the four anchoring studies in four ways. 
+First, we applied the reversed Fisher method to the results of the gender and interaction hypotheses (i.e., nonsignificant results) across the four studies. 
+Second, we applied variance analysis to the reported variances of each of the four groups per study separately. 
+Third, and not preregistered, we used the effect size to detect fabricated data based on the premise that fabricated effects would be larger. 
+Fourth, we combined the results from the reversed Fisher method and variance analyses, using the original Fisher method [@fisher1925]. 
+
+Specifically for the variance analyses, we deviated from the preregistration. 
+Initially, we simultaneously analyzed the reported variances per study across the anchoring conditions. 
+However, upon analyzing these values, we realized that the variance analyses assume that the reported variances are from the same population distribution, which is not necessarily the case for the anchoring conditions. 
+Hence, we included two variance analyses per anchoring study, splitting the conditions into more homogeneous subsets (i.e., one subset across genders for the high anchoring condition and one across the genders for the low anchoring condition). 
+In the results we differentiate between these by using 'homogeneous' (across conditions) and 'heterogeneous' (separated for low- and high anchoring conditions).
+
+
+## Results
+
+## Discussion
+
+# Study 2 - detecting fabricated raw data
+
+## Methods
+
+## Results
+
+## Discussion
+
+# General discussion
 
 # References
