@@ -289,10 +289,11 @@ For example 'Do you think the percentage of African countries in the UN is above
 These questions yield mean responses of 25\% and 45\%, respectively [@10.1126/science.185.4157.1124], despite essentially posing the same factual question. 
 A considerable amount of (assumably) genuine data sets on the anchoring  heuristic are freely available [[https://osf.io/pqf9r](https://osf.io/pqf9r); @10.1027/1864-9335/a000178] and we collected fabricated data sets within this study. 
 This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
+<!-- link to approval -->
 
 ## Methods
 
-We collected summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. 
+We collected genuine- and fabricated summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. 
 Each of the four studies provided us with summary statistics for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. 
 Throughout our study, the unit of analysis is a set of summary statistics (i.e., means, standard deviations, and test results) for the four anchoring studies from one respondent. 
 For current purposes, a respondent is defined as researcher/lab where the four anchoring studies' summary statistics originate from. 
@@ -346,7 +347,7 @@ This reminder was intended to minimize potential carry-over effects of the uneth
 We rewarded participation with a \$30 Amazon gift card and the fabricated results that were most difficult to detect received a bonus \$50 Amazon gift card. 
 Using quotum sampling, we collected as many responses as possible for the available 36 rewards, resulting in 39 fabricated data sets ([https://osf.io/e6zys](https://osf.io/e6zys); `r sum(dat_summary$type == 'qualtrics' & is.na(dat_summary$bonus))` participants did not participate for a bonus).
 
-% We determined which results were most difficult to detect as fabricated using the combined Fisher method, explained further below. 
+<!-- % We determined which results were most difficult to detect as fabricated using the combined Fisher method, explained further below.  -->
 
 ### Data analysis
 
@@ -361,6 +362,13 @@ Initially, we simultaneously analyzed the reported variances per study across th
 However, upon analyzing these values, we realized that the variance analyses assume that the reported variances are from the same population distribution, which is not necessarily the case for the anchoring conditions. 
 Hence, we included two variance analyses per anchoring study, splitting the conditions into more homogeneous subsets (i.e., one subset across genders for the high anchoring condition and one across the genders for the low anchoring condition). 
 In the results we differentiate between these by using 'homogeneous' (across conditions) and 'heterogeneous' (separated for low- and high anchoring conditions).
+
+For each of these statistical tests to detect data fabrication we carried out sensitivity and specificity analyses using Area Under Receiving Operator Characteristic (AUROC) curves. 
+AUROC-analyses indicate the sensitivity (i.e., True Positive Rate [TPR]) and specificity (i.e., True Negative Rate [TNR]) for various decision criteria (e.g., $\alpha=0, .01, .02, ..., .99, 1$). 
+AUROC values indicate the probability that a randomly drawn fabricated- and genuine dataset can be correctly classified as fabricated and genuine [@10.1148/radiology.143.1.7063747]. 
+In other words, if $AUROC=.5$, correctly classifying a randomly drawn dataset as fabricated (or genuine) in this sample is equal to 50%. 
+For this setting, we follow the guidelines of @10.1093/jpepsy/jst062 and regard any AUROC value $<.7$ as poor for detecting data fabrication, $.7\leq$ AUROC $<.8$ as fair, $.8\leq$ AUROC $<.9$ as good, and AUROC $\geq.9$ as excellent. 
+We conducted these analyses using the `PROC` package [@10.1186/1471-2105-12-77].
 
 
 ## Results
