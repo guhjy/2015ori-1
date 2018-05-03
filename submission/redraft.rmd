@@ -13,9 +13,25 @@ bibliography: ../bibliography/library2.bib
 ---
 
 ```{r echo = FALSE}
+library(ggplot2)
+
+
 source('../functions/digit_analysis.R')
 source('../functions/std_var.R')
 source('../functions/fisher_method.R')
+
+ml_file <- '../data/study_01/ml_summary_stats.csv'
+qualtrics_file <- '../data/study_01/qualtrics_processed.csv'
+dat_summary_file <- '../data/study_01/study1_res.csv'
+file <- '../data/study_01/raw_summary_results_fabrication_qualtrics.csv'
+res_file <- '../data/study_01/qualtrics_processed.csv'
+ml_dat_file <- '../data/study_01/anchoring_ml/chjh ml1_anchoring cleaned.sav'
+summary_stat_file <- '../data/study_01/ml_summary_stats.csv'
+ml3_dat_file <- '../data/study_02/study_02-ml3_stroop/StroopCleanSet.csv'
+pdf_file <- '../archive/gender_interaction.pdf'
+
+# Set the number of iterations to use in calculations
+iter <- 100000
 
 tabnr <- 1
 fignr <- 1
@@ -268,7 +284,7 @@ Effect sizes can be reported in research reports in various ways.
 For example, the most commons ways effect sizes are reported in papers are as a standardized mean difference (e.g., $d$), as an explained variance (e.g., $R^2$), or as a test statistic. 
 A test statistic is also a measure of effect size, albeit in a not directly interpretable form. 
 A test result such as $t(
-`r df`)=`r tval`$ corresponds to $d=`r round(2*tval / sqrt(df), 3)` and $r=`r round((tval^2 / df) / ((tval^2 / df) + 1), 3)` [@10.1525/collabra.71]. 
+`r df`)=`r tval`$ corresponds to d=`r round(2*tval / sqrt(df), 3)` and r=`r round((tval^2 / df) / ((tval^2 / df) + 1), 3)` [@10.1525/collabra.71]. 
 These effect sizes can readily be recomputed based on data extracted with `statcheck` across thousands of results [@10.3758/s13428-015-0664-2;@10.3390/data1030014].
 
 Observed effect sizes can subsequently be compared with the effect distribution of other studies investigating the same effect. 
@@ -279,6 +295,8 @@ This method specifically looks at situations where fabricators would want to fab
 Collecting the effect distribution to compare with requires some attention, however. 
 Considering published research is biased towards statistically significant results [e.g., @10.1007/bf01173636] and results in inflated effect sizes [@10.1037/gpr0000034], effect distributions from published literature will tend to be conservative in detecting potential extreme effects due to data fabrication. 
 Unbiased effect size distributions for an effect can be collected from large-scale replication projects, such as Registered Replication Reports [e.g., @10.1177/1745691616664694].
+
+## Detecting data fabrication in raw data
 
 
 # Study 1 - detecting fabricated summary statistics
@@ -292,6 +310,39 @@ This study was approved by the Tilburg Ethical Review Board (EC-2015.50).
 <!-- link to approval -->
 
 ## Methods
+
+```{r prep study 1, echo=FALSE}
+# Compute the summary statistics for Many Labs
+suppressWarnings(suppressMessages(source('../functions/compute_summary_anch_ml.R')))
+# Process the collected, fabricated data
+suppressMessages(source('../functions/process_qualtrics_anch_01.R'))
+# Concatenate, analyze, and write out all ML and qualtrics data
+if(!file.exists('../data/study_01/study1_res.csv'))
+{
+ set.seed(123);suppressMessages(source('../functions/concatenate_analyze_01.R')) 
+}
+
+dat_summary <- read.csv(dat_summary_file)
+
+type_index <- which(names(dat_summary) == 'type')
+temp <- dat_summary[, c(type_index, 18:length(names(dat_summary)))] 
+dat_summary$es_gender <- sqrt(dat_summary$es2_gender)
+dat_summary$es_condition <- sqrt(dat_summary$es2_condition)
+dat_summary$es_interaction <- sqrt(dat_summary$es2_interaction)
+
+# naming just for ease of use later
+dat_summary$es_p <- 1 - dat_summary$es_condition
+
+# ROC
+AUC <- apply(dat_summary[, grepl(names(dat_summary), pattern = "_p")],
+   2,
+   function(x)
+   {
+    y <- pROC::roc(response = dat_summary$type, x, direction = ">")
+    return(y)
+   }
+)
+```
 
 We collected genuine- and fabricated summary statistics for four anchoring studies: (i) distance from San Francisco to New York, (ii) population of Chicago, (iii) height of the Mount Everest, and (iv) the number of babies born per day in the United States [@10.1037/e722982011-058]. 
 Each of the four studies provided us with summary statistics for a 2 (low/high anchoring) $\times$ 2 (male/female) factorial design. 
@@ -370,8 +421,158 @@ In other words, if $AUROC=.5$, correctly classifying a randomly drawn dataset as
 For this setting, we follow the guidelines of @10.1093/jpepsy/jst062 and regard any AUROC value $<.7$ as poor for detecting data fabrication, $.7\leq$ AUROC $<.8$ as fair, $.8\leq$ AUROC $<.9$ as good, and AUROC $\geq.9$ as excellent. 
 We conducted these analyses using the `PROC` package [@10.1186/1471-2105-12-77].
 
-
 ## Results
+
+Figure `r fignr` shows a group-level comparison of the genuine- and fabricated $p$-values and relevant effect sizes ($r$). 
+These group-level comparisons provide an overview of the differences between the genuine- and fabricated data [see also @10.1186/1471-2288-3-18]. 
+These distributions indicate little group differences between genuine- and fabricated data when nonsignificant effects are inspected (i.e., gender and interaction hypotheses). 
+However, there seem to be large group differences when we required subjects to fabricate significant summary statistics (i.e., condition hypothesis).
+
+```{r ddfab_density, fig.cap="Overlay of density distributions for both genuine and fabricated data, per effect and type of result. We instructed respondents to fabricate nonsignificant summary statistics for the gender and interaction effects, and a significant effect for the condition effect.", out.width='100%', echo=FALSE}
+plot_p_gender <- ggplot(dat_summary, aes(x = p_gender, fill = type)) + 
+ geom_density(alpha = .3) + 
+ xlab(latex2exp::TeX("$P$-value")) + 
+ ylab("Density") + 
+ ylim(0, 1.5) + 
+ scale_fill_discrete(guide=FALSE) + 
+ ggtitle('Gender')
+
+plot_es_gender <- ggplot(dat_summary, aes(x = es_gender, fill = type)) + 
+ geom_density(alpha = .3) + 
+ xlab(latex2exp::TeX("Effect size ($r$)")) + 
+ ylab("Density") + 
+ scale_fill_discrete(guide=FALSE)
+
+# Condition
+dat_summary_tmp <- dat_summary
+dat_summary_tmp$p_condition <- log10(dat_summary_tmp$p_condition)
+plot_p_condition <- ggplot(dat_summary_tmp, aes(x = p_condition, fill = type)) +
+ geom_density(alpha = .3) +
+ xlab(latex2exp::TeX("log10 $P$-value")) +
+ ylab("Density") +
+ scale_fill_discrete(labels = c("Genuine","Fabricated")) + 
+ theme(legend.position="top") +
+ ggtitle('Condition')
+
+plot_p_condition$labels$fill <- ""
+
+plot_es_condition <- ggplot(dat_summary, aes(x = es_condition, fill = type)) + 
+ geom_density(alpha = .3) + 
+ xlim(0, 1) + 
+ xlab(latex2exp::TeX("Effect size ($r$)")) + 
+ ylab("Density") + 
+ scale_fill_discrete(guide=FALSE)
+
+
+# Interaction
+plot_p_interaction <- ggplot(dat_summary, aes(x = p_interaction, fill = type)) + 
+ geom_density(alpha = .3) + 
+ xlab(latex2exp::TeX("$P$-value")) + 
+ ylab("Density") + 
+ scale_fill_discrete(guide=FALSE) +
+ ylim(0, 1.5) +
+ ggtitle('Interaction')
+
+plot_es_interaction <- ggplot(dat_summary, aes(x = es_interaction, fill = type)) + 
+ geom_density(alpha = .3) + 
+ xlab(latex2exp::TeX("Effect size ($r$)")) + 
+ ylab("Density") + 
+ scale_fill_discrete(guide=FALSE)
+
+# Plot
+gridExtra::grid.arrange(plot_p_gender,
+       plot_p_condition,
+       plot_p_interaction,
+       plot_es_gender,
+       plot_es_condition,
+       plot_es_interaction,
+       ncol = 3)
+
+fignr <- fignr + 1
+```
+
+### P-value analysis
+
+Using nonsignificant $p$-values to detect data fabrication is hardly better than chance level in the current sample. 
+We asked researchers to fabricate data for nonsignificant effect sizes across four anchoring studies, thinking they might be unable to produce uniformly distributed $p$-values due to misunderstanding of what a $p$-value means [@;@]. 
+<!-- add p-value interpretation from ej, sijtsma p value paper -->
+Our results indicate that the $p$-values for the gender effect and interaction effect perform only slightly above chance level for detecting fabricated data, $AUROC=`r round(AUC$gender_fish_p$auc[1], 3)`$ and $AUROC=`r round(AUC$interaction_fish_p$auc[1], 3)`$, respectively. 
+In other words, widespread detection based on nonsignificant $p$-values does not seem promising. 
+
+### Variance analysis
+
+```{r echo = FALSE}
+selector <- grepl(names(AUC), pattern = '(variance_|maxmin_)')
+selector_sd <- grepl(names(AUC), pattern = '(variance_)')
+selector_maxmin <- grepl(names(AUC), pattern = '(maxmin_)')
+```
+
+We performed a total of `r sum(selector)` variance analyses across the fabricated standard deviations for the four anchoring studies, with `r sum(selector_sd)` using the $SD_z$ measure and `r sum(selector_maxmin)` using the $max-min_z$ measure. More specifically, we analyzed the standard deviations across all studies combined (assuming homogeneity across conditions), across all studies (assuming heterogeneity across anchoring conditions), within each study, and within each anchoring condition. We computed the AUROC value with the directional assumption that genuine data would show more variation than fabricated data. Results are presented in Table `r tabnr`.
+
+```{r table_variance, echo = FALSE}
+dfvar <- data.frame(Method = c("Homogeneous, all studies combined",
+                "Homogeneous, study 1",
+                "Homogeneous, study 2",
+                "Homogeneous, study 3",
+                "Homogeneous, study 4",
+                "Heterogeneous, all studies combined",
+                "Heterogeneous study 1, low anchor condition",
+                "Heterogeneous study 1, high anchor condition",
+                "Heterogeneous study 2, low anchor condition",
+                "Heterogeneous study 2, high anchor condition",
+                "Heterogeneous study 3, low anchor condition",
+                "Heterogeneous study 3, high anchor condition",
+                "Heterogeneous study 4, low anchor condition",
+                "Heterogeneous study 4, high anchor condition"),
+          SD_z = c(
+            AUC$variance_sd_p_overall_homo$auc,
+            AUC$variance_sd_p_study1$auc,
+            AUC$variance_sd_p_study2$auc,
+            AUC$variance_sd_p_study3$auc,
+            AUC$variance_sd_p_study4$auc,
+            AUC$variance_sd_p_overall_hetero$auc,
+            AUC$variance_sd_p_study1_low$auc,
+            AUC$variance_sd_p_study1_high$auc,
+            AUC$variance_sd_p_study2_low$auc,
+            AUC$variance_sd_p_study2_high$auc,
+            AUC$variance_sd_p_study3_low$auc,
+            AUC$variance_sd_p_study3_high$auc,
+            AUC$variance_sd_p_study4_low$auc,
+            AUC$variance_sd_p_study4_high$auc
+            ),
+          max_min_z = c(
+            AUC$maxmin_p_overall_homo$auc,
+            AUC$maxmin_p_study1$auc,
+            AUC$maxmin_p_study2$auc,
+            AUC$maxmin_p_study3$auc,
+            AUC$maxmin_p_study4$auc,
+            AUC$maxmin_p_overall_hetero$auc,
+            AUC$maxmin_p_study1_low$auc,
+            AUC$maxmin_p_study1_high$auc,
+            AUC$maxmin_p_study2_low$auc,
+            AUC$maxmin_p_study2_high$auc,
+            AUC$maxmin_p_study3_low$auc,
+            AUC$maxmin_p_study3_high$auc,
+            AUC$maxmin_p_study4_low$auc,
+            AUC$maxmin_p_study4_high$auc
+            ))
+
+names(dfvar) <- c('Method', 'AUROC $SD_z$', 'AUROC $max-min_z$')
+knitr::kable(dfvar, row.names = FALSE, digits = 3, caption = "_Table XX._ Diagnosticity of using variance analyses to detect data fabrication, depicted with the AUROC-value. We assumed fabricated results would show ")
+tabnr <- tabnr + 1
+```
+
+Results indicate that (1) heterogeneity of population variances directly affect the effectiveness of detecting data fabrication, (2) the different operationalizations of variance analyses show minimal differences, and (3) that the combined analysis of standard deviations across anchoring conditions in the four studies is a preferred method. 
+When comparing the combined variance analyses, we see that the homogeneity assumption drastically decreases the performance ($SD_z$; homogeneity: $AUROC=`r round(AUC$variance_sd_p_overall_homo$auc, 3))`$, heterogeneity: AUROC=`r round(AUC$variance_sd_p_overall_hetero$auc, 3))`). 
+This assumption has not previously been explicated [@] and we also did not preregister analyses that took into account this assumption. 
+Moreover, the maximum absolute difference between the $SD_z$ and $max-min_z$ operationalizations is `r round(max(abs(dfvar$SD_z - dfvar$max_min_z)), 3)` and there is no reason to deviate from the original $SD_z$ operationalization as proposed by @. 
+Lastly, we see that variance analyses separated per study or anchoring condition within a study are quite variable, which suggests that the combined analysis is preferred because selecting a priori selection of a specific subset is unfeasible in practice.
+
+### Effect sizes
+
+By simply comparing effect sizes of the main anchoring effect, results indicate that this is a parsiminious and effective way of detecting data fabrication. More specifically, given a genuine- and fabricated anchoring effect size, there is approximately a 75% chance that the larger effect size is the fabricated one (i.e., $AUROC=`r round(AUC$es_p$auc, 3)`$). Comparing this to the best performing variance analysis (i.e., $AUROC=`r round(AUC$variance_sd_p_overall_hetero$auc, 3)`$), performance is similar but considerably easier in practice.
+
+### Combination of p-value and variance analysis
 
 ## Discussion
 
@@ -380,6 +581,14 @@ We conducted these analyses using the `PROC` package [@10.1186/1471-2105-12-77].
 ## Methods
 
 ## Results
+
+### Digit analysis
+
+#### Newcomb-Benford Law
+
+#### Terminal digit analysis
+
+#### Multivariate associations
 
 ## Discussion
 
